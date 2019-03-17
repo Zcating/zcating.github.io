@@ -3409,4 +3409,3 @@ THREE.GLTFLoader = ( function () {
 	return GLTFLoader;
 
 } )();
-</three.scene></three.object3d></three.animationclip></object></three.camera></three.group|three.mesh|three.skinnedmesh></array<three.buffergeometry></gltf.primitive></three.buffergeometry></three.material></three.texture></three.bufferattribute|three.interleavedbufferattribute></arraybuffer></arraybuffer></object<array<object></string></array<object></three.object3d|three.material|three.texture|three.animationclip|arraybuffer|object></gltf.primitive></three.buffergeometry></gltf.target></lights_physical_fragment></metalnessmap_fragment></roughnessmap_fragment></metalnessmap_pars_fragment></roughnessmap_pars_fragment>
