@@ -137,27 +137,28 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-魔方测试" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-前端小知识" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/20/cjthdtxll001431l32oagfq8j/">魔方测试</a>
+      <a class="article-title" href="/2019/03/31/cjtx3kwyw000j22l3qj49hyir/">前端小知识</a>
     </h1>
   
 
         
-        <a href="/2019/03/20/cjthdtxll001431l32oagfq8j/" class="archive-article-date">
-  	<time datetime="2019-03-20T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-20</time>
+        <a href="/2019/03/31/cjtx3kwyw000j22l3qj49hyir/" class="archive-article-date">
+  	<time datetime="2019-03-31T15:46:03.614Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-31</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <iframe src="https://cube.zcating.tk" style="height:600px; width:100%"><br></iframe>
+        <p>本篇是为了记录开发中遇到的一些知识性的东西。</p>
+        
       
 
       
@@ -180,7 +181,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/20/cjthdtxll001431l32oagfq8j/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/31/cjtx3kwyw000j22l3qj49hyir/">展开全文 >></a>
         </p>
       
 
@@ -217,13 +218,13 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/18/cjthdtxl8000b31l3mg0vo4d0/">Three.js移动DecalGeometry</a>
+      <a class="article-title" href="/2019/03/27/cjtx3kwyl000822l3eezwok44/">Three.js移动DecalGeometry</a>
     </h1>
   
 
         
-        <a href="/2019/03/18/cjthdtxl8000b31l3mg0vo4d0/" class="archive-article-date">
-  	<time datetime="2019-03-17T16:00:54.198Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-18</time>
+        <a href="/2019/03/27/cjtx3kwyl000822l3eezwok44/" class="archive-article-date">
+  	<time datetime="2019-03-27T11:51:24.178Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-27</time>
 </a>
         
       </header>
@@ -254,7 +255,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/18/cjthdtxl8000b31l3mg0vo4d0/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/27/cjtx3kwyl000822l3eezwok44/">展开全文 >></a>
         </p>
       
 
@@ -284,28 +285,94 @@
 
 
   
-    <article id="post-前端小知识" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-移动端问题总结" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="移动端高清"><a href="#移动端高清" class="headerlink" title="移动端高清"></a>移动端高清</h2><ol>
+<li>DPR = device pixel / css pixel</li>
+<li>1px 解决方案<ol>
+<li>使用border-image、background-image，缺点：修改颜色麻烦，圆角处理麻烦。</li>
+<li>box-shadow，缺点：safari不支持小数设置</li>
+<li>伪类 + transform</li>
+<li>SVG</li>
+<li>viewport + rem</li>
+</ol>
+</li>
+</ol>
+<h2 id="移动端点击穿透"><a href="#移动端点击穿透" class="headerlink" title="移动端点击穿透"></a>移动端点击穿透</h2><p>上层元素A绑定了tap事件，下层元素B绑定了click事件，当我们点击A时，A元素隐藏，此时也会触发下层B元素的click事件。原因就是当上层A的tap事件发生后，其实是touchend结束后，会触发click事件，因为这几个事件的触发顺序时touchstart-touchmove-touchend-click。因此，当click事件触发300ms后，上层的A元素已经消失，此时真正点击的就相当于下层B元素，因此会发生点击穿透事件。</p>
+<ul>
+<li>解决方案：<ul>
+<li>都使用click和tap事件，</li>
+<li>或者在click事件触发前阻止，在touchend事件中使用e.preventDefault();</li>
+<li>使用 fast-click库</li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/21/cjtx3kwyy000q22l3t41syyit/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-魔方测试" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/17/cjthdtxli000u31l3y1pfr345/">前端小知识</a>
+      <a class="article-title" href="/2019/03/20/cjtx3kwz4001722l3ltgqjqso/">魔方测试</a>
     </h1>
   
 
         
-        <a href="/2019/03/17/cjthdtxli000u31l3y1pfr345/" class="archive-article-date">
-  	<time datetime="2019-03-17T15:34:49.811Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-17</time>
+        <a href="/2019/03/20/cjtx3kwz4001722l3ltgqjqso/" class="archive-article-date">
+  	<time datetime="2019-03-20T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>本篇是为了记录开发中遇到的一些知识性的东西。</p>
-        
+        <iframe src="https://cube.zcating.tk" style="height:600px; width:100%"><br></iframe>
       
 
       
@@ -328,7 +395,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/17/cjthdtxli000u31l3y1pfr345/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/20/cjtx3kwz4001722l3ltgqjqso/">展开全文 >></a>
         </p>
       
 
@@ -365,12 +432,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/10/cjthdtxl3000731l3198b7p5i/">OpenGL shader 测试</a>
+      <a class="article-title" href="/2019/03/10/cjtx3kwye000522l3yx0o2o6d/">OpenGL shader 测试</a>
     </h1>
   
 
         
-        <a href="/2019/03/10/cjthdtxl3000731l3198b7p5i/" class="archive-article-date">
+        <a href="/2019/03/10/cjtx3kwye000522l3yx0o2o6d/" class="archive-article-date">
   	<time datetime="2019-03-10T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-10</time>
 </a>
         
@@ -406,7 +473,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/10/cjthdtxl3000731l3198b7p5i/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/10/cjtx3kwye000522l3yx0o2o6d/">展开全文 >></a>
         </p>
       
 
@@ -443,12 +510,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/09/cjthdtxlc000f31l3ds301mat/">flex布局测试</a>
+      <a class="article-title" href="/2019/03/09/cjtx3kwyq000c22l3ua163f07/">flex布局测试</a>
     </h1>
   
 
         
-        <a href="/2019/03/09/cjthdtxlc000f31l3ds301mat/" class="archive-article-date">
+        <a href="/2019/03/09/cjtx3kwyq000c22l3ua163f07/" class="archive-article-date">
   	<time datetime="2019-03-09T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-09</time>
 </a>
         
@@ -480,7 +547,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/09/cjthdtxlc000f31l3ds301mat/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/09/cjtx3kwyq000c22l3ua163f07/">展开全文 >></a>
         </p>
       
 
@@ -517,12 +584,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/05/cjthdtxld000j31l3wdnvg286/">iOS-用OpenGL渲染相机输出的图像</a>
+      <a class="article-title" href="/2019/03/05/cjtx3kwyx000o22l3xnbt7pj5/">iOS-用OpenGL渲染相机输出的图像</a>
     </h1>
   
 
         
-        <a href="/2019/03/05/cjthdtxld000j31l3wdnvg286/" class="archive-article-date">
+        <a href="/2019/03/05/cjtx3kwyx000o22l3xnbt7pj5/" class="archive-article-date">
   	<time datetime="2019-03-05T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-05</time>
 </a>
         
@@ -561,7 +628,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/05/cjthdtxld000j31l3wdnvg286/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/05/cjtx3kwyx000o22l3xnbt7pj5/">展开全文 >></a>
         </p>
       
 
@@ -598,12 +665,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/21/cjthdtxlk000z31l3zj3srh6m/">啥是鸭子类型(duck typing)</a>
+      <a class="article-title" href="/2019/02/21/cjtx3kwyx000l22l3jkh74zms/">啥是鸭子类型(duck typing)</a>
     </h1>
   
 
         
-        <a href="/2019/02/21/cjthdtxlk000z31l3zj3srh6m/" class="archive-article-date">
+        <a href="/2019/02/21/cjtx3kwyx000l22l3jkh74zms/" class="archive-article-date">
   	<time datetime="2019-02-21T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-21</time>
 </a>
         
@@ -643,7 +710,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/21/cjthdtxlk000z31l3zj3srh6m/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/02/21/cjtx3kwyx000l22l3jkh74zms/">展开全文 >></a>
         </p>
       
 
@@ -680,12 +747,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/27/cjthdtxkt000131l33o8wd9ps/">C++模板元编程——量纲分析</a>
+      <a class="article-title" href="/2018/12/27/cjtx3kwxz000022l3nixpcavh/">C++模板元编程——量纲分析</a>
     </h1>
   
 
         
-        <a href="/2018/12/27/cjthdtxkt000131l33o8wd9ps/" class="archive-article-date">
+        <a href="/2018/12/27/cjtx3kwxz000022l3nixpcavh/" class="archive-article-date">
   	<time datetime="2018-12-27T13:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-27</time>
 </a>
         
@@ -718,7 +785,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/27/cjthdtxkt000131l33o8wd9ps/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/12/27/cjtx3kwxz000022l3nixpcavh/">展开全文 >></a>
         </p>
       
 
@@ -755,12 +822,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/16/cjthdtxky000431l3cb31hq9p/">Objective-C 对象内存布局</a>
+      <a class="article-title" href="/2018/12/16/cjtx3kwyc000322l3q9zjfjzg/">Objective-C 对象内存布局</a>
     </h1>
   
 
         
-        <a href="/2018/12/16/cjthdtxky000431l3cb31hq9p/" class="archive-article-date">
+        <a href="/2018/12/16/cjtx3kwyc000322l3q9zjfjzg/" class="archive-article-date">
   	<time datetime="2018-12-16T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-16</time>
 </a>
         
@@ -794,82 +861,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/16/cjthdtxky000431l3cb31hq9p/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-通过Webpack为项目配置热更新" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/05/cjthdtxln001931l3wekfxiiz/">使用Webpack为项目配置热更新</a>
-    </h1>
-  
-
-        
-        <a href="/2018/10/05/cjthdtxln001931l3wekfxiiz/" class="archive-article-date">
-  	<time datetime="2018-10-05T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>为了调试代码方便，使用了<code>Webpack</code>来配置热更新功能，现在记录一下如何配置。</p>
-<p>上一篇已经说了如何使用<code>webpack</code>打包代码，但是如果我每次改了代码，都要手动去打包，所以这里要使用热更新来进行代码调试，本篇将记录如何配置<code>webpack</code>热更新。</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/JavaScript/" class="article-tag-list-link color1">JavaScript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/10/05/cjthdtxln001931l3wekfxiiz/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/12/16/cjtx3kwyc000322l3q9zjfjzg/">展开全文 >></a>
         </p>
       
 
