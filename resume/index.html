@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"> 
+        <title>简历</title>
+        <style type="text/css">
+            a {
+                text-decoration: none;
+                color: #910000;
+            }
+
+            a:hover {
+                color: blue;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            ul {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+            
+
+            .cx-resume {
+                padding: 0 10% 5% 10%;
+            }
+
+            .cx-header {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .cx-header>* {
+                margin-top: 10px;
+            }
+
+            .cx-header>.cx-name {
+                display: flex;
+                justify-content: center;
+            }
+
+            .cx-header>.cx-details {
+                display: flex;
+                justify-content: center;
+            }
+
+            .cx-header>.cx-details .cx-detail {
+                margin-left: 10px;
+                padding-left: 10px;
+                border-left: 1px solid black;
+            }
+            .cx-header>.cx-details .cx-detail:first-child {
+                margin-left: 0;
+                padding-left: 0;
+                border-left: none;
+            }
+
+            .cx-header .cx-intention {
+            }
+
+            .cx-edu {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .cx-edu .cx-edu-text {
+
+            }
+
+            .cx-edu .cx-edu-details {
+                display: flex;
+                width: 100%;
+            }
+
+            .cx-edu .cx-edu-details .cx-edu-detail:first-child {
+                font-weight: 550;
+            }
+
+            .cx-edu .cx-edu-details .cx-edu-detail {
+                flex: 1;
+                text-align: center;
+                font-size: 18px;
+            }
+
+            .cx-tech {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .cx-tech .cx-skills .cx-skill {
+                margin-top: 10px;
+                text-align: center;
+            }
+            .cx-tech .cx-skills .cx-skill:first-child {
+                margin-top: 0;
+            }
+
+            
+            .cx-exp {
+                margin-top: 32px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cx-exp>.cx-exp-companies-wrap {
+                display: flex;
+            }
+
+            .cx-exp>.cx-exp-companies-wrap>.cx-exp-company {
+                flex: 1;
+                padding: 10px;
+            }
+            .cx-exp>.cx-exp-companies-wrap>.cx-exp-company>.cx-exp-company-title {
+
+            }
+
+            .cx-exp>.cx-exp-companies-wrap>.cx-exp-company>.cx-exp-company-work {
+
+            }
+
+            .cx-exp-company-work .cx-exp-duty-title {
+                margin-top: 10px;
+                
+            }
+            .cx-exp-company-work .cx-exp-duties {
+                list-style-type: disc;
+                padding-left: 20px;
+            }
+            .cx-exp-company-work .cx-exp-duties .cx-exp-duty {
+                margin-top: 5px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="cx-resume">
+            <header class="cx-header">
+                <h1 class="cx-name">
+                    <span>朱晨希</span>
+                </h1>
+                <ul class="cx-details">
+                    <li class="cx-detail">186-8068-2750</li>
+                    <li class="cx-detail">zcating@qq.com</li>
+                    <li class="cx-detail">珠海</li>
+                </ul>
+                <ul class="cx-details">
+                    <li class="cx-detail">博客：<a target="_blank" href="http://zcating.github.io">http://zcating.github.io</a></li>
+                    <li class="cx-detail">Github：<a target="_blank" href="https://github.com/zcating">https://github.com/zcating</a></li>
+                </ul>
+                <div class="cx-intention">求职意向：Web前端工程师</div>
+            </header>
+            <section class="cx-edu">
+                <h2 class="cx-edu-text">教育经历</h2>
+                <ul class="cx-edu-details">
+                    <li class="cx-edu-detail">中国地质大学（武汉）</li>
+                    <li class="cx-edu-detail">学历：本科</li>
+                    <li class="cx-edu-detail">专业：信息安全</li>
+                    <li class="cx-edu-detail">毕业年份：2017</li>
+                </ul>
+            </section>
+            <section class="cx-tech">
+                <h2 class="cx-skill-title">技术技能</h2>
+                <ul class="cx-skills">
+                    <li class="cx-skill">掌握 JavaScript，CSS，HTML。可以脱离框架进行复杂需求开发。</li>
+                    <li class="cx-skill">有 TypeScript 开发经验，有丰富的高级类型编程经验。</li>
+                    <li class="cx-skill">前端框架对 Vue 和 Angular 有了解。</li>
+                    <li class="cx-skill">有 iOS 和 Android 开发经验。</li>
+                </ul>
+            </section>
+            <section class="cx-exp">
+                <h2>工作经历</h2>
+                <div class="cx-exp-companies-wrap">
+                    <div class="cx-exp-company">
+                        <h3>珠海白丰科技有限公司</h3>
+                        <div class="cx-exp-company-title">Web 开发⼯程师（2018.05 - 现在）</div>
+                        <div class="cx-exp-company-work">
+                            <h4>三维可视化设计平台（企业版）：</h4>
+                            <div>
+                                项目描述：三维可视化设计平台（企业版）是一款帮助企业展示其产品的 Web 端 3D 展示项目。在基础需求上完成各种定制化需求的开发，主要负责了两个项目：分别是自定义球衣案例（<a target="_blank" href="http://new.befash.cn:8000/pc/1">PC端</a>，<a target="_blank" href="http://new.befash.cn:8000/app/1">手机端</a>），以及<a target="_blank" href="http://3dexample.befash.cn/?scene_id=35&category_id=20">服装搭配设计案例</a>。
+                            </div>
+                            <div class="cx-exp-duty-title">职责：</div>
+                            <ul class="cx-exp-duties">
+                                <li class="cx-exp-duty">使用 Nuxt.js 开发搭建企业版项目，实现三维场景展示以及三维场景编辑等功能。</li>
+                                <li class="cx-exp-duty">使用 C++ 编写模型压缩算法，实现模型压缩加解密，减轻带宽传输负担，同时保证模型不会被盗取。</li>
+                                <li class="cx-exp-duty">对核心的模块化模型的需求进行抽象，通过定义树状结构来划分不同模型之间的组合，解决了模型冗余的问题，实现了细粒度的模型切换和材质切换。</li>
+                                <li class="cx-exp-duty">优化三维编辑操作部分的代码，使用观察者模式，实现数据层到三维数据的双向绑定。</li>
+                                <li class="cx-exp-duty">通过canvas实现动态纹理效果。</li>
+                            </ul>
+                        </div>
+                        <div class="cx-exp-company-work">
+                            <h4>三维可视化设计平台（SaaS版）：</h4>
+                            <div>
+                                项目描述：可视化设计平台（SaaS版）是一款面向设计师开发的 Web 端的 3D 展示项目。
+                            </div>
+                            <div class="cx-exp-duty-title">职责：</div>
+                            <ul class="cx-exp-duties">
+                                <li class="cx-exp-duty">采用了 Spring Boot & Angular 开发，对原有版本进行重构。负责平台版的项目架构的搭建，负责项目主要功能的开发。</li>
+                                <li class="cx-exp-duty">负责新人项目指导，帮助其能够快速了解项目，并开发需求。</li>
+                            </ul>
+                        </div>
+                    </div>
+    
+                    <div class="cx-exp-company">
+                        <h3>深圳市创梦天地科技有限公司</h3>
+                        <div class="cx-exp-company-title">iOS 开发⼯程师（2016.07 - 2018.03）</div>
+                        <div class="cx-exp-company-work">
+                            <h4>乐逗SDK开发：</h4>
+                            <div>
+                                项目描述：该SDK主要是用于⽤户注册，登录，⽀付以及数据上报等。
+                            </div>
+                            <div class="cx-exp-duty-title">职责：</div>
+                            <ul class="cx-exp-duties">
+                                <li class="cx-exp-duty">根据设计⽂档编写 SDK 界面交互代码。</li>
+                                <li class="cx-exp-duty">集成微信，Facebook，Google 等第三⽅的SDK到乐逗SDK中。</li>
+                                <li class="cx-exp-duty">由于项⽬使⽤了三个不同的⽹络库，导致维护困难，所以使⽤根据业务需求使⽤了原⽣的⽹络库进⾏重构。</li>
+                                <li class="cx-exp-duty">通过静态分析，优化代码结构并删除无⽤代码，减少`SDK`包的⼤⼩，同时将不⽀持ARC的代码转成⽀持ARC。</li>
+                            </ul>
+                        </div>
+                        <div class="cx-exp-company-work">
+                            <h4>Unity 快速接入插件：</h4>
+                            <div>项目描述：该项目是为了解决游戏接`SDK`过程中的重复性操作过多⽽开发的⼀款插件。这款插件能够减轻游戏开发者接入SDK时候的负担，提升游戏的出包效率。</div>
+                            <div class="cx-exp-duty-title">职责：</div>
+                            <ul class="cx-exp-duties">
+                                <li class="cx-exp-duty">实现了在 C# 中调⽤ Objective-C 的代码，在 C# 中，使⽤ MonoPInvokeCallBack 注解来解决了多参数回调问题。</li>
+                                <li class="cx-exp-duty">编写 Python 脚本来自动编辑 XCode 项⽬⽂件，实现⾃动化配置。</li>
+                            </ul>
+                        </div>
+                        <div class="cx-exp-company-work">
+                            <h4>Fabzat 3D 打印商城SDK：</h4>
+                            <div>项目描述：该项⽬是⼀个帮助用户购买并查看⾃⼰想要购买的 3D ⼿办的 SDK，在 iOS 端下单并支付后，会在后台通过 3D 打印用户所购买的手办，并进行配送。</div>
+                            <div class="cx-exp-duty-title">职责：</div>
+                            <ul class="cx-exp-duties">
+                                <li class="cx-exp-duty">根据需求进⾏页⾯逻辑优化，新增购物车、本地化⽀付等功能。</li>
+                                <li class="cx-exp-duty">原有项⽬的⽹络库使⽤的是全局通知，分发请求过程中存在性能问题，于是将该⽹络库重构，一个请求包含一个来进⾏回调，优化了页面加载过程。</li>
+                                <li class="cx-exp-duty">在接入过程中解决了 SDK 在 Unity 环境下闪退的bug，帮助接入的游戏顺利上线。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </body>
+</html>
