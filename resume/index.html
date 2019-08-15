@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8"> 
+        <meta charset="utf-8">
         <title>简历</title>
         <style type="text/css">
             a {
@@ -22,7 +22,7 @@
                 padding: 0;
                 list-style: none;
             }
-            
+
 
             .cx-resume {
                 padding: 0 10% 5% 10%;
@@ -98,7 +98,7 @@
                 margin-top: 0;
             }
 
-            
+
             .cx-exp {
                 margin-top: 32px;
                 display: flex;
@@ -114,6 +114,9 @@
                 flex: 1;
                 padding: 10px;
             }
+            .cx-exp>.cx-exp-companies-wrap>.cx-exp-company>.cx-exp-company-name {
+                text-align: center;
+            }
             .cx-exp>.cx-exp-companies-wrap>.cx-exp-company>.cx-exp-company-title {
 
             }
@@ -124,7 +127,7 @@
 
             .cx-exp-company-work .cx-exp-duty-title {
                 margin-top: 10px;
-                
+
             }
             .cx-exp-company-work .cx-exp-duties {
                 list-style-type: disc;
@@ -159,7 +162,7 @@
                     <li class="cx-edu-detail">中国地质大学（武汉）</li>
                     <li class="cx-edu-detail">学历：本科</li>
                     <li class="cx-edu-detail">专业：信息安全</li>
-                    <li class="cx-edu-detail">毕业年份：2017</li>
+                    <li class="cx-edu-detail">2013-2017</li>
                 </ul>
             </section>
             <section class="cx-tech">
@@ -167,16 +170,16 @@
                 <ul class="cx-skills">
                     <li class="cx-skill">掌握 JavaScript，CSS，HTML。可以脱离框架进行复杂需求开发。</li>
                     <li class="cx-skill">有 TypeScript 开发经验，有丰富的高级类型编程经验。</li>
-                    <li class="cx-skill">前端框架对 Vue 和 Angular 有了解。</li>
-                    <li class="cx-skill">有 iOS 和 Android 开发经验。</li>
+                    <li class="cx-skill">对 Vue 和 Angular 有了解，能够独立的进行复杂需求开发。</li>
+                    <li class="cx-skill"></li>
                 </ul>
             </section>
             <section class="cx-exp">
                 <h2>工作经历</h2>
                 <div class="cx-exp-companies-wrap">
                     <div class="cx-exp-company">
-                        <h3>珠海白丰科技有限公司</h3>
-                        <div class="cx-exp-company-title">Web 开发⼯程师（2018.05 - 现在）</div>
+                        <h3 class="cx-exp-company-name">珠海白丰科技有限公司</h3>
+                        <div class="cx-exp-company-title">Web 开发⼯程师（2018.05 - 至今）</div>
                         <div class="cx-exp-company-work">
                             <h4>三维可视化设计平台（企业版）：</h4>
                             <div>
@@ -188,7 +191,8 @@
                                 <li class="cx-exp-duty">使用 C++ 编写模型压缩算法，实现模型压缩加解密，减轻带宽传输负担，同时保证模型不会被盗取。</li>
                                 <li class="cx-exp-duty">对核心的模块化模型的需求进行抽象，通过定义树状结构来划分不同模型之间的组合，解决了模型冗余的问题，实现了细粒度的模型切换和材质切换。</li>
                                 <li class="cx-exp-duty">优化三维编辑操作部分的代码，使用观察者模式，实现数据层到三维数据的双向绑定。</li>
-                                <li class="cx-exp-duty">通过canvas实现动态纹理效果。</li>
+                                <li class="cx-exp-duty">解决手机端上3D场景不展示的问题，优化加载时间，平均加载速度从 30s 提高到 11s。</li>
+                                <li class="cx-exp-duty">canvas实现动态纹理效果。</li>
                             </ul>
                         </div>
                         <div class="cx-exp-company-work">
@@ -203,9 +207,9 @@
                             </ul>
                         </div>
                     </div>
-    
+
                     <div class="cx-exp-company">
-                        <h3>深圳市创梦天地科技有限公司</h3>
+                        <h3 class="cx-exp-company-name">深圳市创梦天地科技有限公司</h3>
                         <div class="cx-exp-company-title">iOS 开发⼯程师（2016.07 - 2018.03）</div>
                         <div class="cx-exp-company-work">
                             <h4>乐逗SDK开发：</h4>
