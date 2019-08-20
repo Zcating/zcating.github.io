@@ -25,7 +25,7 @@
 
 
             .cx-resume {
-                padding: 0 10% 5% 10%;
+                padding: 0;
             }
 
             .cx-header {
@@ -76,6 +76,7 @@
             }
 
             .cx-edu .cx-edu-details .cx-edu-detail:first-child {
+                flex: 2;
                 font-weight: 550;
             }
 
@@ -105,9 +106,13 @@
                 flex-direction: column;
                 align-items: center;
             }
+            .cx-exp .cx-exp-title {
+                margin: 0;
+            }
 
             .cx-exp>.cx-exp-companies-wrap {
                 display: flex;
+                flex-direction: column;
             }
 
             .cx-exp>.cx-exp-companies-wrap>.cx-exp-company {
@@ -140,7 +145,7 @@
         </style>
     </head>
     <body>
-        <div class="cx-resume">
+        <div id="resume" class="cx-resume">
             <header class="cx-header">
                 <h1 class="cx-name">
                     <span>朱晨希</span>
@@ -171,11 +176,10 @@
                     <li class="cx-skill">掌握 JavaScript，CSS，HTML。可以脱离框架进行复杂需求开发。</li>
                     <li class="cx-skill">了解响应式编程，了解 Vue 和 Angular 等前端框架。</li>
                     <li class="cx-skill">有 TypeScript 开发经验。</li>
-                    <li class="cx-skill">有原生移动端的开发经验。</li>
                 </ul>
             </section>
             <section class="cx-exp">
-                <h2>工作经历</h2>
+                <h2 class="cx-exp-title">工作经历</h2>
                 <div class="cx-exp-companies-wrap">
                     <div class="cx-exp-company">
                         <h3 class="cx-exp-company-name">珠海市百丰网络科技有限公司</h3>
@@ -248,5 +252,11 @@
                 </div>
             </section>
         </div>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.1/html2pdf.bundle.min.js"></script>
+        <script>
+            console.log(document);
+            var element = document.getElementById('resume');
+            html2pdf().from(element).toPdf().save();
+        </script> -->
     </body>
 </html>
