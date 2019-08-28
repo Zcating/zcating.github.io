@@ -25,7 +25,37 @@
 
 
             .cx-resume {
-                padding: 0;
+                padding: 0 20%;
+            }
+
+
+            @media (max-width: 575.98px) { 
+                .cx-resume {
+                    padding: 0;
+                }
+            }
+
+            @media (min-width: 576px) and (max-width: 767.98px) {
+                .cx-resume {
+                    padding: 0 5%;
+                }
+            }
+
+            @media (min-width: 768px) and (max-width: 991.98px) {
+                .cx-resume {
+                    padding: 0 5%;
+                }
+            }
+
+            @media (min-width: 992px) and (max-width: 1199.98px) { 
+                .cx-resume {
+                    padding: 0 10%;
+                }
+            }
+            @media (min-width: 1200px) { 
+                .cx-resume {
+                    padding: 0 15%;
+                }
             }
 
             .cx-header {
@@ -66,23 +96,16 @@
                 flex-direction: column;
                 align-items: center;
             }
-            .cx-edu .cx-edu-text {
+            .cx-edu .cx-edu-title {
 
             }
-
-            .cx-edu .cx-edu-details {
-                display: flex;
-                width: 100%;
+            .cx-edu-school {
+                margin: 10px 0;
             }
 
-            .cx-edu .cx-edu-details .cx-edu-detail:first-child {
-                flex: 2;
-                font-weight: 550;
-            }
 
             .cx-edu .cx-edu-details .cx-edu-detail {
-                flex: 1;
-                text-align: center;
+                text-align: left;
                 font-size: 18px;
             }
 
@@ -91,9 +114,11 @@
                 flex-direction: column;
                 align-items: center;
             }
+
             .cx-tech .cx-skills .cx-skill {
                 margin-top: 10px;
-                text-align: center;
+                text-align: left;
+                list-style-type: disc;
             }
             .cx-tech .cx-skills .cx-skill:first-child {
                 margin-top: 0;
@@ -101,7 +126,7 @@
 
 
             .cx-exp {
-                margin-top: 32px;
+                margin-top: 24px;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -162,19 +187,19 @@
                 <div class="cx-intention">求职意向：Web前端工程师</div>
             </header>
             <section class="cx-edu">
-                <h2 class="cx-edu-text">教育经历</h2>
+                <h2 class="cx-edu-title">教育经历</h2>
+                <h3 class="cx-edu-school">中国地质大学（武汉）</h3>
                 <ul class="cx-edu-details">
-                    <li class="cx-edu-detail">中国地质大学（武汉）</li>
-                    <li class="cx-edu-detail">学历：本科</li>
-                    <li class="cx-edu-detail">专业：信息安全</li>
-                    <li class="cx-edu-detail">2013-2017</li>
+                    <li class="cx-edu-detail">学　　历：本科</li>
+                    <li class="cx-edu-detail">专　　业：信息安全</li>
+                    <li class="cx-edu-detail">毕业年份：2017</li>
                 </ul>
             </section>
             <section class="cx-tech">
                 <h2 class="cx-skill-title">技术技能</h2>
                 <ul class="cx-skills">
-                    <li class="cx-skill">掌握 JavaScript，CSS，HTML。可以脱离框架进行复杂需求开发。</li>
-                    <li class="cx-skill">了解响应式编程，了解 Vue 和 Angular 等前端框架。</li>
+                    <li class="cx-skill">掌握 JavaScript、CSS、HTML，可以脱离框架进行复杂需求开发。</li>
+                    <li class="cx-skill">了解 Vue、Angular 等前端框架的开发模式和基本原理。</li>
                     <li class="cx-skill">有 TypeScript 开发经验。</li>
                 </ul>
             </section>
