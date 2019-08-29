@@ -78,14 +78,36 @@
             }
 
             .cx-header>.cx-details .cx-detail {
+                height: 24px;
+                line-height: 24px;
                 margin-left: 10px;
                 padding-left: 10px;
-                border-left: 1px solid black;
+                position: relative;
+                /* border-left: 1px solid black; */
             }
-            .cx-header>.cx-details .cx-detail:first-child {
+            /* .cx-header>.cx-details .cx-detail:first-child {
                 margin-left: 0;
                 padding-left: 0;
                 border-left: none;
+            } */
+
+            .cx-detail::after {
+                content: '';
+                position: absolute;
+                top: 7px;
+                right: -10px;
+                width: 1px;
+                height: 10px;
+                background: black;
+            }
+
+            .cx-detail:last-child::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 0;
+                height: 0;
             }
 
             .cx-header .cx-intention {
@@ -181,8 +203,9 @@
                     <li class="cx-detail">珠海</li>
                 </ul>
                 <ul class="cx-details">
-                    <li class="cx-detail">博客：<a target="_blank" href="http://zcating.github.io">http://zcating.github.io</a></li>
-                    <li class="cx-detail">Github：<a target="_blank" href="https://github.com/zcating">https://github.com/zcating</a></li>
+                    <li class="cx-detail">三年工作经验</li>
+                    <li class="cx-detail"><a target="_blank" href="http://zcating.github.io">博客</a></li>
+                    <li class="cx-detail"><a target="_blank" href="https://github.com/zcating">Github</a></li>
                 </ul>
                 <div class="cx-intention">求职意向：Web前端工程师</div>
             </header>
@@ -217,8 +240,8 @@
                             <div class="cx-exp-duty-title">职责：</div>
                             <ul class="cx-exp-duties">
                                 <li class="cx-exp-duty">使用 Nuxt.js 开发搭建企业版项目，实现三维场景展示以及三维场景编辑等功能。</li>
-                                <li class="cx-exp-duty">使用 C++ 编写模型压缩算法，实现模型压缩加解密，减轻带宽传输负担，同时保证模型不会被盗取。</li>
-                                <li class="cx-exp-duty">对核心的模块化模型的需求进行抽象，通过定义树状结构来划分不同模型之间的组合，解决了模型冗余的问题，实现了细粒度的模型切换和材质切换。</li>
+                                <li class="cx-exp-duty">对开源的模型压缩工具进行二次开发，实现压缩数据的加解密，减轻带宽传输负担，同时保证模型不会被盗取。</li>
+                                <li class="cx-exp-duty">对模块化模型需求进行抽象，通过定义树状结构来划分不同模型之间的组合，实现了细粒度的模型切换和材质切换。</li>
                                 <li class="cx-exp-duty">优化三维编辑操作部分的代码，使用观察者模式，实现数据层到三维数据的双向绑定。</li>
                                 <li class="cx-exp-duty">解决手机端上3D场景不展示的问题，优化加载时间，平均加载速度从 20s 提高到 11s。</li>
                                 <li class="cx-exp-duty">使用canvas，将2D动态画布渲染到3D上，并优化各种性能问题。</li>
