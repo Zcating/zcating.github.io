@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -16,6 +16,7 @@
             body {
                 margin: 0;
                 padding: 0;
+                font-family: Georgia, 'Times New Roman', Times, serif
             }
             ul {
                 margin: 0;
@@ -128,7 +129,12 @@
 
             .cx-edu .cx-edu-details .cx-edu-detail {
                 text-align: left;
-                font-size: 18px;
+                font-size: 16px;
+                margin-top: 10px;
+            }
+
+            .cx-edu .cx-edu-details .cx-edu-detail:first-child {
+                margin-top: 0;
             }
 
             .cx-tech {
@@ -141,6 +147,7 @@
                 margin-top: 10px;
                 text-align: left;
                 list-style-type: disc;
+                font-size: 16px;
             }
             .cx-tech .cx-skills .cx-skill:first-child {
                 margin-top: 0;
@@ -189,9 +196,66 @@
                 margin-top: 5px;
             }
 
+            .cx-pdf-button {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+
+                display: inline-block;
+                padding: 1.2em 2em;
+                text-decoration: none;
+                text-align: center;
+                cursor: pointer;
+                user-select: none;
+                color: white;
+            }
+
+            .cx-pdf-button::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                background: linear-gradient(135deg, #6e8efb, #a777e3);
+                border-radius: 4px;
+                transition: box-shadow .5s ease, transform .2s ease; 
+                will-change: transform;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+                transform:
+                    translateY(var(--ty, 0))
+                    rotateX(var(--rx, 0))
+                    rotateY(var(--ry, 0))
+                    translateZ(var(--tz, -12px));
+            }
+            
+            .cx-pdf-button:hover::before {
+                box-shadow: 0 5px 15px rgba(0, 0, 0, .3);
+            }
+            
+            .cx-pdf-button::after {
+                position: relative;
+                display: inline-block;
+                content: attr(data-title);
+                transition: transform .2s ease; 
+                font-weight: bold;
+                letter-spacing: .01em;
+                will-change: transform;
+                transform:
+                    translateY(var(--ty, 0))
+                    rotateX(var(--rx, 0))
+                    rotateY(var(--ry, 0));
+            }
+
+            @media only screen and (max-device-width: 480px) and (min-device-width: 320px) {
+                .cx-pdf-button {
+                    display: none;
+                }
+            }
         </style>
     </head>
     <body>
+        <a class="cx-pdf-button" href="https://zcating.github.io/resume/resume.pdf" data-title="点击下载PDF" target="_blank"></a>
         <div id="resume" class="cx-resume">
             <header class="cx-header">
                 <h1 class="cx-name">
@@ -243,8 +307,8 @@
                                 <li class="cx-exp-duty">对开源的模型压缩工具进行二次开发，实现压缩数据的加解密，减轻带宽传输负担，同时保证模型不会被盗取。</li>
                                 <li class="cx-exp-duty">对模块化模型需求进行抽象，通过定义树状结构来划分不同模型之间的组合，实现了细粒度的模型切换和材质切换。</li>
                                 <li class="cx-exp-duty">优化三维编辑操作部分的代码，使用观察者模式，实现数据层到三维数据的双向绑定。</li>
-                                <li class="cx-exp-duty">解决手机端上3D场景不展示的问题，优化加载时间，平均加载速度从 20s 提高到 11s。</li>
                                 <li class="cx-exp-duty">使用canvas，将2D动态画布渲染到3D上，并优化各种性能问题。</li>
+                                <li class="cx-exp-duty">解决手机端上3D场景不展示的问题。</li>
                             </ul>
                         </div>
                         <div class="cx-exp-company-work">
@@ -271,15 +335,15 @@
                             </div>
                             <div class="cx-exp-duty-title">职责：</div>
                             <ul class="cx-exp-duties">
-                                <li class="cx-exp-duty">根据设计⽂档编写 SDK 界面交互代码。</li>
-                                <li class="cx-exp-duty">集成微信，Facebook，Google 等第三⽅的SDK到乐逗SDK中。</li>
+                                <li class="cx-exp-duty">根据设计⽂档编写 SDK 登录、注册等界面交互的代码。</li>
+                                <li class="cx-exp-duty">集成微信，Facebook，Google 等第三⽅的SDK。</li>
                                 <li class="cx-exp-duty">由于项⽬使⽤了三个不同的⽹络库，导致维护困难，所以使⽤根据业务需求使⽤了原⽣的⽹络库进⾏重构。</li>
-                                <li class="cx-exp-duty">通过静态分析，优化代码结构并删除无⽤代码，减少`SDK`包的⼤⼩，同时将不⽀持ARC的代码转成⽀持ARC。</li>
+                                <li class="cx-exp-duty">通过静态分析，优化代码结构并删除无⽤代码，减少 SDK 包的⼤⼩，同时将 MRC 的代码转成 ARC。</li>
                             </ul>
                         </div>
                         <div class="cx-exp-company-work">
                             <h4>Unity 快速接入插件：</h4>
-                            <div>项目描述：该项目是为了解决游戏接`SDK`过程中的重复性操作过多⽽开发的⼀款插件。这款插件能够减轻游戏开发者接入SDK时候的负担，提升游戏的出包效率。</div>
+                            <div>项目描述：该项目是为了解决游戏接入 SDK 过程中的重复性操作过多⽽开发的⼀款插件。这款插件能够减轻游戏开发者接入SDK时候的负担，提升游戏的出包效率。</div>
                             <div class="cx-exp-duty-title">职责：</div>
                             <ul class="cx-exp-duties">
                                 <li class="cx-exp-duty">实现了在 C# 中调⽤ Objective-C 的代码，在 C# 中，使⽤ MonoPInvokeCallBack 注解来解决了多参数回调问题。</li>
@@ -291,20 +355,57 @@
                             <div>项目描述：该项⽬是⼀个帮助用户购买并查看⾃⼰想要购买的 3D ⼿办的 SDK，在 iOS 端下单并支付后，会在后台通过 3D 打印用户所购买的手办，并进行配送。</div>
                             <div class="cx-exp-duty-title">职责：</div>
                             <ul class="cx-exp-duties">
-                                <li class="cx-exp-duty">根据需求进⾏页⾯逻辑优化，新增购物车、本地化⽀付等功能。</li>
-                                <li class="cx-exp-duty">原有项⽬的⽹络库使⽤的是全局通知，分发请求过程中存在性能问题，于是将该⽹络库重构，一个请求包含一个来进⾏回调，优化了页面加载过程。</li>
-                                <li class="cx-exp-duty">在接入过程中解决了 SDK 在 Unity 环境下闪退的bug，帮助接入的游戏顺利上线。</li>
+                                <li class="cx-exp-duty">根据需求进⾏页⾯逻辑优化，新增购物车、本地化⽀付（微信支付、支付宝）等功能。</li>
+                                <li class="cx-exp-duty">原有项⽬的⽹络库使⽤的是全局通知，分发请求过程中存在性能问题，使用观察者模式进行重构，优化了页面加载过程。</li>
+                                <li class="cx-exp-duty">解决接入过程中 SDK 在 Unity 环境下闪退的bug。</li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </section>
         </div>
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.1/html2pdf.bundle.min.js"></script>
         <script>
-            console.log(document);
-            var element = document.getElementById('resume');
-            html2pdf().from(element).toPdf().save();
-        </script> -->
+            window.onload = function () {
+                const docStyle = document.documentElement.style
+                const aElem = document.getElementsByClassName('cx-pdf-button')[0]
+                const boundingClientRect = aElem.getBoundingClientRect()
+
+                aElem.onmousemove = function(e) {
+
+                    const x = e.clientX - boundingClientRect.left
+                    const y = e.clientY - boundingClientRect.top
+                    
+                    const xc = boundingClientRect.width/2
+                    const yc = boundingClientRect.height/2
+                    
+                    const dx = x - xc
+                    const dy = y - yc
+                    
+                    docStyle.setProperty('--rx', `${ dy/-1 }deg`)
+                    docStyle.setProperty('--ry', `${ dx/10 }deg`)
+                    
+                }
+
+                aElem.onmouseleave = function(e) {
+                    
+                    docStyle.setProperty('--ty', '0')
+                    docStyle.setProperty('--rx', '0')
+                    docStyle.setProperty('--ry', '0')
+                    
+                }
+
+                aElem.onmousedown = function(e) {
+                    
+                    docStyle.setProperty('--tz', '-25px')
+                    
+                }
+
+                document.body.onmouseup = function(e) {
+                    
+                    docStyle.setProperty('--tz', '-12px')
+                    
+                }
+            }
+        </script>
     </body>
 </html>
