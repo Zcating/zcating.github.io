@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/rubiksCube/static/css/main.775b91bc.chunk.css",
-    "main.js": "/rubiksCube/static/js/main.8bea6244.chunk.js",
-    "main.js.map": "/rubiksCube/static/js/main.8bea6244.chunk.js.map",
-    "runtime~main.js": "/rubiksCube/static/js/runtime~main.fe336a63.js",
-    "runtime~main.js.map": "/rubiksCube/static/js/runtime~main.fe336a63.js.map",
-    "static/js/2.0ab7e8c3.chunk.js": "/rubiksCube/static/js/2.0ab7e8c3.chunk.js",
-    "static/js/2.0ab7e8c3.chunk.js.map": "/rubiksCube/static/js/2.0ab7e8c3.chunk.js.map",
-    "index.html": "/rubiksCube/index.html",
-    "precache-manifest.670fc3899f7d8355775be9c5f044ad08.js": "/rubiksCube/precache-manifest.670fc3899f7d8355775be9c5f044ad08.js",
-    "service-worker.js": "/rubiksCube/service-worker.js",
-    "static/css/main.775b91bc.chunk.css.map": "/rubiksCube/static/css/main.775b91bc.chunk.css.map"
+    "main.css": "./static/css/main.775b91bc.chunk.css",
+    "main.js": "./static/js/main.f9e67126.chunk.js",
+    "main.js.map": "./static/js/main.f9e67126.chunk.js.map",
+    "runtime~main.js": "./static/js/runtime~main.5499384b.js",
+    "runtime~main.js.map": "./static/js/runtime~main.5499384b.js.map",
+    "static/js/2.0ab7e8c3.chunk.js": "./static/js/2.0ab7e8c3.chunk.js",
+    "static/js/2.0ab7e8c3.chunk.js.map": "./static/js/2.0ab7e8c3.chunk.js.map",
+    "index.html": "./index.html",
+    "precache-manifest.99839ff5d3a1b68d2dabfa2cfdc90f8c.js": "./precache-manifest.99839ff5d3a1b68d2dabfa2cfdc90f8c.js",
+    "service-worker.js": "./service-worker.js",
+    "static/css/main.775b91bc.chunk.css.map": "./static/css/main.775b91bc.chunk.css.map"
   }
 }
