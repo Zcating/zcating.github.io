@@ -6,19 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.zcating.tk">
-  <title>TypeScript使用总结(一) | Zcat&#39;s Studio</title>
+  <title>Archives: 2019/10 | Zcat&#39;s Studio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="下面是一些TypeScript的总结。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="TypeScript使用总结(一)">
-<meta property="og:url" content="http://www.zcating.tk/2019/09/14/ck0sb6d4n000q3wl35h34bcij/index.html">
+  <meta name="description" content="Simple Coder">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Zcat&#39;s Studio">
+<meta property="og:url" content="http://www.zcating.tk/archives/2019/10/index.html">
 <meta property="og:site_name" content="Zcat&#39;s Studio">
-<meta property="og:description" content="下面是一些TypeScript的总结。">
+<meta property="og:description" content="Simple Coder">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-14T04:55:43.439Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TypeScript使用总结(一)">
-<meta name="twitter:description" content="下面是一些TypeScript的总结。">
+<meta name="twitter:title" content="Zcat&#39;s Studio">
+<meta name="twitter:description" content="Simple Coder">
   
     <link rel="alternative" href="/atom.xml" title="Zcat&#39;s Studio" type="application/atom+xml">
   
@@ -136,204 +135,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-TypeScript使用总结(一)" class="article article-type-post " itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      TypeScript使用总结(一)
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/10/04/ck1c9efyw0000mll3wkhm1duy/" class="archive-article-date">
+  	<time datetime="2019-10-04T15:03:48.163Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-04</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/10/04/ck1c9efyw0000mll3wkhm1duy/">Angular 状态检测机制</a>
     </h1>
   
 
-        
-        <a href="/2019/09/14/ck0sb6d4n000q3wl35h34bcij/" class="archive-article-date">
-  	<time datetime="2019-09-14T04:56:01.842Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>下面是一些<code>TypeScript</code>的总结。</p>
-<a id="more"></a>
-<h2 id="TSLint-配置"><a href="#TSLint-配置" class="headerlink" title="TSLint 配置"></a>TSLint 配置</h2><p>这一步主要是通过约束<code>TypeScript</code>的编写过程来保证类型安全。在<code>tslint.json</code>中，进行如下配置：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">"rule": &#123;</span><br><span class="line">	...</span><br><span class="line">	"no-any": true,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>配置<code>no-any</code>的原因很简单，any并不能使得你的代码变得类型安全，同时使得你的代码直接退化成<code>JavaScript</code>，这样跟直接写<code>JavaScript</code>没什么两样，甚至还多了几个字符。</p>
-<p>下一步是对<code>tsconfig.json</code>进行设置，这个配置主要是配置编译选项，下面仅仅给出较为宽松，但是又不失类型安全的配置：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">"compilerOptions": &#123;</span><br><span class="line">	...</span><br><span class="line">    // 在每个文件中添加 'use strict;'</span><br><span class="line">	"alwaysStrict": true,</span><br><span class="line">    // 在表达式和声明上有隐含的 any类型时报错。</span><br><span class="line">	"noImplicitAny": true,</span><br><span class="line">    // 当 this表达式的值为 any类型的时候，生成一个错误。</span><br><span class="line">	"noImplicitThis": true,</span><br><span class="line">    // 	不是函数的所有返回路径都有返回值时报错。</span><br><span class="line">	"noImplicitReturns": true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>更多配置，可以参考<a href="https://www.typescriptlang.org/docs/handbook/compiler-options.html" target="_blank" rel="noopener">TypeScript官方编译配置文档</a>。</p>
-<p>这里要注意，并不是所有人都能接受<code>strict</code>对于代码的检查，按照官方文档，开启<code>strict</code>会启动以下这几个选项：</p>
-<ul>
-<li><code>--noImplicitAny</code>，</li>
-<li><code>--noImplicitThis</code>，</li>
-<li><code>--alwaysStrict</code>，</li>
-<li><code>--strictBindCallApply</code>，</li>
-<li><code>--strictNullChecks</code>（这里是主要问题，会开启空检查，未标明非空而为空的代码一律不通过），</li>
-<li><code>--strictFunctionTypes</code> ，</li>
-<li><code>--strictPropertyInitialization</code>.</li>
-</ul>
-<p>不过建议还是开启<code>strict</code>吧。</p>
-<h2 id="类型的使用"><a href="#类型的使用" class="headerlink" title="类型的使用"></a>类型的使用</h2><p>在这里，主要讲的是一些语法上的技巧，不会讲得太多语法上的东西，因为大部分内容在 <a href="https://www.typescriptlang.org/docs/handbook/generics.html" target="_blank" rel="noopener">官方文档</a> 都有说明。</p>
-<h4 id="Null-amp-Undefined-amp-readonly"><a href="#Null-amp-Undefined-amp-readonly" class="headerlink" title="Null &amp; Undefined &amp; readonly"></a>Null &amp; Undefined &amp; readonly</h4><p>众所周知，null 和 undefined 是不同的两个类型，那么 TS 当然也要区分它们，所以，以下代码会编译不过：</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> data: &#123;&#125; | <span class="literal">null</span> = <span class="literal">undefined</span>;</span><br></pre></td></tr></table></figure>
-<p>所以，为了使得以上代码能够编译通过，需要加上这么 undefined 这个类型：</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> data: &#123;&#125; | <span class="literal">null</span> | <span class="literal">undefined</span> = <span class="literal">undefined</span>;</span><br></pre></td></tr></table></figure>
-<p>当然对于 undefined 来说，它还有一些特别的使用方式，注意到问号，其实就是提供一种简单的方式来标识这个对象中的键值可以为未定义。</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> IStudent &#123;</span><br><span class="line">	firstName?: <span class="built_in">string</span>;</span><br><span class="line">	lastName?: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> student: IStudent = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 然而上面这种写法跟下面这种写法是不一样的，采用联合类型来编写，编译器会认为这个对象的键是必须存在的。</span></span><br><span class="line"><span class="keyword">interface</span> ITeacher &#123;</span><br><span class="line">    firstName: <span class="built_in">string</span> | <span class="literal">undefined</span>;</span><br><span class="line">    lastName: <span class="built_in">string</span> | <span class="literal">undefined</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> teacher: ITeacher = &#123;&#125;; <span class="comment">// Error</span></span><br></pre></td></tr></table></figure>
-<p>那么，在 <code>strict</code> 开启的情况下，在类中任意一个属性的定义都需要初始化：</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Student &#123;</span><br><span class="line">	firstName: <span class="built_in">string</span>;  <span class="comment">// Error</span></span><br><span class="line">    lastName: <span class="built_in">string</span> = <span class="string">''</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果需要标记不需要初始化，有两种方式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="Condition-Type"><a href="#Condition-Type" class="headerlink" title="Condition Type"></a>Condition Type</h4><p>在<code>TypeScript</code>中，这个是一个非常有用的类型，它可以通过这种方式来定义一个类型：</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Condition&lt;T&gt; = T extend U ? T : never;</span><br></pre></td></tr></table></figure>
-<p>不过请注意：<strong>在使用Condition Type的时候，类型的判断不是通过类名，而是通过鸭子辩型来判断的。</strong></p>
-<h4 id="Class-Type"><a href="#Class-Type" class="headerlink" title="Class Type"></a>Class Type</h4><p>定义一个泛型工厂函数，看起来像是这样的：</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function create&lt;T&gt;(c: &#123;new(...args: any[]): T; &#125;, ...args: any[]): T &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> c();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>但是要写这么一坨<code>{new(...args: any[]): T;}</code>看起来可能不太直观，那么我们可以这样定义一下：</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> ClassType&lt;T&gt; &#123;</span><br><span class="line">	<span class="keyword">new</span> (...args: <span class="built_in">any</span>[]): T;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>那么这个泛型工厂函数就可以简化成这样：</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span>&lt;<span class="title">T</span>&gt;(<span class="params">c: ClassType&lt;T&gt;, ...args: <span class="built_in">any</span>[]</span>): <span class="title">T</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> c(...args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Index-Type"><a href="#Index-Type" class="headerlink" title="Index Type"></a>Index Type</h4><p>在 JS 中，我们都知道一个对象是可以随时随地的为对象添加键（只要对象是可扩展的）。所以，为了适配这种情况，TS 使用了索引类型，它看起来像这样：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type IndexType = &#123; [p: string]: string &#125;</span><br></pre></td></tr></table></figure>
-<p>也就是说，它使用了 [] 方括号来表示键的类型，如果一个对象接受了这个类型，那么它可以这样：</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> value: IndexType = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">value[<span class="string">'hello'</span>] = <span class="string">'world'</span>;</span><br></pre></td></tr></table></figure>
-<p>它可以通过配合 infer 关键字，可以推导出某个对象类型中的值的类型的集合：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type ValueType&lt;T&gt; = T extends &#123;[p in keyof T]: infer V&#125; ? V : never;</span><br></pre></td></tr></table></figure>
-<p>一个比较常用的地方是用在 <code>Proxy</code> 中，来避免 get 和 set 操作的 any：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Student &#123;</span><br><span class="line">	constructor(public name: string = &apos;&apos;) &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const student = new Proxy(new Student(&apos;Tony&apos;), &#123;</span><br><span class="line">	// 请看这里：</span><br><span class="line">	set(target: Student, p: keyof Student, value: ValueType&lt;Student&gt;, receiver: any): boolean &#123;</span><br><span class="line">		...</span><br><span class="line">		return true;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h4 id="Array-Type"><a href="#Array-Type" class="headerlink" title="Array Type"></a>Array Type</h4><p>在 JS 中，array 中的数据可以是任意类型的，那么为了配合 JS，它可以这样定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const numbers: number[] = [];</span><br><span class="line"></span><br><span class="line">const anys: [number, string, object] = [];</span><br></pre></td></tr></table></figure></p>
-<h2 id="重载"><a href="#重载" class="headerlink" title="重载"></a>重载</h2><p>在 TavaScript 中使用了一种非常有意思的方式来实现重载，一开始我还没搞懂怎么运行，但是弄懂了之后，其实就是把应该在编译期的判断放在了运行期。但是这样做会更加符合 ts 的哲学——只在编译期提供类型。这样通过这种形式的重载，在类型擦除的过程中，就不会生成多个不同函数签名以及不同名的函数。</p>
-<p>来看看例子，看看这个是如何使用的：</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x: <span class="built_in">number</span>, y: <span class="built_in">number</span></span>): <span class="title">number</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x: <span class="built_in">string</span>, y: <span class="built_in">string</span></span>): <span class="title">string</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x: <span class="built_in">number</span> | <span class="built_in">string</span>, y: <span class="built_in">number</span> | <span class="built_in">string</span></span>): <span class="title">number</span> | <span class="title">string</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> x === <span class="string">'number'</span> &amp;&amp; <span class="keyword">typeof</span> y === <span class="string">'number'</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> x + y;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> x === <span class="string">'string'</span> &amp;&amp; <span class="keyword">typeof</span> y === <span class="string">'string'</span>) &#123;</span><br><span class="line">    	<span class="keyword">return</span> x + y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="本篇总结"><a href="#本篇总结" class="headerlink" title="本篇总结"></a>本篇总结</h2><p>主要说了一些配置技巧、编写技巧，以及重载。下一篇应该会说一下装饰器等进阶功能。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
+        <div class="article-info info-on-right">
+          
+          
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/JavaSript/" class="article-tag-list-link color5">JavaSript</a>
+        			<a href="/categories/JavaScript/" class="article-tag-list-link color1">JavaScript</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <!-- <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div> -->
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <!-- <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a> -->
-    <!-- <p>扫一扫，分享到微信</p> -->
-    <!-- <div class="wx-qrcode"> -->
-      <!-- <img src="http://s.jiathis.com/qrcode.php?url=http://www.zcating.tk/2019/09/14/ck0sb6d4n000q3wl35h34bcij/" alt="微信分享二维码"> -->
-    <!-- </div> -->
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2019/10/04/ck1c9efyw0000mll3wkhm1duy/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Angular 状态检测机制
-        
-      </div>
-    </a>
   
   
-    <a href="/2019/08/11/ck0sb6d4w00163wl3q5pzhyfo/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">了解 Angular Ivy：Incremental DOM 和 Virtual DOM</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
+    
 
 
           </div>
@@ -356,8 +211,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

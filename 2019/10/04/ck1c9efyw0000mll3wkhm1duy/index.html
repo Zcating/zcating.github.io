@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.zcating.tk">
-  <title>TypeScript使用总结(一) | Zcat&#39;s Studio</title>
+  <title>Angular 状态检测机制 | Zcat&#39;s Studio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="下面是一些TypeScript的总结。">
+  <meta name="description" content="Angular 通过对数据的变更检测来实现数据对视图的双向绑定，那么这篇文章将会讲述如何通过内置功能来优化状态检测机制。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TypeScript使用总结(一)">
-<meta property="og:url" content="http://www.zcating.tk/2019/09/14/ck0sb6d4n000q3wl35h34bcij/index.html">
+<meta property="og:title" content="Angular 状态检测机制">
+<meta property="og:url" content="http://www.zcating.tk/2019/10/04/ck1c9efyw0000mll3wkhm1duy/index.html">
 <meta property="og:site_name" content="Zcat&#39;s Studio">
-<meta property="og:description" content="下面是一些TypeScript的总结。">
+<meta property="og:description" content="Angular 通过对数据的变更检测来实现数据对视图的双向绑定，那么这篇文章将会讲述如何通过内置功能来优化状态检测机制。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-14T04:55:43.439Z">
+<meta property="og:updated_time" content="2019-10-04T15:03:48.163Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TypeScript使用总结(一)">
-<meta name="twitter:description" content="下面是一些TypeScript的总结。">
+<meta name="twitter:title" content="Angular 状态检测机制">
+<meta name="twitter:description" content="Angular 通过对数据的变更检测来实现数据对视图的双向绑定，那么这篇文章将会讲述如何通过内置功能来优化状态检测机制。">
   
     <link rel="alternative" href="/atom.xml" title="Zcat&#39;s Studio" type="application/atom+xml">
   
@@ -136,78 +136,55 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-TypeScript使用总结(一)" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-Angular-状态检测机制" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      TypeScript使用总结(一)
+      Angular 状态检测机制
     </h1>
   
 
         
-        <a href="/2019/09/14/ck0sb6d4n000q3wl35h34bcij/" class="archive-article-date">
-  	<time datetime="2019-09-14T04:56:01.842Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-14</time>
+        <a href="/2019/10/04/ck1c9efyw0000mll3wkhm1duy/" class="archive-article-date">
+  	<time datetime="2019-10-04T15:03:48.163Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-04</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>下面是一些<code>TypeScript</code>的总结。</p>
+        <p>Angular 通过对数据的变更检测来实现数据对视图的双向绑定，那么这篇文章将会讲述如何通过内置功能来优化状态检测机制。</p>
 <a id="more"></a>
-<h2 id="TSLint-配置"><a href="#TSLint-配置" class="headerlink" title="TSLint 配置"></a>TSLint 配置</h2><p>这一步主要是通过约束<code>TypeScript</code>的编写过程来保证类型安全。在<code>tslint.json</code>中，进行如下配置：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">"rule": &#123;</span><br><span class="line">	...</span><br><span class="line">	"no-any": true,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>配置<code>no-any</code>的原因很简单，any并不能使得你的代码变得类型安全，同时使得你的代码直接退化成<code>JavaScript</code>，这样跟直接写<code>JavaScript</code>没什么两样，甚至还多了几个字符。</p>
-<p>下一步是对<code>tsconfig.json</code>进行设置，这个配置主要是配置编译选项，下面仅仅给出较为宽松，但是又不失类型安全的配置：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">"compilerOptions": &#123;</span><br><span class="line">	...</span><br><span class="line">    // 在每个文件中添加 'use strict;'</span><br><span class="line">	"alwaysStrict": true,</span><br><span class="line">    // 在表达式和声明上有隐含的 any类型时报错。</span><br><span class="line">	"noImplicitAny": true,</span><br><span class="line">    // 当 this表达式的值为 any类型的时候，生成一个错误。</span><br><span class="line">	"noImplicitThis": true,</span><br><span class="line">    // 	不是函数的所有返回路径都有返回值时报错。</span><br><span class="line">	"noImplicitReturns": true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>更多配置，可以参考<a href="https://www.typescriptlang.org/docs/handbook/compiler-options.html" target="_blank" rel="noopener">TypeScript官方编译配置文档</a>。</p>
-<p>这里要注意，并不是所有人都能接受<code>strict</code>对于代码的检查，按照官方文档，开启<code>strict</code>会启动以下这几个选项：</p>
-<ul>
-<li><code>--noImplicitAny</code>，</li>
-<li><code>--noImplicitThis</code>，</li>
-<li><code>--alwaysStrict</code>，</li>
-<li><code>--strictBindCallApply</code>，</li>
-<li><code>--strictNullChecks</code>（这里是主要问题，会开启空检查，未标明非空而为空的代码一律不通过），</li>
-<li><code>--strictFunctionTypes</code> ，</li>
-<li><code>--strictPropertyInitialization</code>.</li>
-</ul>
-<p>不过建议还是开启<code>strict</code>吧。</p>
-<h2 id="类型的使用"><a href="#类型的使用" class="headerlink" title="类型的使用"></a>类型的使用</h2><p>在这里，主要讲的是一些语法上的技巧，不会讲得太多语法上的东西，因为大部分内容在 <a href="https://www.typescriptlang.org/docs/handbook/generics.html" target="_blank" rel="noopener">官方文档</a> 都有说明。</p>
-<h4 id="Null-amp-Undefined-amp-readonly"><a href="#Null-amp-Undefined-amp-readonly" class="headerlink" title="Null &amp; Undefined &amp; readonly"></a>Null &amp; Undefined &amp; readonly</h4><p>众所周知，null 和 undefined 是不同的两个类型，那么 TS 当然也要区分它们，所以，以下代码会编译不过：</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> data: &#123;&#125; | <span class="literal">null</span> = <span class="literal">undefined</span>;</span><br></pre></td></tr></table></figure>
-<p>所以，为了使得以上代码能够编译通过，需要加上这么 undefined 这个类型：</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> data: &#123;&#125; | <span class="literal">null</span> | <span class="literal">undefined</span> = <span class="literal">undefined</span>;</span><br></pre></td></tr></table></figure>
-<p>当然对于 undefined 来说，它还有一些特别的使用方式，注意到问号，其实就是提供一种简单的方式来标识这个对象中的键值可以为未定义。</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> IStudent &#123;</span><br><span class="line">	firstName?: <span class="built_in">string</span>;</span><br><span class="line">	lastName?: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> student: IStudent = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 然而上面这种写法跟下面这种写法是不一样的，采用联合类型来编写，编译器会认为这个对象的键是必须存在的。</span></span><br><span class="line"><span class="keyword">interface</span> ITeacher &#123;</span><br><span class="line">    firstName: <span class="built_in">string</span> | <span class="literal">undefined</span>;</span><br><span class="line">    lastName: <span class="built_in">string</span> | <span class="literal">undefined</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> teacher: ITeacher = &#123;&#125;; <span class="comment">// Error</span></span><br></pre></td></tr></table></figure>
-<p>那么，在 <code>strict</code> 开启的情况下，在类中任意一个属性的定义都需要初始化：</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Student &#123;</span><br><span class="line">	firstName: <span class="built_in">string</span>;  <span class="comment">// Error</span></span><br><span class="line">    lastName: <span class="built_in">string</span> = <span class="string">''</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果需要标记不需要初始化，有两种方式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="Condition-Type"><a href="#Condition-Type" class="headerlink" title="Condition Type"></a>Condition Type</h4><p>在<code>TypeScript</code>中，这个是一个非常有用的类型，它可以通过这种方式来定义一个类型：</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Condition&lt;T&gt; = T extend U ? T : never;</span><br></pre></td></tr></table></figure>
-<p>不过请注意：<strong>在使用Condition Type的时候，类型的判断不是通过类名，而是通过鸭子辩型来判断的。</strong></p>
-<h4 id="Class-Type"><a href="#Class-Type" class="headerlink" title="Class Type"></a>Class Type</h4><p>定义一个泛型工厂函数，看起来像是这样的：</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function create&lt;T&gt;(c: &#123;new(...args: any[]): T; &#125;, ...args: any[]): T &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> c();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>但是要写这么一坨<code>{new(...args: any[]): T;}</code>看起来可能不太直观，那么我们可以这样定义一下：</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> ClassType&lt;T&gt; &#123;</span><br><span class="line">	<span class="keyword">new</span> (...args: <span class="built_in">any</span>[]): T;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>那么这个泛型工厂函数就可以简化成这样：</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span>&lt;<span class="title">T</span>&gt;(<span class="params">c: ClassType&lt;T&gt;, ...args: <span class="built_in">any</span>[]</span>): <span class="title">T</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> c(...args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Index-Type"><a href="#Index-Type" class="headerlink" title="Index Type"></a>Index Type</h4><p>在 JS 中，我们都知道一个对象是可以随时随地的为对象添加键（只要对象是可扩展的）。所以，为了适配这种情况，TS 使用了索引类型，它看起来像这样：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type IndexType = &#123; [p: string]: string &#125;</span><br></pre></td></tr></table></figure>
-<p>也就是说，它使用了 [] 方括号来表示键的类型，如果一个对象接受了这个类型，那么它可以这样：</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> value: IndexType = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">value[<span class="string">'hello'</span>] = <span class="string">'world'</span>;</span><br></pre></td></tr></table></figure>
-<p>它可以通过配合 infer 关键字，可以推导出某个对象类型中的值的类型的集合：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type ValueType&lt;T&gt; = T extends &#123;[p in keyof T]: infer V&#125; ? V : never;</span><br></pre></td></tr></table></figure>
-<p>一个比较常用的地方是用在 <code>Proxy</code> 中，来避免 get 和 set 操作的 any：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Student &#123;</span><br><span class="line">	constructor(public name: string = &apos;&apos;) &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const student = new Proxy(new Student(&apos;Tony&apos;), &#123;</span><br><span class="line">	// 请看这里：</span><br><span class="line">	set(target: Student, p: keyof Student, value: ValueType&lt;Student&gt;, receiver: any): boolean &#123;</span><br><span class="line">		...</span><br><span class="line">		return true;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h4 id="Array-Type"><a href="#Array-Type" class="headerlink" title="Array Type"></a>Array Type</h4><p>在 JS 中，array 中的数据可以是任意类型的，那么为了配合 JS，它可以这样定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const numbers: number[] = [];</span><br><span class="line"></span><br><span class="line">const anys: [number, string, object] = [];</span><br></pre></td></tr></table></figure></p>
-<h2 id="重载"><a href="#重载" class="headerlink" title="重载"></a>重载</h2><p>在 TavaScript 中使用了一种非常有意思的方式来实现重载，一开始我还没搞懂怎么运行，但是弄懂了之后，其实就是把应该在编译期的判断放在了运行期。但是这样做会更加符合 ts 的哲学——只在编译期提供类型。这样通过这种形式的重载，在类型擦除的过程中，就不会生成多个不同函数签名以及不同名的函数。</p>
-<p>来看看例子，看看这个是如何使用的：</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x: <span class="built_in">number</span>, y: <span class="built_in">number</span></span>): <span class="title">number</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x: <span class="built_in">string</span>, y: <span class="built_in">string</span></span>): <span class="title">string</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x: <span class="built_in">number</span> | <span class="built_in">string</span>, y: <span class="built_in">number</span> | <span class="built_in">string</span></span>): <span class="title">number</span> | <span class="title">string</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> x === <span class="string">'number'</span> &amp;&amp; <span class="keyword">typeof</span> y === <span class="string">'number'</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> x + y;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> x === <span class="string">'string'</span> &amp;&amp; <span class="keyword">typeof</span> y === <span class="string">'string'</span>) &#123;</span><br><span class="line">    	<span class="keyword">return</span> x + y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="本篇总结"><a href="#本篇总结" class="headerlink" title="本篇总结"></a>本篇总结</h2><p>主要说了一些配置技巧、编写技巧，以及重载。下一篇应该会说一下装饰器等进阶功能。</p>
+<h2 id="变更检测机制"><a href="#变更检测机制" class="headerlink" title="变更检测机制"></a>变更检测机制</h2><p>为了理解变更检测机制，需要知道这么一些知识：</p>
+<h3 id="值类型和引用类型"><a href="#值类型和引用类型" class="headerlink" title="值类型和引用类型"></a>值类型和引用类型</h3><p>所谓值类型，意味着它只会把值放在当前的栈中，而引用类型，则意味者它把值放在堆内存中。他们俩的区别在于，值类型的每次赋值操作都会拷贝一个新的值，而引用类型的赋值操作仅仅会拷贝堆地址而给新值，而不是重新拷贝一份新的数据给新值。</p>
+<h3 id="数据变化"><a href="#数据变化" class="headerlink" title="数据变化"></a>数据变化</h3><p>异步操作会触发变更检测，他们可以分为这么些类型：</p>
+<ol>
+<li>用户输入等事件</li>
+<li>服务端请求</li>
+<li>定时事件</li>
+</ol>
+<h3 id="如何通知变化"><a href="#如何通知变化" class="headerlink" title="如何通知变化"></a>如何通知变化</h3><p>在 AngularJS 中，通过 $scope.$apply() 或者 $scope.$digest() 来触发变更检测，而 Angular 通过 Zone.js 来监听所有的异步事件。而在 Zone.js 中，通过重写所有的异步API来实现通知 Angular 异步操作发生了，并且可能会产生数据变化，需要检测更新。</p>
+<h3 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h3><p>Angular 提供了两种不同的检测策略，默认策略和 OnPush策略。</p>
+<p>一个组件可以通过输入 @Input 的形式来获取输入，那么不同的策略就会根据输入来做出不同的决策。</p>
+<h4 id="默认策略"><a href="#默认策略" class="headerlink" title="默认策略"></a>默认策略</h4><p>这个组件获取的 @Input 无论是值类型还是引用类型，只要改变了，都会触发变更检测。对于引用类型，改变了这个引用的属性也会触发。</p>
+<h4 id="OnPush策略"><a href="#OnPush策略" class="headerlink" title="OnPush策略"></a>OnPush策略</h4><p>对于值类型，只要改变了，就会触发变更检测。对于引用类型，如果只改变属性，不会触发变更检测。只有整个引用变了，才会触发变更检测。</p>
+<h2 id="OnPush策略详解"><a href="#OnPush策略详解" class="headerlink" title="OnPush策略详解"></a>OnPush策略详解</h2><p>尽管 Angular 很快，但是，随着应用的规模日渐增大，如果每次的简单事件都触发大量的变更检测，这便会有很明显的性能问题。所以，为了解决这个问题，使用 OnPush 模式成为了非常必要的选择。</p>
+<p>这个策略的主要解释是，在单向数据流的情况下，组件视图变化只会根据外部输入的数据来变化。</p>
+<p>那么如何使用 OnPush 来优化状态检测呢，可以看以下代码：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">	changeDetection: ChangeDetectionStrategy.OnPush</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>这样，在组件的注解中标明变更检测机制为 OnPush，就能开启 OnPush 策略。</p>
+<h3 id="ChangeDetectorRef"><a href="#ChangeDetectorRef" class="headerlink" title="ChangeDetectorRef"></a>ChangeDetectorRef</h3><p>ChangeDetectorRef 是组件变更检测器的引用，在组件中，我们可以通过依赖注入的方式来获取该对象。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; ChangeDetectorRef &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;&#125;) <span class="keyword">class</span> MyComponent &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> cdr: ChangeDetectorRef</span>) &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>检测器引用 主要有以下几个方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">export abstract class ChangeDetectorRef &#123;</span><br><span class="line">  abstract markForCheck(): void;</span><br><span class="line">  abstract detach(): void;</span><br><span class="line">  abstract detectChanges(): void;</span><br><span class="line">  abstract reattach(): void;</span><br><span class="line">  abstract checkNoChanges(): void:</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先，detach 和 reattach 是用来对解除或者重新绑定当前视图的。原理很简单，就是将当前视图的状态标记为解除，当变更检测进行的时候，判断视图的检测状态。</p>
+<p>其次，对于 markForCheck 和 detectChanges 两个API，在OnPush的策略下，组件内部可能还会有外部的用户事件输入，那么这种变化是不触发状态检测，因为不是通过 @Input 输入，那么我们需要通过标记检测来进行视图更新，这里用了官网的例子：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">    selector: <span class="string">'my-app'</span>,</span><br><span class="line">    template: <span class="string">`Number of ticks: &#123;&#123;numberOfTicks&#125;&#125;`</span>,</span><br><span class="line">    changeDetection: ChangeDetectionStrategy.OnPush,</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> AppComponent &#123;</span><br><span class="line">      numberOfTicks = <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">      <span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> ref: ChangeDetectorRef</span>) &#123;</span><br><span class="line">          <span class="comment">// 每秒加一</span></span><br><span class="line">          setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">              <span class="keyword">this</span>.numberOfTicks++;</span><br><span class="line">              <span class="comment">// 此处标记需要进行状态检测，那么就会进行一次检测</span></span><br><span class="line">              <span class="keyword">this</span>.ref.markForCheck();</span><br><span class="line">          &#125;, <span class="number">1000</span>);</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>至于其他用法，可以参考<a href="https://angular.io/api/core/ChangeDetectorRef" target="_blank" rel="noopener">这里</a>。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>本文简单的总结了状态检测机制，以及一些优化技巧，希望可以帮助到大家。</p>
 
       
 
@@ -222,7 +199,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/JavaSript/" class="article-tag-list-link color5">JavaSript</a>
+        			<a href="/categories/JavaScript/" class="article-tag-list-link color1">JavaScript</a>
         		</li>
       		
 		</ul>
@@ -277,7 +254,7 @@
     <!-- <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a> -->
     <!-- <p>扫一扫，分享到微信</p> -->
     <!-- <div class="wx-qrcode"> -->
-      <!-- <img src="http://s.jiathis.com/qrcode.php?url=http://www.zcating.tk/2019/09/14/ck0sb6d4n000q3wl35h34bcij/" alt="微信分享二维码"> -->
+      <!-- <img src="http://s.jiathis.com/qrcode.php?url=http://www.zcating.tk/2019/10/04/ck1c9efyw0000mll3wkhm1duy/" alt="微信分享二维码"> -->
     <!-- </div> -->
 </div>
 
@@ -291,18 +268,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/10/04/ck1c9efyw0000mll3wkhm1duy/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Angular 状态检测机制
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/08/11/ck0sb6d4w00163wl3q5pzhyfo/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">了解 Angular Ivy：Incremental DOM 和 Virtual DOM</div>
+    <a href="/2019/09/14/ck0sb6d4n000q3wl35h34bcij/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">TypeScript使用总结(一)</div>
       <i class="icon-circle-right"></i>
     </a>
   
