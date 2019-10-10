@@ -137,6 +137,83 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Dirty-Check-简单实现" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/23/ck1kol0fg00050yl3s8yculhf/">Angular Dirty Check 简单实现</a>
+    </h1>
+  
+
+        
+        <a href="/2019/04/23/ck1kol0fg00050yl3s8yculhf/" class="archive-article-date">
+  	<time datetime="2019-04-23T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>所谓脏检查，其实是一种实现双向绑定的机制，原理很简单，就是通过指令（<code>dom</code>属性）遍历<code>dom</code>对象，然后为指令所在的<code>dom</code>添加事件或者做其他任何的事情。下面将编写一个<code>Tiny-Angular</code>，来实现一些简单的功能。</p>
+<h2 id="DOM文档"><a href="#DOM文档" class="headerlink" title="DOM文档"></a>DOM文档</h2><p>下面是HTML。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;test&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;h1 ng-bind=&quot;helloText&quot;&gt;hello&lt;/h1&gt;</span><br><span class="line">    &lt;h2&gt;&lt;input type=&quot;text&quot; ng-model=&quot;helloText&quot;&gt;</span><br><span class="line">    &lt;/h2&gt;</span><br><span class="line">    &lt;script src=“./tiny-angular.js” /&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+<p>我们可以看到，<code>h1</code>和<code>h2</code>对象都有一个简单的指令<code>ng-bind</code>和<code>ng-model</code>那么我们将通过这个指令来实现双向绑定。</p>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/JavaScript/" class="article-tag-list-link color1">JavaScript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/04/23/ck1kol0fg00050yl3s8yculhf/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-JavaScript-运行机制简记" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -144,12 +221,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/14/ck1gaw5yj000c0yl3go93l3wp/">JavaScript 运行机制简记</a>
+      <a class="article-title" href="/2019/04/14/ck1kol0fo000g0yl3q4v3wf9i/">JavaScript 运行机制简记</a>
     </h1>
   
 
         
-        <a href="/2019/04/14/ck1gaw5yj000c0yl3go93l3wp/" class="archive-article-date">
+        <a href="/2019/04/14/ck1kol0fo000g0yl3q4v3wf9i/" class="archive-article-date">
   	<time datetime="2019-04-14T08:14:56.140Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-14</time>
 </a>
         
@@ -182,7 +259,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/14/ck1gaw5yj000c0yl3go93l3wp/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/04/14/ck1kol0fo000g0yl3q4v3wf9i/">展开全文 >></a>
         </p>
       
 
@@ -219,12 +296,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/07/ck1gaw5z5001g0yl3kp7w64vv/">前端小知识</a>
+      <a class="article-title" href="/2019/04/07/ck1kol0h2001n0yl38i7kkx22/">前端小知识</a>
     </h1>
   
 
         
-        <a href="/2019/04/07/ck1gaw5z5001g0yl3kp7w64vv/" class="archive-article-date">
+        <a href="/2019/04/07/ck1kol0h2001n0yl38i7kkx22/" class="archive-article-date">
   	<time datetime="2019-04-07T12:34:58.780Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-07</time>
 </a>
         
@@ -256,7 +333,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/07/ck1gaw5z5001g0yl3kp7w64vv/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/04/07/ck1kol0h2001n0yl38i7kkx22/">展开全文 >></a>
         </p>
       
 
@@ -293,12 +370,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/27/ck1gaw5yw000s0yl3zvc5wczd/">Three.js移动DecalGeometry</a>
+      <a class="article-title" href="/2019/03/27/ck1kol0go000w0yl324fk06is/">Three.js移动DecalGeometry</a>
     </h1>
   
 
         
-        <a href="/2019/03/27/ck1gaw5yw000s0yl3zvc5wczd/" class="archive-article-date">
+        <a href="/2019/03/27/ck1kol0go000w0yl324fk06is/" class="archive-article-date">
   	<time datetime="2019-03-27T11:51:24.178Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-27</time>
 </a>
         
@@ -330,7 +407,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/27/ck1gaw5yw000s0yl3zvc5wczd/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/27/ck1kol0go000w0yl324fk06is/">展开全文 >></a>
         </p>
       
 
@@ -367,12 +444,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/20/ck1gaw5za001x0yl34n8wgve2/">魔方测试</a>
+      <a class="article-title" href="/2019/03/20/ck1kol0h800260yl314a2mgvl/">魔方测试</a>
     </h1>
   
 
         
-        <a href="/2019/03/20/ck1gaw5za001x0yl34n8wgve2/" class="archive-article-date">
+        <a href="/2019/03/20/ck1kol0h800260yl314a2mgvl/" class="archive-article-date">
   	<time datetime="2019-03-20T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-20</time>
 </a>
         
@@ -405,7 +482,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/20/ck1gaw5za001x0yl34n8wgve2/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/20/ck1kol0h800260yl314a2mgvl/">展开全文 >></a>
         </p>
       
 
@@ -442,12 +519,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/10/ck1gaw5yu000p0yl3lkt36vcv/">OpenGL shader 测试</a>
+      <a class="article-title" href="/2019/03/10/ck1kol0gs000y0yl3fsnlzixb/">OpenGL shader 测试</a>
     </h1>
   
 
         
-        <a href="/2019/03/10/ck1gaw5yu000p0yl3lkt36vcv/" class="archive-article-date">
+        <a href="/2019/03/10/ck1kol0gs000y0yl3fsnlzixb/" class="archive-article-date">
   	<time datetime="2019-03-10T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-10</time>
 </a>
         
@@ -483,7 +560,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/10/ck1gaw5yu000p0yl3lkt36vcv/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/10/ck1kol0gs000y0yl3fsnlzixb/">展开全文 >></a>
         </p>
       
 
@@ -520,12 +597,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/09/ck1gaw5yy000y0yl3bi4xn0dj/">flex布局测试</a>
+      <a class="article-title" href="/2019/03/09/ck1kol0gw00170yl3ywzr3wiz/">flex布局测试</a>
     </h1>
   
 
         
-        <a href="/2019/03/09/ck1gaw5yy000y0yl3bi4xn0dj/" class="archive-article-date">
+        <a href="/2019/03/09/ck1kol0gw00170yl3ywzr3wiz/" class="archive-article-date">
   	<time datetime="2019-03-09T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-09</time>
 </a>
         
@@ -557,7 +634,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/09/ck1gaw5yy000y0yl3bi4xn0dj/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/09/ck1kol0gw00170yl3ywzr3wiz/">展开全文 >></a>
         </p>
       
 
@@ -594,12 +671,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/05/ck1gaw5z000130yl3ppqxgv8i/">iOS-用OpenGL渲染相机输出的图像</a>
+      <a class="article-title" href="/2019/03/05/ck1kol0gx00180yl30ckgam6y/">iOS-用OpenGL渲染相机输出的图像</a>
     </h1>
   
 
         
-        <a href="/2019/03/05/ck1gaw5z000130yl3ppqxgv8i/" class="archive-article-date">
+        <a href="/2019/03/05/ck1kol0gx00180yl30ckgam6y/" class="archive-article-date">
   	<time datetime="2019-03-05T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-05</time>
 </a>
         
@@ -638,7 +715,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/05/ck1gaw5z000130yl3ppqxgv8i/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/05/ck1kol0gx00180yl30ckgam6y/">展开全文 >></a>
         </p>
       
 
@@ -675,12 +752,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/27/ck1gaw5yx000v0yl3ofkgnshx/">Vue组件间通信总结</a>
+      <a class="article-title" href="/2019/02/27/ck1kol0gt000z0yl3bz58n58q/">Vue组件间通信总结</a>
     </h1>
   
 
         
-        <a href="/2019/02/27/ck1gaw5yx000v0yl3ofkgnshx/" class="archive-article-date">
+        <a href="/2019/02/27/ck1kol0gt000z0yl3bz58n58q/" class="archive-article-date">
   	<time datetime="2019-02-27T13:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-27</time>
 </a>
         
@@ -706,7 +783,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/27/ck1gaw5yx000v0yl3ofkgnshx/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/02/27/ck1kol0gt000z0yl3bz58n58q/">展开全文 >></a>
         </p>
       
 
@@ -743,12 +820,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/21/ck1gaw5z5001i0yl32fwv6srs/">啥是鸭子类型(duck typing)</a>
+      <a class="article-title" href="/2019/02/21/ck1kol0h2001p0yl3e1ambl3j/">啥是鸭子类型(duck typing)</a>
     </h1>
   
 
         
-        <a href="/2019/02/21/ck1gaw5z5001i0yl32fwv6srs/" class="archive-article-date">
+        <a href="/2019/02/21/ck1kol0h2001p0yl3e1ambl3j/" class="archive-article-date">
   	<time datetime="2019-02-21T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-21</time>
 </a>
         
@@ -788,82 +865,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/21/ck1gaw5z5001i0yl32fwv6srs/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-C++模板元编程——量纲分析" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/27/ck1gaw5ye00050yl3o56bopw1/">C++模板元编程——量纲分析</a>
-    </h1>
-  
-
-        
-        <a href="/2018/12/27/ck1gaw5ye00050yl3o56bopw1/" class="archive-article-date">
-  	<time datetime="2018-12-27T13:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>《C++模板元编程》一书上的第三章的第一节就是叫你如何进行量纲分析。说到量纲分析，首先要了解其概念，这里引用书中的内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">理论上，物理计算的首要原则是：数值运算并非是独立的，大多数物理量都是有附带量纲的。…… 当我们将质量和加速度相乘时，我们除了将数量相乘之外还必须将量纲相乘，这可以帮助我们确信结果是有意义的。这种（对量纲的）簿记的正式名称为量纲分析（dimension analysis）。</span><br></pre></td></tr></table></figure></p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/C++/" class="article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/27/ck1gaw5ye00050yl3o56bopw1/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/02/21/ck1kol0h2001p0yl3e1ambl3j/">展开全文 >></a>
         </p>
       
 
