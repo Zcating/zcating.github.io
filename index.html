@@ -144,13 +144,13 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/10/ck1kol0h1001l0yl3u5o4lkbg/">使用 Webpack 打包 TypeScript 插件</a>
+      <a class="article-title" href="/2019/10/25/ck264hkie001n0yl3b2t1zskq/">使用 Webpack 打包 TypeScript 插件</a>
     </h1>
   
 
         
-        <a href="/2019/10/10/ck1kol0h1001l0yl3u5o4lkbg/" class="archive-article-date">
-  	<time datetime="2019-10-10T12:30:57.004Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-10</time>
+        <a href="/2019/10/25/ck264hkie001n0yl3b2t1zskq/" class="archive-article-date">
+  	<time datetime="2019-10-25T12:39:21.852Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-25</time>
 </a>
         
       </header>
@@ -158,19 +158,131 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>本文将简单介绍如何使用 webpack 打包 TypeScript 应用。</p>
-<h2 id="配置-TypeScript"><a href="#配置-TypeScript" class="headerlink" title="配置 TypeScript"></a>配置 TypeScript</h2><p>使用 <code>npm init</code> 建立一个 npm 应用后，我们此时的目录结构应该只有一个<code>package.json</code>，那么为了方便，我的目录是这样的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">├── package.json</span><br><span class="line">└── src</span><br><span class="line">    ├── index.html</span><br><span class="line">    └── main.ts</span><br></pre></td></tr></table></figure>
-<h3 id="步骤一"><a href="#步骤一" class="headerlink" title="步骤一"></a>步骤一</h3><p>安装webpack、TypeScript 以及 tslint：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install typescript webpack</span><br></pre></td></tr></table></figure>
-<h3 id="步骤二"><a href="#步骤二" class="headerlink" title="步骤二"></a>步骤二</h3><p>安装 ts-loader以及 babel-loader，加 ts-loader 的原因是为了让 webpack 可以输入 ts 并导出 js。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev ts-loader babel-loader @babel/core @babel/preset-env</span><br></pre></td></tr></table></figure>
-<p>然后添加 webpack.config.js 到根目录，并使用以下样板代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">const path = require(&apos;path&apos;);</span><br><span class="line">const webpack = require(&apos;webpack&apos;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  entry: &apos;./src/main.ts&apos;,</span><br><span class="line">  module: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">        &#123;</span><br><span class="line">          test: /\.ts?$/,</span><br><span class="line">          use: &apos;ts-loader&apos;,</span><br><span class="line">          exclude: /node_modules|dist/</span><br><span class="line">        &#125;, &#123;</span><br><span class="line">          test: /\.js$/,</span><br><span class="line">          exclude: /node_modules|dist/,</span><br><span class="line">          loader: &apos;babel-loader&apos;,</span><br><span class="line">          options: &#123;</span><br><span class="line">            presets: [&apos;@babel/preset-env&apos;]</span><br><span class="line">          &#125; </span><br><span class="line">      &#125;]</span><br><span class="line">  &#125;,</span><br><span class="line">  </span><br><span class="line">  resolve: &#123;</span><br><span class="line">    extensions: [ &apos;.ts&apos;, &apos;.js&apos; ]</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: &apos;bundle.js&apos;,</span><br><span class="line">    path: path.resolve(__dirname, &apos;dist&apos;)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  plugins: [</span><br><span class="line">    new webpack.DefinePlugin(&#123;</span><br><span class="line">      &apos;process.env.NODE_ENV&apos;: &apos;&quot;production&quot;&apos;</span><br><span class="line">    &#125;),</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="步骤三"><a href="#步骤三" class="headerlink" title="步骤三"></a>步骤三</h3><p>使用 tslint 自带命令创建然后，需要的配置规则，在这里不赘述：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tslint --init</span><br></pre></td></tr></table></figure>
-<p>然后，需要配置<code>tsconfig.json</code>。它的作用是指定编译文件，以及提供编译选项，这里也不再赘述具体内容，详情请看<a href="https://www.typescriptlang.org/docs/handbook/tsconfig-json.html" target="_blank" rel="noopener">这里</a>。</p>
-<h3 id="步骤四"><a href="#步骤四" class="headerlink" title="步骤四"></a>步骤四</h3><p>完成代码编写后，我们需要把代码打包输出，对于插件，我们需要挂载到 window，这样引入srcipt的时候，才能调用我们的代码。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(window as any).anycode = YourApp</span><br></pre></td></tr></table></figure>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/JavaScript/" class="article-tag-list-link color1">JavaScript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/25/ck264hkie001n0yl3b2t1zskq/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Angular，React，Vue-三大框架简单总结" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/25/ck264hkgq00080yl3zev6ugsm/">Angular，React，Vue 三大框架简单总结</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/25/ck264hkgq00080yl3zev6ugsm/" class="archive-article-date">
+  	<time datetime="2019-10-25T12:36:30.518Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>对前端研究也有一段时间了，从原生、jQuery，到MVC框架，再到现在的MVVM，。三大前端主要的框架也有一些比较简单的了解，说到底，三大框架都都是通过单向数据流的形式来管理视图，双向绑定成为了单纯的语法糖。</p>
+<h2 id="Angular"><a href="#Angular" class="headerlink" title="Angular"></a>Angular</h2><p>这是我用得比较多的框架，它是有谷歌开发的一款基于状态变更机制的框架，通过TypeScript 、Rxjs 以及 zone.js等库编写而成。它的优点非常的明显，首先是支持了TypeScript，将DI，IoC等概念引入前端开发，同时通过响应式库 Rxjs 完善了数据管理。通过依赖注入，可以很容易的将数据管理模块注入到视图组件中，从而减少编写重复的代码。同时提供了各种最优实践，Router、数据管理等。</p>
+<p>在性能上，Angular 通过 zone.js 监听异步事件触发状态变更检测，从而更新视图，这种方式大大减轻了使用者的负担。不过在复杂页面中，大量的异步事件将触发大量的变更检测，会影响页面的性能。那么我们可以通过 OnPush 机制来控制变更检测的触发，从而优化变更检测的时机以及变更检测的数量。</p>
+<p>写法上，Angular 推崇通过删除节点的方式隐藏元素或组件，因为这样隐藏的元素或组件就不会触发变更检测。</p>
+<p>需要注意一点的是，Angular只能构建出一个SPA。</p>
+<h2 id="React"><a href="#React" class="headerlink" title="React"></a>React</h2><p>React 用的不多，它是Facebook开发的一个基于 Virtual DOM 视图库。React通过引入了一个先进的概念 Virtual DOM，来实现数据到视图的映射。使用 jsx或者tsx来开发视图，React可以说是一门新的语言也不为过。</p>
+<p>React聊的最多的还是其Virtual DOM的性能，React通过优化了树的 diff 算法，使得其复杂度从 O(n^3) 降到了O(n)，但是最终得到的不一定是最优解，其思想是：两棵树只比较同级结点，同级结点不一样，则进行patch，如果同级结点一样，则递归比较该结点下的孩子的同级结点。</p>
+<p>所以 React 在写法上，DOM树的结构需要尽可能地保持稳定。因此，React推崇通过<code>display: none</code>等方式隐藏元素或结点，因为这样隐藏元素不会导致DOM树结构的。</p>
+<p>不过React只是一个视图库(View Library)，搭建框架需要配合一些其他的基础设施，官方不提供。所以会导致一个问题，没有最佳实践。所以会导致有不同的 Router 库，有不同的状态管理库（Redux，Mobx）。</p>
+<p>React支持TypeScript，所以对于大型项目来说，是一件非常好的事情。</p>
+<h2 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h2><p>Vue是由尤雨溪主导开发的一个框架，它吸收了 React 和 Angular两个框架的特性，并将它们结合在一起，它也使用了Virtual DOM，作为主要的思想。在此基础上，通过数据劫持和依赖追踪实现了最优的patch，所以，其数据变更机制变得异常简单，对数据进行 set 操作的同时，便会更新视图。</p>
+<p>跟React一样，Vue的DOM树结构也要尽量保证稳定。不过Vue的生态比React的生态要好，官方也提供Vue-Router，Vuex等最佳实践。</p>
+<p>不过，由于使用了数据劫持，IDE提示会不太友好，同时，TypeScript支持较差，多人合作的时候不易规范。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>给出一个表，可以看看三大框架对一些特性的支持程度。</p>
+<table>
+<thead>
+<tr>
+<th>框架/库</th>
+<th>变更机制</th>
+<th>指令</th>
+<th>TypeScript</th>
+<th>状态管理</th>
+<th>Router</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Angular</td>
+<td>变更检测</td>
+<td>支持</td>
+<td>支持</td>
+<td>Service/NgRx</td>
+<td>自带</td>
+</tr>
+<tr>
+<td>React</td>
+<td>Virtual DOM</td>
+<td>不支持</td>
+<td>支持</td>
+<td>Redux/Mobx/Flux</td>
+<td>React-Router</td>
+</tr>
+<tr>
+<td>Vue</td>
+<td>Virtual DOM</td>
+<td>支持</td>
+<td>2.0支持效果不好，3.0效果未知</td>
+<td>Vuex</td>
+<td>Vue-Router</td>
+</tr>
+</tbody>
+</table>
 
       
 
@@ -194,7 +306,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/10/ck1kol0h1001l0yl3u5o4lkbg/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/10/25/ck264hkgq00080yl3zev6ugsm/">展开全文 >></a>
         </p>
       
 
@@ -231,12 +343,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/06/ck1kol0h700230yl3oyr1v5jn/">近期总结</a>
+      <a class="article-title" href="/2019/10/06/ck264hkim00250yl3w4nys3ku/">近期总结</a>
     </h1>
   
 
         
-        <a href="/2019/10/06/ck1kol0h700230yl3oyr1v5jn/" class="archive-article-date">
+        <a href="/2019/10/06/ck264hkim00250yl3w4nys3ku/" class="archive-article-date">
   	<time datetime="2019-10-06T14:31:20.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-06</time>
 </a>
         
@@ -273,7 +385,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/06/ck1kol0h700230yl3oyr1v5jn/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/10/06/ck264hkim00250yl3w4nys3ku/">展开全文 >></a>
         </p>
       
 
@@ -310,12 +422,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/04/ck1kol0f900010yl3vm12jwc4/">Angular 状态检测机制</a>
+      <a class="article-title" href="/2019/10/04/ck264hkgi00020yl3ef4ulbfq/">Angular 状态检测机制</a>
     </h1>
   
 
         
-        <a href="/2019/10/04/ck1kol0f900010yl3vm12jwc4/" class="archive-article-date">
+        <a href="/2019/10/04/ck264hkgi00020yl3ef4ulbfq/" class="archive-article-date">
   	<time datetime="2019-10-04T15:03:48.163Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-04</time>
 </a>
         
@@ -347,7 +459,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/04/ck1kol0f900010yl3vm12jwc4/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/10/04/ck264hkgi00020yl3ef4ulbfq/">展开全文 >></a>
         </p>
       
 
@@ -384,12 +496,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/14/ck1kol0gu00120yl3cbe8akew/">TypeScript使用总结(一)</a>
+      <a class="article-title" href="/2019/09/14/ck264hki600140yl31yo1sg1w/">TypeScript使用总结(一)</a>
     </h1>
   
 
         
-        <a href="/2019/09/14/ck1kol0gu00120yl3cbe8akew/" class="archive-article-date">
+        <a href="/2019/09/14/ck264hki600140yl31yo1sg1w/" class="archive-article-date">
   	<time datetime="2019-09-14T04:56:01.842Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-14</time>
 </a>
         
@@ -421,7 +533,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/14/ck1kol0gu00120yl3cbe8akew/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/09/14/ck264hki600140yl31yo1sg1w/">展开全文 >></a>
         </p>
       
 
@@ -458,12 +570,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/11/ck1kol0gz001d0yl3k218tgdf/">了解 Angular Ivy：Incremental DOM 和 Virtual DOM</a>
+      <a class="article-title" href="/2019/08/11/ck264hkib001g0yl3ax3s5jf7/">了解 Angular Ivy：Incremental DOM 和 Virtual DOM</a>
     </h1>
   
 
         
-        <a href="/2019/08/11/ck1kol0gz001d0yl3k218tgdf/" class="archive-article-date">
+        <a href="/2019/08/11/ck264hkib001g0yl3ax3s5jf7/" class="archive-article-date">
   	<time datetime="2019-08-11T06:35:51.548Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-11</time>
 </a>
         
@@ -500,7 +612,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/11/ck1kol0gz001d0yl3k218tgdf/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/08/11/ck264hkib001g0yl3ax3s5jf7/">展开全文 >></a>
         </p>
       
 
@@ -537,12 +649,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/30/ck1kol0h3001r0yl3i36lx6ev/">四个步骤优化您的 Angluar 包体积</a>
+      <a class="article-title" href="/2019/06/30/ck264hkig001r0yl3m60ythcz/">四个步骤优化您的 Angluar 包体积</a>
     </h1>
   
 
         
-        <a href="/2019/06/30/ck1kol0h3001r0yl3i36lx6ev/" class="archive-article-date">
+        <a href="/2019/06/30/ck264hkig001r0yl3m60ythcz/" class="archive-article-date">
   	<time datetime="2019-06-30T10:08:57.648Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-30</time>
 </a>
         
@@ -578,7 +690,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/06/30/ck1kol0h3001r0yl3i36lx6ev/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/06/30/ck264hkig001r0yl3m60ythcz/">展开全文 >></a>
         </p>
       
 
@@ -615,12 +727,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/16/ck1kol0f300000yl3ik2mmsv4/">Angluar-模态视图构建简析（A）</a>
+      <a class="article-title" href="/2019/06/16/ck264hkge00010yl35p8cuwhm/">Angluar-模态视图构建简析（A）</a>
     </h1>
   
 
         
-        <a href="/2019/06/16/ck1kol0f300000yl3ik2mmsv4/" class="archive-article-date">
+        <a href="/2019/06/16/ck264hkge00010yl35p8cuwhm/" class="archive-article-date">
   	<time datetime="2019-06-16T15:49:29.512Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-16</time>
 </a>
         
@@ -653,7 +765,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/06/16/ck1kol0f300000yl3ik2mmsv4/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/06/16/ck264hkge00010yl35p8cuwhm/">展开全文 >></a>
         </p>
       
 
@@ -690,12 +802,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/03/ck1kol0fc00030yl3sw9tkd11/">Angular 中的 &#39;forwardRef&#39; 是什么</a>
+      <a class="article-title" href="/2019/06/03/ck264hkg400000yl3djm7qduy/">Angular 中的 &#39;forwardRef&#39; 是什么</a>
     </h1>
   
 
         
-        <a href="/2019/06/03/ck1kol0fc00030yl3sw9tkd11/" class="archive-article-date">
+        <a href="/2019/06/03/ck264hkg400000yl3djm7qduy/" class="archive-article-date">
   	<time datetime="2019-06-03T15:47:50.816Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-03</time>
 </a>
         
@@ -716,7 +828,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/06/03/ck1kol0fc00030yl3sw9tkd11/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/06/03/ck264hkg400000yl3djm7qduy/">展开全文 >></a>
         </p>
       
 
@@ -753,12 +865,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/22/ck1kol0fj00080yl3j1c1nqz1/">FRR（Fast ReRoute)相关知识简析</a>
+      <a class="article-title" href="/2019/05/22/ck264hkgs00090yl347zeudtf/">FRR（Fast ReRoute)相关知识简析</a>
     </h1>
   
 
         
-        <a href="/2019/05/22/ck1kol0fj00080yl3j1c1nqz1/" class="archive-article-date">
+        <a href="/2019/05/22/ck264hkgs00090yl347zeudtf/" class="archive-article-date">
   	<time datetime="2019-05-22T12:59:24.307Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-22</time>
 </a>
         
@@ -791,70 +903,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/22/ck1kol0fj00080yl3j1c1nqz1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-JWT+Spring Boot Security 解决方案详解" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/04/ck1kol0fl000b0yl36nt4hugw/">JWT + Spring Boot Security 解决方案详解</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/04/ck1kol0fl000b0yl36nt4hugw/" class="archive-article-date">
-  	<time datetime="2019-05-04T12:05:49.714Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="首先编写一个简单的Token生成器"><a href="#首先编写一个简单的Token生成器" class="headerlink" title="首先编写一个简单的Token生成器"></a>首先编写一个简单的<code>Token</code>生成器</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JwtTokenProvider</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Clock clock = DefaultClock.INSTANCE;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;jwt.secret&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String secret;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;jwt.expiration&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> Long expiration;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">generateToken</span><span class="params">(String id, String username)</span> </span>&#123;</span><br><span class="line">        var createdDate = clock.now();</span><br><span class="line">        var expirationDate = calculateExpirationDate(createdDate);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Jwts.builder()</span><br><span class="line">                .setId(id)</span><br><span class="line">                .setSubject(username)</span><br><span class="line">                .setIssuedAt(createdDate)</span><br><span class="line">                .setExpiration(expirationDate)</span><br><span class="line">                .signWith(SignatureAlgorithm.HS512, <span class="keyword">this</span>.secret)</span><br><span class="line">                .compact();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Boolean <span class="title">isValidated</span><span class="params">(Claims claims)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> claims != <span class="keyword">null</span> &amp;&amp; claims.getExpiration().before(clock.now());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">Claims <span class="title">getClaims</span><span class="params">(String token)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Jwts.parser()</span><br><span class="line">                .setSigningKey(secret)</span><br><span class="line">                .parseClaimsJws(token)</span><br><span class="line">                .getBody();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Date <span class="title">calculateExpirationDate</span><span class="params">(Date createdDate)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Date(createdDate.getTime() + expiration * <span class="number">1000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/04/ck1kol0fl000b0yl36nt4hugw/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/05/22/ck264hkgs00090yl347zeudtf/">展开全文 >></a>
         </p>
       
 

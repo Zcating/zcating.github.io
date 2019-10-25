@@ -137,6 +137,69 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-JWT+Spring Boot Security 解决方案详解" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/04/ck264hkgw000e0yl3i7ktc3d2/">JWT + Spring Boot Security 解决方案详解</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/04/ck264hkgw000e0yl3i7ktc3d2/" class="archive-article-date">
+  	<time datetime="2019-05-04T12:05:49.714Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="首先编写一个简单的Token生成器"><a href="#首先编写一个简单的Token生成器" class="headerlink" title="首先编写一个简单的Token生成器"></a>首先编写一个简单的<code>Token</code>生成器</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JwtTokenProvider</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Clock clock = DefaultClock.INSTANCE;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;jwt.secret&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String secret;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;jwt.expiration&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> Long expiration;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">generateToken</span><span class="params">(String id, String username)</span> </span>&#123;</span><br><span class="line">        var createdDate = clock.now();</span><br><span class="line">        var expirationDate = calculateExpirationDate(createdDate);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Jwts.builder()</span><br><span class="line">                .setId(id)</span><br><span class="line">                .setSubject(username)</span><br><span class="line">                .setIssuedAt(createdDate)</span><br><span class="line">                .setExpiration(expirationDate)</span><br><span class="line">                .signWith(SignatureAlgorithm.HS512, <span class="keyword">this</span>.secret)</span><br><span class="line">                .compact();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Boolean <span class="title">isValidated</span><span class="params">(Claims claims)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> claims != <span class="keyword">null</span> &amp;&amp; claims.getExpiration().before(clock.now());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">Claims <span class="title">getClaims</span><span class="params">(String token)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Jwts.parser()</span><br><span class="line">                .setSigningKey(secret)</span><br><span class="line">                .parseClaimsJws(token)</span><br><span class="line">                .getBody();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Date <span class="title">calculateExpirationDate</span><span class="params">(Date createdDate)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Date(createdDate.getTime() + expiration * <span class="number">1000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/04/ck264hkgw000e0yl3i7ktc3d2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Dirty-Check-简单实现" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -144,12 +207,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/23/ck1kol0fg00050yl3s8yculhf/">Angular Dirty Check 简单实现</a>
+      <a class="article-title" href="/2019/04/23/ck264hkgp00060yl39mu6rjh4/">Angular Dirty Check 简单实现</a>
     </h1>
   
 
         
-        <a href="/2019/04/23/ck1kol0fg00050yl3s8yculhf/" class="archive-article-date">
+        <a href="/2019/04/23/ck264hkgp00060yl39mu6rjh4/" class="archive-article-date">
   	<time datetime="2019-04-23T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-23</time>
 </a>
         
@@ -184,7 +247,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/23/ck1kol0fg00050yl3s8yculhf/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/04/23/ck264hkgp00060yl39mu6rjh4/">展开全文 >></a>
         </p>
       
 
@@ -221,12 +284,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/14/ck1kol0fo000g0yl3q4v3wf9i/">JavaScript 运行机制简记</a>
+      <a class="article-title" href="/2019/04/14/ck264hkgt000c0yl3she3k6vd/">JavaScript 运行机制简记</a>
     </h1>
   
 
         
-        <a href="/2019/04/14/ck1kol0fo000g0yl3q4v3wf9i/" class="archive-article-date">
+        <a href="/2019/04/14/ck264hkgt000c0yl3she3k6vd/" class="archive-article-date">
   	<time datetime="2019-04-14T08:14:56.140Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-14</time>
 </a>
         
@@ -259,7 +322,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/14/ck1kol0fo000g0yl3q4v3wf9i/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/04/14/ck264hkgt000c0yl3she3k6vd/">展开全文 >></a>
         </p>
       
 
@@ -296,12 +359,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/07/ck1kol0h2001n0yl38i7kkx22/">前端小知识</a>
+      <a class="article-title" href="/2019/04/07/ck264hkih001u0yl3mbwlovv2/">前端小知识</a>
     </h1>
   
 
         
-        <a href="/2019/04/07/ck1kol0h2001n0yl38i7kkx22/" class="archive-article-date">
+        <a href="/2019/04/07/ck264hkih001u0yl3mbwlovv2/" class="archive-article-date">
   	<time datetime="2019-04-07T12:34:58.780Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-07</time>
 </a>
         
@@ -333,7 +396,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/07/ck1kol0h2001n0yl38i7kkx22/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/04/07/ck264hkih001u0yl3mbwlovv2/">展开全文 >></a>
         </p>
       
 
@@ -370,12 +433,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/27/ck1kol0go000w0yl324fk06is/">Three.js移动DecalGeometry</a>
+      <a class="article-title" href="/2019/03/27/ck264hki400120yl3hmxs61sy/">Three.js移动DecalGeometry</a>
     </h1>
   
 
         
-        <a href="/2019/03/27/ck1kol0go000w0yl324fk06is/" class="archive-article-date">
+        <a href="/2019/03/27/ck264hki400120yl3hmxs61sy/" class="archive-article-date">
   	<time datetime="2019-03-27T11:51:24.178Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-27</time>
 </a>
         
@@ -407,7 +470,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/27/ck1kol0go000w0yl324fk06is/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/27/ck264hki400120yl3hmxs61sy/">展开全文 >></a>
         </p>
       
 
@@ -444,12 +507,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/20/ck1kol0h800260yl314a2mgvl/">魔方测试</a>
+      <a class="article-title" href="/2019/03/20/ck264hkil00230yl3bo1ka57t/">魔方测试</a>
     </h1>
   
 
         
-        <a href="/2019/03/20/ck1kol0h800260yl314a2mgvl/" class="archive-article-date">
+        <a href="/2019/03/20/ck264hkil00230yl3bo1ka57t/" class="archive-article-date">
   	<time datetime="2019-03-20T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-20</time>
 </a>
         
@@ -482,7 +545,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/20/ck1kol0h800260yl314a2mgvl/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/20/ck264hkil00230yl3bo1ka57t/">展开全文 >></a>
         </p>
       
 
@@ -519,12 +582,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/10/ck1kol0gs000y0yl3fsnlzixb/">OpenGL shader 测试</a>
+      <a class="article-title" href="/2019/03/10/ck264hki100110yl3ehveo0qd/">OpenGL shader 测试</a>
     </h1>
   
 
         
-        <a href="/2019/03/10/ck1kol0gs000y0yl3fsnlzixb/" class="archive-article-date">
+        <a href="/2019/03/10/ck264hki100110yl3ehveo0qd/" class="archive-article-date">
   	<time datetime="2019-03-10T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-10</time>
 </a>
         
@@ -560,7 +623,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/10/ck1kol0gs000y0yl3fsnlzixb/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/10/ck264hki100110yl3ehveo0qd/">展开全文 >></a>
         </p>
       
 
@@ -597,12 +660,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/09/ck1kol0gw00170yl3ywzr3wiz/">flex布局测试</a>
+      <a class="article-title" href="/2019/03/09/ck264hki800180yl35fmqinr5/">flex布局测试</a>
     </h1>
   
 
         
-        <a href="/2019/03/09/ck1kol0gw00170yl3ywzr3wiz/" class="archive-article-date">
+        <a href="/2019/03/09/ck264hki800180yl35fmqinr5/" class="archive-article-date">
   	<time datetime="2019-03-09T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-09</time>
 </a>
         
@@ -634,7 +697,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/09/ck1kol0gw00170yl3ywzr3wiz/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/09/ck264hki800180yl35fmqinr5/">展开全文 >></a>
         </p>
       
 
@@ -671,12 +734,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/05/ck1kol0gx00180yl30ckgam6y/">iOS-用OpenGL渲染相机输出的图像</a>
+      <a class="article-title" href="/2019/03/05/ck264hki9001b0yl3qcjgvaiu/">iOS-用OpenGL渲染相机输出的图像</a>
     </h1>
   
 
         
-        <a href="/2019/03/05/ck1kol0gx00180yl30ckgam6y/" class="archive-article-date">
+        <a href="/2019/03/05/ck264hki9001b0yl3qcjgvaiu/" class="archive-article-date">
   	<time datetime="2019-03-05T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-05</time>
 </a>
         
@@ -715,7 +778,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/05/ck1kol0gx00180yl30ckgam6y/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/05/ck264hki9001b0yl3qcjgvaiu/">展开全文 >></a>
         </p>
       
 
@@ -752,12 +815,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/27/ck1kol0gt000z0yl3bz58n58q/">Vue组件间通信总结</a>
+      <a class="article-title" href="/2019/02/27/ck264hki700170yl3nwgw5176/">Vue组件间通信总结</a>
     </h1>
   
 
         
-        <a href="/2019/02/27/ck1kol0gt000z0yl3bz58n58q/" class="archive-article-date">
+        <a href="/2019/02/27/ck264hki700170yl3nwgw5176/" class="archive-article-date">
   	<time datetime="2019-02-27T13:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-27</time>
 </a>
         
@@ -783,89 +846,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/27/ck1kol0gt000z0yl3bz58n58q/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-啥是鸭子类型(duck-typing)" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/21/ck1kol0h2001p0yl3e1ambl3j/">啥是鸭子类型(duck typing)</a>
-    </h1>
-  
-
-        
-        <a href="/2019/02/21/ck1kol0h2001p0yl3e1ambl3j/" class="archive-article-date">
-  	<time datetime="2019-02-21T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>什么是鸭子类型？《维基百科》上已经说的很明白了：</p>
-<blockquote>
-<p>在程序设计中，<strong>鸭子类型</strong>（英语：<strong>duck typing</strong>）是动态类型的一种风格。在这种风格中，一个对象有效的语义，不是由继承自特定的类或实现特定的接口，而是由”当前方法和属性的集合”决定。</p>
-</blockquote>
-<p>然后有意思的一段话就是：</p>
-<blockquote>
-<p>“当看到一只鸟走起来像鸭子、游泳起来像鸭子、叫起来也像鸭子，那么这只鸟就可以被称为鸭子。”</p>
-</blockquote>
-<p>这段话就是鸭子类型的由来。</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/datastructure/" class="article-tag-list-link color5">data structure</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/21/ck1kol0h2001p0yl3e1ambl3j/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/02/27/ck264hki700170yl3nwgw5176/">展开全文 >></a>
         </p>
       
 
