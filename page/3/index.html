@@ -137,6 +137,155 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-iOS-用OpenGL渲染相机输出的图像" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/05/ck2kd9m8f001f29l3xcc14plp/">iOS-用OpenGL渲染相机输出的图像</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/05/ck2kd9m8f001f29l3xcc14plp/" class="archive-article-date">
+  	<time datetime="2019-03-05T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="相机类"><a href="#相机类" class="headerlink" title="相机类"></a>相机类</h2><p>相关的类：</p>
+<ul>
+<li><code>AVCaptureSession</code></li>
+<li><code>AVCaptureDeviceInput</code></li>
+<li><code>AVCatureDevice</code></li>
+<li><code>AVCaptureDeviceOutput</code></li>
+<li><code>AVCaptureVideoDataOutput</code></li>
+</ul>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Objective-C/" class="article-tag-list-link color2">Objective-C</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/05/ck2kd9m8f001f29l3xcc14plp/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Vue组件间通信总结" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/27/ck2kd9m8e001d29l3wwk9hf7g/">Vue组件间通信总结</a>
+    </h1>
+  
+
+        
+        <a href="/2019/02/27/ck2kd9m8e001d29l3wwk9hf7g/" class="archive-article-date">
+  	<time datetime="2019-02-27T13:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Vue组件间通信其实其实就是不同的ViewModel之间如何通信的。</p>
+<h2 id="Props-amp-emit"><a href="#Props-amp-emit" class="headerlink" title="Props &amp; emit"></a>Props &amp; emit</h2><p>这个Vue中最基本的通信方式：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// child</span></span><br><span class="line"><span class="keyword">const</span> vm1 = <span class="keyword">new</span> Vue (&#123;</span><br><span class="line">    name: child,</span><br><span class="line">    template: <span class="string">`&lt;input v-model="value" @onChange="submit"/&gt;`</span>,</span><br><span class="line">    props: &#123;</span><br><span class="line">        current: <span class="string">''</span></span><br><span class="line">    &#125;,</span><br><span class="line">    data &#123;</span><br><span class="line">        value: <span class="string">''</span></span><br><span class="line">    &#125;,</span><br><span class="line">    watch() &#123;</span><br><span class="line">    &#125;,</span><br><span class="line">    method: &#123;</span><br><span class="line">		</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// parent</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> vm2 = <span class="keyword">new</span> Vue (&#123;</span><br><span class="line">    template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;div&gt;</span></span><br><span class="line"><span class="string">        &lt;child :current="currentForm" @finish="finish"/&gt;</span></span><br><span class="line"><span class="string">        &#123;&#123;isSuccess&#125;&#125;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;`</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        forms: [</span><br><span class="line">            &#123;<span class="attr">id</span>: <span class="number">1</span>, <span class="attr">name</span>: <span class="string">'Tom'</span>&#125;</span><br><span class="line">        ],</span><br><span class="line">        currentForm: <span class="literal">undefined</span>,</span><br><span class="line">        isSuccess: <span class="literal">false</span></span><br><span class="line">    &#125;,</span><br><span class="line">    mounted () &#123;</span><br><span class="line">        <span class="keyword">this</span>.currentForm = <span class="keyword">this</span>.forms[<span class="number">0</span>];</span><br><span class="line">    &#125;,</span><br><span class="line">    method: &#123;</span><br><span class="line">        finish(value) &#123;</span><br><span class="line">            <span class="keyword">this</span>.currentForm.id = value.id;</span><br><span class="line">            <span class="keyword">this</span>.currentForm.name = value.name;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>Vue其实也是赞成这种方式进行通信，这种方法可以更加规范的构建通用组件。</p>
+<h2 id="使用-parent-和-refs"><a href="#使用-parent-和-refs" class="headerlink" title="使用 $parent 和 $refs"></a>使用 $parent 和 $refs</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// child</span></span><br><span class="line"><span class="keyword">const</span> vm1 = <span class="keyword">new</span> Vue (&#123;</span><br><span class="line">    name: child,</span><br><span class="line">    template: <span class="string">`&lt;button @click="submit"/&gt;`</span>,</span><br><span class="line">    data &#123;</span><br><span class="line">        form: &#123;<span class="attr">id</span>: <span class="number">0</span>, <span class="attr">name</span>: <span class="string">''</span>&#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    method: &#123;</span><br><span class="line">        setCurrent(value) &#123;</span><br><span class="line">            <span class="keyword">this</span>.form = <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(value));</span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        submit () &#123;</span><br><span class="line">            axios.put(<span class="string">'/form'</span>,<span class="keyword">this</span>.form).then(<span class="function">(<span class="params">result</span>)=&gt;</span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">this</span>.$parent &amp;&amp; <span class="keyword">this</span>.$parent.finish) &#123;</span><br><span class="line">                    <span class="keyword">this</span>.$parent.finish(<span class="keyword">this</span>.form);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// parent</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> vm2 = <span class="keyword">new</span> Vue (&#123;</span><br><span class="line">    template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;div&gt;</span></span><br><span class="line"><span class="string">        &lt;child ref="childComponent"/&gt;</span></span><br><span class="line"><span class="string">        &#123;&#123;isSuccess&#125;&#125;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;`</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        forms: [</span><br><span class="line">            &#123;<span class="attr">id</span>: <span class="number">1</span>, <span class="attr">name</span>: <span class="string">'Tom'</span>&#125;</span><br><span class="line">        ],</span><br><span class="line">        isSuccess: <span class="literal">false</span></span><br><span class="line">    &#125;,</span><br><span class="line">    mounted () &#123;</span><br><span class="line">        <span class="keyword">this</span>.$refs.childComponent.setCurrent(forms[<span class="number">0</span>]);</span><br><span class="line">    &#125;,</span><br><span class="line">    method: &#123;</span><br><span class="line">        finish(value) &#123;</span><br><span class="line">            <span class="keyword">this</span>.currentForm.id = value.id;</span><br><span class="line">            <span class="keyword">this</span>.currentForm.name = value.name;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这种方法的优点是可以获取所有子组件中的方法和父组件中的方法，缺点是暴露太多的子父组件的细节，子父组件容易强耦合。</p>
+<h2 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a>Vuex</h2><p>这种方式也是比较推荐的，当你的组件之间是同级关系，使用<code>Props</code>和<code>emit</code>并不会让你的项目清爽起来，因为，你只是把他们（同级组件）的父组件当作一个中间件而已，然而父组件还要处理父组件中的逻辑，所以整个父组件便会变得庞大，如果引入<code>vuex</code>，能够很好的解决这个问题。<br>考虑这种情况，如果，每个同级组件只修改一个同级</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vuex</span></span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">  state: &#123;</span><br><span class="line">    forms: [</span><br><span class="line">        &#123;<span class="attr">id</span>: <span class="number">1</span>, <span class="attr">name</span>: <span class="string">'Tom'</span>&#125;</span><br><span class="line">    ],</span><br><span class="line">    currentForm: &#123;&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  mutations: &#123;</span><br><span class="line">      changeForm(state, value) &#123;</span><br><span class="line">          state.currentForm.id = value.id;</span><br><span class="line">          statecurrentForm.name = value.name;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  actions: &#123;</span><br><span class="line">      getForm(&#123;state&#125;) &#123;</span><br><span class="line">          <span class="keyword">return</span> state.currentForm</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// child</span></span><br><span class="line"><span class="keyword">const</span> vm1 = <span class="keyword">new</span> Vue (&#123;</span><br><span class="line">    name: child,</span><br><span class="line">    template: <span class="string">`&lt;button @click="submit"/&gt;`</span>,</span><br><span class="line">    data &#123;</span><br><span class="line">        form: &#123;<span class="attr">id</span>: <span class="number">0</span>, <span class="attr">name</span>: <span class="string">''</span>&#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    method: &#123;</span><br><span class="line">        setCurrent(value) &#123;</span><br><span class="line">            <span class="keyword">this</span>.form = <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(value));</span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        submit () &#123;</span><br><span class="line">            axios.put(<span class="string">'/form'</span>,<span class="keyword">this</span>.form).then(<span class="function">(<span class="params">result</span>)=&gt;</span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">this</span>.$parent &amp;&amp; <span class="keyword">this</span>.$parent.finish) &#123;</span><br><span class="line">                    <span class="keyword">this</span>.$parent.finish(<span class="keyword">this</span>.form);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// parent</span></span><br><span class="line"><span class="keyword">const</span> vm2 = <span class="keyword">new</span> Vue (&#123;</span><br><span class="line">    template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;div&gt;</span></span><br><span class="line"><span class="string">        &lt;child ref="childComponent"/&gt;</span></span><br><span class="line"><span class="string">        &#123;&#123;isSuccess&#125;&#125;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;`</span>,</span><br><span class="line">    computed: &#123;</span><br><span class="line">        mapState(&#123;</span><br><span class="line">            forms : <span class="function"><span class="params">state</span> =&gt;</span> state.forms,</span><br><span class="line">            current: <span class="function"><span class="params">state</span> =&gt;</span> state.current</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line">    mounted () &#123;</span><br><span class="line">        <span class="keyword">this</span>.$refs.childComponent.setCurrent(forms[<span class="number">0</span>]);</span><br><span class="line">    &#125;,</span><br><span class="line">    method: &#123;</span><br><span class="line">        finish(value) &#123;</span><br><span class="line">            <span class="keyword">this</span>.currentForm.id = value.id;</span><br><span class="line">            <span class="keyword">this</span>.currentForm.name = value.name;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/02/27/ck2kd9m8e001d29l3wwk9hf7g/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-啥是鸭子类型(duck-typing)" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -144,12 +293,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/21/ck264hkif001p0yl3vjtvuebp/">啥是鸭子类型(duck typing)</a>
+      <a class="article-title" href="/2019/02/21/ck2kd9m8i001k29l380j1juel/">啥是鸭子类型(duck typing)</a>
     </h1>
   
 
         
-        <a href="/2019/02/21/ck264hkif001p0yl3vjtvuebp/" class="archive-article-date">
+        <a href="/2019/02/21/ck2kd9m8i001k29l380j1juel/" class="archive-article-date">
   	<time datetime="2019-02-21T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-21</time>
 </a>
         
@@ -189,7 +338,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/21/ck264hkif001p0yl3vjtvuebp/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/02/21/ck2kd9m8i001k29l380j1juel/">展开全文 >></a>
         </p>
       
 
@@ -226,12 +375,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/27/ck264hkgo00050yl39sbj4qge/">C++模板元编程——量纲分析</a>
+      <a class="article-title" href="/2018/12/27/ck2kd9m7l000b29l3ghu1qwzg/">C++模板元编程——量纲分析</a>
     </h1>
   
 
         
-        <a href="/2018/12/27/ck264hkgo00050yl39sbj4qge/" class="archive-article-date">
+        <a href="/2018/12/27/ck2kd9m7l000b29l3ghu1qwzg/" class="archive-article-date">
   	<time datetime="2018-12-27T13:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-27</time>
 </a>
         
@@ -264,7 +413,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/27/ck264hkgo00050yl39sbj4qge/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/12/27/ck2kd9m7l000b29l3ghu1qwzg/">展开全文 >></a>
         </p>
       
 
@@ -301,12 +450,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/16/ck264hkh5000m0yl3gch0lfd0/">Objective-C 对象内存布局</a>
+      <a class="article-title" href="/2018/12/16/ck2kd9m7r000m29l3dvkck0xj/">Objective-C 对象内存布局</a>
     </h1>
   
 
         
-        <a href="/2018/12/16/ck264hkh5000m0yl3gch0lfd0/" class="archive-article-date">
+        <a href="/2018/12/16/ck2kd9m7r000m29l3dvkck0xj/" class="archive-article-date">
   	<time datetime="2018-12-16T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-16</time>
 </a>
         
@@ -340,7 +489,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/16/ck264hkh5000m0yl3gch0lfd0/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/12/16/ck2kd9m7r000m29l3dvkck0xj/">展开全文 >></a>
         </p>
       
 
@@ -377,12 +526,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/05/ck264hkin00280yl3d4ba3ctw/">使用Webpack为项目配置热更新</a>
+      <a class="article-title" href="/2018/10/05/ck2kd9m98002829l32ucb4gca/">使用Webpack为项目配置热更新</a>
     </h1>
   
 
         
-        <a href="/2018/10/05/ck264hkin00280yl3d4ba3ctw/" class="archive-article-date">
+        <a href="/2018/10/05/ck2kd9m98002829l32ucb4gca/" class="archive-article-date">
   	<time datetime="2018-10-05T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-05</time>
 </a>
         
@@ -415,7 +564,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/10/05/ck264hkin00280yl3d4ba3ctw/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/10/05/ck2kd9m98002829l32ucb4gca/">展开全文 >></a>
         </p>
       
 
@@ -452,12 +601,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/29/ck264hkid001k0yl3e8ci7h52/">使用Webpack和Babel支持IE-11</a>
+      <a class="article-title" href="/2018/09/29/ck2kd9m8l001r29l3yk5wj6pu/">使用Webpack和Babel支持IE-11</a>
     </h1>
   
 
         
-        <a href="/2018/09/29/ck264hkid001k0yl3e8ci7h52/" class="archive-article-date">
+        <a href="/2018/09/29/ck2kd9m8l001r29l3yk5wj6pu/" class="archive-article-date">
   	<time datetime="2018-09-29T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-29</time>
 </a>
         
@@ -489,7 +638,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/09/29/ck264hkid001k0yl3e8ci7h52/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/09/29/ck2kd9m8l001r29l3yk5wj6pu/">展开全文 >></a>
         </p>
       
 
@@ -526,12 +675,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/10/ck264hkik00200yl3q3eygq3k/">解决跨域的终极方法</a>
+      <a class="article-title" href="/2018/07/10/ck2kd9m8t001y29l35fhrc0k0/">解决跨域的终极方法</a>
     </h1>
   
 
         
-        <a href="/2018/07/10/ck264hkik00200yl3q3eygq3k/" class="archive-article-date">
+        <a href="/2018/07/10/ck2kd9m8t001y29l35fhrc0k0/" class="archive-article-date">
   	<time datetime="2018-07-10T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-10</time>
 </a>
         
@@ -571,7 +720,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/07/10/ck264hkik00200yl3q3eygq3k/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/07/10/ck2kd9m8t001y29l35fhrc0k0/">展开全文 >></a>
         </p>
       
 
@@ -608,12 +757,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/24/ck264hkic001i0yl316djqlo5/">使用 Jenkins 配置 iOS 持续集成踩坑实录</a>
+      <a class="article-title" href="/2018/05/24/ck2kd9m99002a29l31r2xuru0/">使用 Jenkins 配置 iOS 持续集成踩坑实录</a>
     </h1>
   
 
         
-        <a href="/2018/05/24/ck264hkic001i0yl316djqlo5/" class="archive-article-date">
+        <a href="/2018/05/24/ck2kd9m99002a29l31r2xuru0/" class="archive-article-date">
   	<time datetime="2018-05-24T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-24</time>
 </a>
         
@@ -646,7 +795,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/05/24/ck264hkic001i0yl316djqlo5/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/05/24/ck2kd9m99002a29l31r2xuru0/">展开全文 >></a>
         </p>
       
 
@@ -683,12 +832,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/04/ck264hkia001e0yl3ao6wiffn/">响应链是如何进行响应的</a>
+      <a class="article-title" href="/2018/05/04/ck2kd9m9a002c29l3xqc82arv/">响应链是如何进行响应的</a>
     </h1>
   
 
         
-        <a href="/2018/05/04/ck264hkia001e0yl3ao6wiffn/" class="archive-article-date">
+        <a href="/2018/05/04/ck2kd9m9a002c29l3xqc82arv/" class="archive-article-date">
   	<time datetime="2018-05-04T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-04</time>
 </a>
         
@@ -728,167 +877,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/05/04/ck264hkia001e0yl3ao6wiffn/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-用XCode注入动态库到Mac应用中" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/18/ck264hkii001w0yl35jr3t3i4/">用XCode注入动态库到Mac应用中</a>
-    </h1>
-  
-
-        
-        <a href="/2018/02/18/ck264hkii001w0yl35jr3t3i4/" class="archive-article-date">
-  	<time datetime="2018-02-18T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>本文介绍如何将动态库注入到Mac下的二进制文件中，不包含逆向分析，仅作学习使用。</p>
-<h2 id="步骤简介"><a href="#步骤简介" class="headerlink" title="步骤简介"></a>步骤简介</h2><p>以下是具体步骤简介。</p>
-<ol>
-<li>使用classdump，解压出Mac版微信下的所有头文件。</li>
-<li>新建一个macOS Framework工程。</li>
-<li>将Header拖入项目中，并将注入脚本放入Build Phases中，编译项目。</li>
-</ol>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Objective-C/" class="article-tag-list-link color2">Objective-C</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/逆向分析/" class="article-tag-list-link color5">逆向分析</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/18/ck264hkii001w0yl35jr3t3i4/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-iOS 动态加载字体" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/16/ck264hki8001a0yl3396bh772/">iOS 动态加载非系统的字体</a>
-    </h1>
-  
-
-        
-        <a href="/2018/02/16/ck264hki8001a0yl3396bh772/" class="archive-article-date">
-  	<time datetime="2018-02-16T05:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>对于字体文件，普遍的方法是静态加载，静态加载需要将字体文件打包到<code>mainBundle</code>中，但是某些应用如果需要下发字体功能，那么就不是很方便，于是就介绍以下动态加载字体库的方法。</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Objective-C/" class="article-tag-list-link color2">Objective-C</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/16/ck264hki8001a0yl3396bh772/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/05/04/ck2kd9m9a002c29l3xqc82arv/">展开全文 >></a>
         </p>
       
 

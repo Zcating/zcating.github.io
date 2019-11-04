@@ -137,6 +137,166 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-用XCode注入动态库到Mac应用中" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/18/ck2kd9m8l001p29l32tmbra8v/">用XCode注入动态库到Mac应用中</a>
+    </h1>
+  
+
+        
+        <a href="/2018/02/18/ck2kd9m8l001p29l32tmbra8v/" class="archive-article-date">
+  	<time datetime="2018-02-18T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>本文介绍如何将动态库注入到Mac下的二进制文件中，不包含逆向分析，仅作学习使用。</p>
+<h2 id="步骤简介"><a href="#步骤简介" class="headerlink" title="步骤简介"></a>步骤简介</h2><p>以下是具体步骤简介。</p>
+<ol>
+<li>使用classdump，解压出Mac版微信下的所有头文件。</li>
+<li>新建一个macOS Framework工程。</li>
+<li>将Header拖入项目中，并将注入脚本放入Build Phases中，编译项目。</li>
+</ol>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Objective-C/" class="article-tag-list-link color2">Objective-C</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/逆向分析/" class="article-tag-list-link color5">逆向分析</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/02/18/ck2kd9m8l001p29l32tmbra8v/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-iOS 动态加载字体" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/16/ck2kd9m9a002e29l308p78ofh/">iOS 动态加载非系统的字体</a>
+    </h1>
+  
+
+        
+        <a href="/2018/02/16/ck2kd9m9a002e29l308p78ofh/" class="archive-article-date">
+  	<time datetime="2018-02-16T05:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>对于字体文件，普遍的方法是静态加载，静态加载需要将字体文件打包到<code>mainBundle</code>中，但是某些应用如果需要下发字体功能，那么就不是很方便，于是就介绍以下动态加载字体库的方法。</p>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Objective-C/" class="article-tag-list-link color2">Objective-C</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/02/16/ck2kd9m9a002e29l308p78ofh/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Objective-C 简析（3）—— OC属性 Attributes列举" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -144,12 +304,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/10/ck264hki000100yl3ou4gjfa8/">Objective-C 简析（3）—— OC属性 Attributes列举</a>
+      <a class="article-title" href="/2018/01/10/ck2kd9m7u000r29l3aqo2tge9/">Objective-C 简析（3）—— OC属性 Attributes列举</a>
     </h1>
   
 
         
-        <a href="/2018/01/10/ck264hki000100yl3ou4gjfa8/" class="archive-article-date">
+        <a href="/2018/01/10/ck2kd9m7u000r29l3aqo2tge9/" class="archive-article-date">
   	<time datetime="2018-01-10T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-10</time>
 </a>
         
@@ -187,7 +347,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/10/ck264hki000100yl3ou4gjfa8/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/01/10/ck2kd9m7u000r29l3aqo2tge9/">展开全文 >></a>
         </p>
       
 
@@ -224,12 +384,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/06/ck264hkhz000z0yl3neiv6mmm/">Objective-C简析（2）—— block篇</a>
+      <a class="article-title" href="/2018/01/06/ck2kd9m7t000p29l307pbjg1f/">Objective-C简析（2）—— block篇</a>
     </h1>
   
 
         
-        <a href="/2018/01/06/ck264hkhz000z0yl3neiv6mmm/" class="archive-article-date">
+        <a href="/2018/01/06/ck2kd9m7t000p29l307pbjg1f/" class="archive-article-date">
   	<time datetime="2018-01-06T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-06</time>
 </a>
         
@@ -262,7 +422,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/06/ck264hkhz000z0yl3neiv6mmm/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/01/06/ck2kd9m7t000p29l307pbjg1f/">展开全文 >></a>
         </p>
       
 
@@ -299,12 +459,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/05/ck264hkh6000o0yl3minm4hni/">Objective-C 简析（1）—— ARC篇</a>
+      <a class="article-title" href="/2018/01/05/ck2kd9m7u000t29l3zd2jx86s/">Objective-C 简析（1）—— ARC篇</a>
     </h1>
   
 
         
-        <a href="/2018/01/05/ck264hkh6000o0yl3minm4hni/" class="archive-article-date">
+        <a href="/2018/01/05/ck2kd9m7u000t29l3zd2jx86s/" class="archive-article-date">
   	<time datetime="2018-01-05T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-05</time>
 </a>
         
@@ -337,7 +497,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/05/ck264hkh6000o0yl3minm4hni/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/01/05/ck2kd9m7u000t29l3zd2jx86s/">展开全文 >></a>
         </p>
       
 
@@ -374,12 +534,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/12/ck264hkij001y0yl3q2ay3v8i/">简单爬虫，抓取近十年来的美剧的ed2k链接</a>
+      <a class="article-title" href="/2017/08/12/ck2kd9m8n001w29l347e4u6f1/">简单爬虫，抓取近十年来的美剧的ed2k链接</a>
     </h1>
   
 
         
-        <a href="/2017/08/12/ck264hkij001y0yl3q2ay3v8i/" class="archive-article-date">
+        <a href="/2017/08/12/ck2kd9m8n001w29l347e4u6f1/" class="archive-article-date">
   	<time datetime="2017-08-12T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-12</time>
 </a>
         
@@ -412,7 +572,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/12/ck264hkij001y0yl3q2ay3v8i/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/08/12/ck2kd9m8n001w29l347e4u6f1/">展开全文 >></a>
         </p>
       
 
@@ -449,12 +609,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/13/ck264hkgn00040yl3whjcetnc/">BLE简单重放攻击</a>
+      <a class="article-title" href="/2017/04/13/ck2kd9m6t000129l3se0dmqd7/">BLE简单重放攻击</a>
     </h1>
   
 
         
-        <a href="/2017/04/13/ck264hkgn00040yl3whjcetnc/" class="archive-article-date">
+        <a href="/2017/04/13/ck2kd9m6t000129l3se0dmqd7/" class="archive-article-date">
   	<time datetime="2017-04-13T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-13</time>
 </a>
         
@@ -487,82 +647,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/04/13/ck264hkgn00040yl3whjcetnc/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-LeetCode—62th—Unique-Paths" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/16/ck264hkgy000h0yl3bxvexzim/">LeetCode—62th—Unique-Paths</a>
-    </h1>
-  
-
-        
-        <a href="/2017/02/16/ck264hkgy000h0yl3bxvexzim/" class="archive-article-date">
-  	<time datetime="2017-02-16T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>这是LeetCode上，关于动态规划的题目。</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Algorithm/" class="article-tag-list-link color5">Algorithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/16/ck264hkgy000h0yl3bxvexzim/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/04/13/ck2kd9m6t000129l3se0dmqd7/">展开全文 >></a>
         </p>
       
 
@@ -599,12 +684,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/16/ck264hkgz000j0yl3xik7ee2s/">LeetCode—63th—Unique-Paths-II</a>
+      <a class="article-title" href="/2017/02/16/ck2kd9m7o000d29l3uo766q5t/">LeetCode—63th—Unique-Paths-II</a>
     </h1>
   
 
         
-        <a href="/2017/02/16/ck264hkgz000j0yl3xik7ee2s/" class="archive-article-date">
+        <a href="/2017/02/16/ck2kd9m7o000d29l3uo766q5t/" class="archive-article-date">
   	<time datetime="2017-02-16T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-16</time>
 </a>
         
@@ -637,7 +722,82 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/16/ck264hkgz000j0yl3xik7ee2s/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/02/16/ck2kd9m7o000d29l3uo766q5t/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-LeetCode—62th—Unique-Paths" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/16/ck2kd9m7r000l29l32ykwqa7s/">LeetCode—62th—Unique-Paths</a>
+    </h1>
+  
+
+        
+        <a href="/2017/02/16/ck2kd9m7r000l29l32ykwqa7s/" class="archive-article-date">
+  	<time datetime="2017-02-16T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>这是LeetCode上，关于动态规划的题目。</p>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Algorithm/" class="article-tag-list-link color5">Algorithm</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/02/16/ck2kd9m7r000l29l32ykwqa7s/">展开全文 >></a>
         </p>
       
 
