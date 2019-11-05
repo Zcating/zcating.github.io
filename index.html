@@ -144,45 +144,21 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/04/ck2kkaxht00040yl3i382dj3m/">Angular 日常错误一览</a>
+      <a class="article-title" href="/2019/11/05/ck2lsb8oc001929l3i3i9g8ty/">Angular 日常错误一览</a>
     </h1>
   
 
         
-        <a href="/2019/11/04/ck2kkaxht00040yl3i382dj3m/" class="archive-article-date">
-  	<time datetime="2019-11-04T15:10:55.344Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-04</time>
+        <a href="/2019/11/05/ck2lsb8oc001929l3i3i9g8ty/" class="archive-article-date">
+  	<time datetime="2019-11-05T11:42:19.216Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-05</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Expression-has-changed-after-it-was-checked"><a href="#Expression-has-changed-after-it-was-checked" class="headerlink" title="Expression has changed after it was checked"></a>Expression has changed after it was checked</h2><p>这个错误主要出现在以下这种情况：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@component(&#123;</span><br><span class="line">	template: &apos;&lt;div *ngIf=&quot;isLoggingIn&quot;&gt;has logged in&lt;/div&gt;&apos;</span><br><span class="line">&#125;)</span><br><span class="line">export class UserLogin implements AfterViewInit &#123;</span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line">    ngAfterViewInit() &#123;</span><br><span class="line">        // isLoggingIn 这个值跟</span><br><span class="line">        this.isLoggingIn = true;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这种情况的出现的原因在于对 Angular 的变更机制不了解，以及其生命周期钩子函数具体hook的位置是哪里的不了解。</p>
-<p>其实 <code>AfterViewInit</code> 和<code>AfterViewChecked</code> ，这两个钩子函数会在变更检测完毕以及视图被构建后触发。所以，框架开发者希望的是，不要在这两个钩子函数中做改变视图的操作。因为这样的操作会使得视图不跟数据同步。可以看看文档，<a href="https://angular.io/guide/lifecycle-hooks#abide-by-the-unidirectional-data-flow-rule" target="_blank" rel="noopener">文档中有这么一段话</a>。</p>
-<blockquote>
-<p>Angular’s unidirectional data flow rule forbids updates to the view after it has been composed. Both of these hooks fire after the component’s view has been composed.</p>
-<p>Angular throws an error if the hook updates the component’s data-bound comment property immediately (try it!). </p>
-</blockquote>
-<p>翻译一下：</p>
-<blockquote>
-<p> Angular 的单向数据流的规则禁止在视图构成完毕后更新视图。构成视图完毕后，这两个钩子函数都会调用。</p>
-<p>如果钩子函数立刻更新了组件的数据绑定属性（尝试一下！），那么 Angular 会引发一个错误。</p>
-</blockquote>
-<p>所以要修复这个错误，那么可以这样做：</p>
-<ol>
-<li>在<code>OnInit</code>钩子函数中操作视图绑定属性。</li>
-<li>在<code>AfterViewInit</code>钩子函数中，将视图操作放入异步操作中。</li>
-</ol>
-<h2 id="ViewDestroyedError"><a href="#ViewDestroyedError" class="headerlink" title="ViewDestroyedError"></a>ViewDestroyedError</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ViewDestroyedError: Attempt to use a destroyed view: detectChanges</span><br></pre></td></tr></table></figure>
-<p>最近在测试页面的时候发现，有时候点击事件延迟的情况下，会触发上述错误。</p>
-<p>通过搜索引擎，我很快就发现了问题的所在。其实还是对状态变更机制的不熟悉导致的。在页面中大量使用 OnPush 模式，那么手动变更操作就会变得比较频繁，这样给出一个样板。</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@component</span>(&#123;</span><br><span class="line">	template: <span class="string">'</span></span><br><span class="line"><span class="string">		&lt;button (click)="login"&gt;has logged in&lt;/button&gt; </span></span><br><span class="line"><span class="string">		&#123;&#123;userInfo&#125;&#125;'</span></span><br><span class="line">	changeDetection: ChangeDetectionStrategy.OnPush</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> UserLogin <span class="keyword">implements</span> AfterViewInit &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> cdr: ChangeDetectionRef, <span class="keyword">private</span> http: HttpClient</span>) &#123;&#125;</span><br><span class="line">    </span><br><span class="line">   	login() &#123;</span><br><span class="line">   		<span class="keyword">this</span>.http.get(<span class="string">'/user/info'</span>).subscribe(&#123;</span><br><span class="line">   			next: <span class="function">(<span class="params">userInfo</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">this</span>.ref.detectChanges();</span><br><span class="line">   				<span class="keyword">this</span>.userInfo = userInfo;</span><br><span class="line">   				<span class="keyword">this</span>.cdr.markForCheck();</span><br><span class="line">   			&#125;</span><br><span class="line">   		&#125;)</span><br><span class="line">   	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>看起来，代码没什么什么问题，但是这个 view destroy完成后请求才完成的话，cdr就会报上面的错误。所以，我们需要在销毁钩子函数上添加下面一行代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ngOnDestroy() &#123;</span><br><span class="line">	this.cdr.detach();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这样，在销毁视图的时候，cdr 便会取消与该视图的关联，错误也就不会发生。</p>
-
+        <p>这篇文章主要用来记录Angular开发过程中遇到的经典的错误。</p>
+        
       
 
       
@@ -194,7 +170,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/04/ck2kkaxht00040yl3i382dj3m/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/11/05/ck2lsb8oc001929l3i3i9g8ty/">展开全文 >></a>
         </p>
       
 
@@ -231,12 +207,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/04/ck2kkaxi400090yl3rmponoyl/">Angular，React，Vue 三大框架简单总结</a>
+      <a class="article-title" href="/2019/11/04/ck2lsb8nw000829l3br73ae7r/">Angular，React，Vue 三大框架简单总结</a>
     </h1>
   
 
         
-        <a href="/2019/11/04/ck2kkaxi400090yl3rmponoyl/" class="archive-article-date">
+        <a href="/2019/11/04/ck2lsb8nw000829l3br73ae7r/" class="archive-article-date">
   	<time datetime="2019-11-04T11:53:45.325Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-04</time>
 </a>
         
@@ -269,7 +245,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/04/ck2kkaxi400090yl3rmponoyl/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/11/04/ck2lsb8nw000829l3br73ae7r/">展开全文 >></a>
         </p>
       
 
@@ -306,12 +282,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/04/ck2kkaxis001m0yl3zdc9erkm/">简单介绍NgRx</a>
+      <a class="article-title" href="/2019/11/04/ck2lsb8ov001x29l305gxmwi6/">简单介绍NgRx</a>
     </h1>
   
 
         
-        <a href="/2019/11/04/ck2kkaxis001m0yl3zdc9erkm/" class="archive-article-date">
+        <a href="/2019/11/04/ck2lsb8ov001x29l305gxmwi6/" class="archive-article-date">
   	<time datetime="2019-11-04T11:53:45.325Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-04</time>
 </a>
         
@@ -343,7 +319,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/04/ck2kkaxis001m0yl3zdc9erkm/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/11/04/ck2lsb8ov001x29l305gxmwi6/">展开全文 >></a>
         </p>
       
 
@@ -380,12 +356,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/25/ck2kkaxim00140yl32ck6h7a4/">使用 Webpack 打包 TypeScript 插件</a>
+      <a class="article-title" href="/2019/10/25/ck2lsb8oq001o29l3o55ripuf/">使用 Webpack 打包 TypeScript 插件</a>
     </h1>
   
 
         
-        <a href="/2019/10/25/ck2kkaxim00140yl32ck6h7a4/" class="archive-article-date">
+        <a href="/2019/10/25/ck2lsb8oq001o29l3o55ripuf/" class="archive-article-date">
   	<time datetime="2019-10-25T12:39:21.852Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-25</time>
 </a>
         
@@ -417,7 +393,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/25/ck2kkaxim00140yl32ck6h7a4/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/10/25/ck2lsb8oq001o29l3o55ripuf/">展开全文 >></a>
         </p>
       
 
@@ -454,12 +430,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/06/ck2kkaxiv001t0yl38445qnyc/">近期总结</a>
+      <a class="article-title" href="/2019/10/06/ck2lsb8ow002029l3iohooejk/">近期总结</a>
     </h1>
   
 
         
-        <a href="/2019/10/06/ck2kkaxiv001t0yl38445qnyc/" class="archive-article-date">
+        <a href="/2019/10/06/ck2lsb8ow002029l3iohooejk/" class="archive-article-date">
   	<time datetime="2019-10-06T14:31:20.809Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-06</time>
 </a>
         
@@ -496,7 +472,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/06/ck2kkaxiv001t0yl38445qnyc/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/10/06/ck2lsb8ow002029l3iohooejk/">展开全文 >></a>
         </p>
       
 
@@ -533,12 +509,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/04/ck2kkaxi200080yl3ykci954n/">Angular 状态检测机制</a>
+      <a class="article-title" href="/2019/10/04/ck2lsb8np000529l3yguzwib5/">Angular 状态检测机制</a>
     </h1>
   
 
         
-        <a href="/2019/10/04/ck2kkaxi200080yl3ykci954n/" class="archive-article-date">
+        <a href="/2019/10/04/ck2lsb8np000529l3yguzwib5/" class="archive-article-date">
   	<time datetime="2019-10-04T15:03:48.163Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-04</time>
 </a>
         
@@ -570,7 +546,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/04/ck2kkaxi200080yl3ykci954n/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/10/04/ck2lsb8np000529l3yguzwib5/">展开全文 >></a>
         </p>
       
 
@@ -607,12 +583,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/14/ck2kkaxii000u0yl382a0ywew/">TypeScript使用总结(一)</a>
+      <a class="article-title" href="/2019/09/14/ck2lsb8o6000v29l3kr67we29/">TypeScript使用总结(一)</a>
     </h1>
   
 
         
-        <a href="/2019/09/14/ck2kkaxii000u0yl382a0ywew/" class="archive-article-date">
+        <a href="/2019/09/14/ck2lsb8o6000v29l3kr67we29/" class="archive-article-date">
   	<time datetime="2019-09-14T04:56:01.842Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-14</time>
 </a>
         
@@ -644,7 +620,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/14/ck2kkaxii000u0yl382a0ywew/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/09/14/ck2lsb8o6000v29l3kr67we29/">展开全文 >></a>
         </p>
       
 
@@ -681,12 +657,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/11/ck2kkaxio001c0yl3eobq64bx/">了解 Angular Ivy：Incremental DOM 和 Virtual DOM</a>
+      <a class="article-title" href="/2019/08/11/ck2lsb8op001n29l3cxphq306/">了解 Angular Ivy：Incremental DOM 和 Virtual DOM</a>
     </h1>
   
 
         
-        <a href="/2019/08/11/ck2kkaxio001c0yl3eobq64bx/" class="archive-article-date">
+        <a href="/2019/08/11/ck2lsb8op001n29l3cxphq306/" class="archive-article-date">
   	<time datetime="2019-08-11T06:35:51.548Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-11</time>
 </a>
         
@@ -723,7 +699,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/11/ck2kkaxio001c0yl3eobq64bx/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/08/11/ck2lsb8op001n29l3cxphq306/">展开全文 >></a>
         </p>
       
 
@@ -760,12 +736,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/30/ck2kkaxiq001h0yl3xf8dueh4/">四个步骤优化您的 Angluar 包体积</a>
+      <a class="article-title" href="/2019/06/30/ck2lsb8p2002b29l3s14r8jq8/">四个步骤优化您的 Angluar 包体积</a>
     </h1>
   
 
         
-        <a href="/2019/06/30/ck2kkaxiq001h0yl3xf8dueh4/" class="archive-article-date">
+        <a href="/2019/06/30/ck2lsb8p2002b29l3s14r8jq8/" class="archive-article-date">
   	<time datetime="2019-06-30T10:08:57.648Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-30</time>
 </a>
         
@@ -801,7 +777,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/06/30/ck2kkaxiq001h0yl3xf8dueh4/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/06/30/ck2lsb8p2002b29l3s14r8jq8/">展开全文 >></a>
         </p>
       
 
@@ -838,12 +814,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/16/ck2kkaxiy00230yl3aj54scqa/">Angluar-模态视图构建简析（A）</a>
+      <a class="article-title" href="/2019/06/16/ck2lsb8na000029l3cs640fc7/">Angluar-模态视图构建简析（A）</a>
     </h1>
   
 
         
-        <a href="/2019/06/16/ck2kkaxiy00230yl3aj54scqa/" class="archive-article-date">
+        <a href="/2019/06/16/ck2lsb8na000029l3cs640fc7/" class="archive-article-date">
   	<time datetime="2019-06-16T15:49:29.512Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-16</time>
 </a>
         
@@ -876,7 +852,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/06/16/ck2kkaxiy00230yl3aj54scqa/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/06/16/ck2lsb8na000029l3cs640fc7/">展开全文 >></a>
         </p>
       
 
