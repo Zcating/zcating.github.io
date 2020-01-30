@@ -137,6 +137,88 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-解决跨域的终极方法" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/10/ck5zh14kg002a4gl300vqapzd/">解决跨域的终极方法</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/10/ck5zh14kg002a4gl300vqapzd/" class="archive-article-date">
+  	<time datetime="2018-07-10T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>如果使用前后端分离的架构，肯定会深受跨域的困扰，网上有一大堆的方法来解决跨域，但是你得一个一个试才知道哪个是合适。这个方法就是用<code>nginx</code>来配置跨域请求头部，下面将简单记录这个方法：</p>
+<ol>
+<li>安装<code>nginx</code>，一般来说服务器都是用<code>CentOS</code>，使用<code>yum</code>安装。</li>
+<li>直接往<code>/etc/nginx/conf.d/</code>文件夹中添加新的配置文件<code>cros.conf</code>。</li>
+<li>输入以下配置：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen  80;</span><br><span class="line">    // 这里输入转发出去的域名或IP</span><br><span class="line">    server_name localhost;</span><br><span class="line">    </span><br><span class="line">    location / &#123;</span><br><span class="line">        add_header Access-Control-Allow-Origin *;</span><br><span class="line">        add_header Access-Control-Allow-Methods &apos;GET, POST, PUT, DELETE, OPTIONS&apos;;</span><br><span class="line">        add_header Access-Control-Allow-Headers &apos;DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization&apos;;</span><br><span class="line">        # 这里返回204，意味着无内容。</span><br><span class="line">        if ($request_method = &apos;OPTIONS&apos;) &#123;</span><br><span class="line">        	return 204;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        # 这里输入后端的域名或IP</span><br><span class="line">        proxy_pass your.backend.address;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>之后，启动<code>nginx</code>，输入命令：<code>service nginx restart</code>。</p>
+<p>这样，从浏览器请求后端接口的时候，就不会有跨域的问题出现了。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/JavaScript/" class="article-tag-list-link color1">JavaScript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/10/ck5zh14kg002a4gl300vqapzd/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-使用 Jenkins 配置 iOS 持续集成踩坑实录" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -144,12 +226,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/24/ck34h4kcv001eful3pelhtfh4/">使用 Jenkins 配置 iOS 持续集成踩坑实录</a>
+      <a class="article-title" href="/2018/05/24/ck5zh14k6001e4gl3ja36nd6o/">使用 Jenkins 配置 iOS 持续集成踩坑实录</a>
     </h1>
   
 
         
-        <a href="/2018/05/24/ck34h4kcv001eful3pelhtfh4/" class="archive-article-date">
+        <a href="/2018/05/24/ck5zh14k6001e4gl3ja36nd6o/" class="archive-article-date">
   	<time datetime="2018-05-24T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-24</time>
 </a>
         
@@ -182,7 +264,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/05/24/ck34h4kcv001eful3pelhtfh4/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/05/24/ck5zh14k6001e4gl3ja36nd6o/">展开全文 >></a>
         </p>
       
 
@@ -219,12 +301,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/04/ck34h4kcu001bful3f5jg7fna/">响应链是如何进行响应的</a>
+      <a class="article-title" href="/2018/05/04/ck5zh14k200154gl344revk97/">响应链是如何进行响应的</a>
     </h1>
   
 
         
-        <a href="/2018/05/04/ck34h4kcu001bful3f5jg7fna/" class="archive-article-date">
+        <a href="/2018/05/04/ck5zh14k200154gl344revk97/" class="archive-article-date">
   	<time datetime="2018-05-04T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-04</time>
 </a>
         
@@ -264,7 +346,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/05/04/ck34h4kcu001bful3f5jg7fna/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/05/04/ck5zh14k200154gl344revk97/">展开全文 >></a>
         </p>
       
 
@@ -301,12 +383,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/18/ck34h4kd0001qful31ytnadco/">用XCode注入动态库到Mac应用中</a>
+      <a class="article-title" href="/2018/02/18/ck5zh14kd001x4gl37u20fb5z/">用XCode注入动态库到Mac应用中</a>
     </h1>
   
 
         
-        <a href="/2018/02/18/ck34h4kd0001qful31ytnadco/" class="archive-article-date">
+        <a href="/2018/02/18/ck5zh14kd001x4gl37u20fb5z/" class="archive-article-date">
   	<time datetime="2018-02-18T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-18</time>
 </a>
         
@@ -349,7 +431,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/18/ck34h4kd0001qful31ytnadco/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/02/18/ck5zh14kd001x4gl37u20fb5z/">展开全文 >></a>
         </p>
       
 
@@ -386,12 +468,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/16/ck34h4kd70027ful3eb3nzse6/">iOS 动态加载非系统的字体</a>
+      <a class="article-title" href="/2018/02/16/ck5zh14k300164gl3gazq4dmf/">iOS 动态加载非系统的字体</a>
     </h1>
   
 
         
-        <a href="/2018/02/16/ck34h4kd70027ful3eb3nzse6/" class="archive-article-date">
+        <a href="/2018/02/16/ck5zh14k300164gl3gazq4dmf/" class="archive-article-date">
   	<time datetime="2018-02-16T05:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-16</time>
 </a>
         
@@ -424,7 +506,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/16/ck34h4kd70027ful3eb3nzse6/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/02/16/ck5zh14k300164gl3gazq4dmf/">展开全文 >></a>
         </p>
       
 
@@ -461,12 +543,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/10/ck34h4kct001aful3oq70n0pp/">Objective-C 简析（3）—— OC属性 Attributes列举</a>
+      <a class="article-title" href="/2018/01/10/ck5zh14jv000o4gl3opbo34tj/">Objective-C 简析（3）—— OC属性 Attributes列举</a>
     </h1>
   
 
         
-        <a href="/2018/01/10/ck34h4kct001aful3oq70n0pp/" class="archive-article-date">
+        <a href="/2018/01/10/ck5zh14jv000o4gl3opbo34tj/" class="archive-article-date">
   	<time datetime="2018-01-10T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-10</time>
 </a>
         
@@ -504,7 +586,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/10/ck34h4kct001aful3oq70n0pp/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/01/10/ck5zh14jv000o4gl3opbo34tj/">展开全文 >></a>
         </p>
       
 
@@ -541,12 +623,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/06/ck34h4kbw000kful35u4x0dzd/">Objective-C简析（2）—— Block篇</a>
+      <a class="article-title" href="/2018/01/06/ck5zh14ju000l4gl3p3i75czo/">Objective-C简析（2）—— Block篇</a>
     </h1>
   
 
         
-        <a href="/2018/01/06/ck34h4kbw000kful35u4x0dzd/" class="archive-article-date">
+        <a href="/2018/01/06/ck5zh14ju000l4gl3p3i75czo/" class="archive-article-date">
   	<time datetime="2018-01-06T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-06</time>
 </a>
         
@@ -578,7 +660,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/06/ck34h4kbw000kful35u4x0dzd/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/01/06/ck5zh14ju000l4gl3p3i75czo/">展开全文 >></a>
         </p>
       
 
@@ -615,12 +697,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/05/ck34h4kbv000hful360232whm/">Objective-C 简析（1）—— ARC篇</a>
+      <a class="article-title" href="/2018/01/05/ck5zh14ju000j4gl3rkqds09a/">Objective-C 简析（1）—— ARC篇</a>
     </h1>
   
 
         
-        <a href="/2018/01/05/ck34h4kbv000hful360232whm/" class="archive-article-date">
+        <a href="/2018/01/05/ck5zh14ju000j4gl3rkqds09a/" class="archive-article-date">
   	<time datetime="2018-01-05T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-05</time>
 </a>
         
@@ -653,7 +735,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/05/ck34h4kbv000hful360232whm/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/01/05/ck5zh14ju000j4gl3rkqds09a/">展开全文 >></a>
         </p>
       
 
@@ -690,12 +772,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/12/ck34h4kd2001xful3v6lu95wl/">简单爬虫，抓取近十年来的美剧的ed2k链接</a>
+      <a class="article-title" href="/2017/08/12/ck5zh14kd00204gl3rx8r6qup/">简单爬虫，抓取近十年来的美剧的ed2k链接</a>
     </h1>
   
 
         
-        <a href="/2017/08/12/ck34h4kd2001xful3v6lu95wl/" class="archive-article-date">
+        <a href="/2017/08/12/ck5zh14kd00204gl3rx8r6qup/" class="archive-article-date">
   	<time datetime="2017-08-12T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-12</time>
 </a>
         
@@ -727,7 +809,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/12/ck34h4kd2001xful3v6lu95wl/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/08/12/ck5zh14kd00204gl3rx8r6qup/">展开全文 >></a>
         </p>
       
 
@@ -764,12 +846,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/13/ck34h4kbg0007ful3r0kftb2k/">BLE简单重放攻击</a>
+      <a class="article-title" href="/2017/04/13/ck5zh14j800044gl345uklxs0/">BLE简单重放攻击</a>
     </h1>
   
 
         
-        <a href="/2017/04/13/ck34h4kbg0007ful3r0kftb2k/" class="archive-article-date">
+        <a href="/2017/04/13/ck5zh14j800044gl345uklxs0/" class="archive-article-date">
   	<time datetime="2017-04-13T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-13</time>
 </a>
         
@@ -802,82 +884,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/04/13/ck34h4kbg0007ful3r0kftb2k/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-LeetCode—63th—Unique-Paths-II" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/16/ck34h4kbt000dful3604cwrrm/">LeetCode—63th—Unique-Paths-II</a>
-    </h1>
-  
-
-        
-        <a href="/2017/02/16/ck34h4kbt000dful3604cwrrm/" class="archive-article-date">
-  	<time datetime="2017-02-16T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>这是LeetCode上，关于动态规划的题目。<br></p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Algorithm/" class="article-tag-list-link color5">Algorithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/16/ck34h4kbt000dful3604cwrrm/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/04/13/ck5zh14j800044gl345uklxs0/">展开全文 >></a>
         </p>
       
 
@@ -921,7 +928,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 Zcating
+    		&copy; 2020 Zcating
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
