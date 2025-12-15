@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高级前端工程师简历</title>
+    
+    <!-- 1. 引入依赖库 (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- 2. 配置 Tailwind 并使用 OKLCH 颜色空间 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // 使用 OKLCH 定义颜色
+                        // L: 亮度, C: 色度, H: 色相
+                        page: {
+                            bg: 'oklch(0.15 0.02 240)',     // 深蓝灰色背景
+                            card: 'oklch(0.20 0.03 240)',   // 稍亮的卡片背景
+                        },
+                        neon: {
+                            DEFAULT: 'oklch(0.85 0.26 145)', // 核心荧光绿
+                            dim: 'oklch(0.85 0.26 145 / 0.1)', // 荧光绿淡背景
+                        },
+                        txt: {
+                            main: 'oklch(0.95 0.01 240)',   // 主要文字
+                            muted: 'oklch(0.70 0.02 240)',  // 次要文字
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- 字体引入 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Fira+Code&display=swap" rel="stylesheet">
+
+    <style>
+        /* 基础样式微调 */
+        body {
+            background-color: oklch(0.15 0.02 240);
+            color: oklch(0.95 0.01 240);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        /* 隐藏滚动条但保留功能 */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: oklch(0.3 0.05 240); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: oklch(0.85 0.26 145); }
+
+        /* 选中态颜色 */
+        ::selection {
+            background: oklch(0.85 0.26 145);
+            color: oklch(0.15 0.02 240);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- 导航 (简单的 Logo) -->
+    <nav class="fixed top-0 left-0 w-full z-50 p-6 md:p-10 flex justify-between items-center mix-blend-difference">
+        <div class="font-bold text-xl tracking-tight font-mono text-neon" id="nav-logo">
+            <!-- JS 渲染 -->
+        </div>
+        <a href="#contact" class="hidden md:block text-sm font-bold border border-neon text-neon px-5 py-2 rounded-full hover:bg-neon hover:text-page-bg transition-all duration-300">
+            Let's Talk
+        </a>
+    </nav>
+
+    <!-- 主容器 -->
+    <main class="container mx-auto px-6 md:px-12 lg:px-24 max-w-6xl">
+
+        <!-- 1. Hero 区域 -->
+        <section id="hero" class="min-h-screen flex flex-col justify-center pt-20">
+            <div id="hero-content">
+                <!-- JS 渲染 -->
+            </div>
+            
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-txt-muted text-xs font-mono opacity-50">
+                SCROLL DOWN
+            </div>
+        </section>
+
+        <!-- 2. About 区域 -->
+        <section id="about" class="py-24 md:py-40 gsap-section">
+            <div class="border-t border-white/10 pt-10 grid md:grid-cols-12 gap-10">
+                <div class="md:col-span-4">
+                    <h2 class="text-3xl font-bold text-neon mb-4">01. 关于我</h2>
+                </div>
+                <div class="md:col-span-8 text-xl md:text-2xl text-txt-muted leading-relaxed font-light" id="about-content">
+                    <!-- JS 渲染 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Skills 区域 -->
+        <section id="skills" class="py-24 md:py-40 gsap-section">
+            <div class="border-t border-white/10 pt-10 grid md:grid-cols-12 gap-10">
+                <div class="md:col-span-4">
+                    <h2 class="text-3xl font-bold text-neon mb-4">02. 技术栈</h2>
+                </div>
+                <div class="md:col-span-8 w-full" id="skills-list">
+                    <!-- JS 渲染 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Experience 区域 -->
+        <section id="experience" class="py-24 md:py-40 gsap-section">
+            <div class="border-t border-white/10 pt-10 grid md:grid-cols-12 gap-10">
+                <div class="md:col-span-4">
+                    <h2 class="text-3xl font-bold text-neon mb-4">03. 工作经历</h2>
+                </div>
+                <div class="md:col-span-8 space-y-12" id="experience-list">
+                    <!-- JS 渲染 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Contact 区域 -->
+        <section id="contact" class="py-40 md:py-60 gsap-section text-center">
+            <p class="text-neon font-mono mb-4">04. What's Next?</p>
+            <h2 class="text-5xl md:text-7xl font-extrabold mb-8 tracking-tighter text-txt-main">Get In Touch</h2>
+            <p class="text-txt-muted text-lg max-w-xl mx-auto mb-12" id="contact-desc">
+                <!-- JS 渲染 -->
+            </p>
+            <a id="contact-btn" href="#" class="inline-block bg-transparent border-2 border-neon text-neon px-10 py-4 rounded font-bold text-lg hover:bg-neon hover:text-page-bg transition-all duration-300 transform hover:-translate-y-1">
+                发送邮件
+            </a>
+        </section>
+
+        <footer class="pb-8 text-center text-txt-muted text-xs font-mono opacity-60">
+            <p>Designed & Built by <span id="footer-name"></span></p>
+        </footer>
+
+    </main>
+
+    <!-- 逻辑脚本 -->
+    <script>
+        /**
+         * =============================================
+         * 1. 内容配置 (在此处修改简历内容)
+         * =============================================
+         */
+        const resumeConfig = {
+            info: {
+                name: "Alex Dev",
+                logo: "ALEX.JS",
+                greeting: "Hello, World.",
+                title: "Senior Frontend Engineer.",
+                subtitle: "I build accessible, pixel-perfect, and performant web experiences.",
+                email: "alex.dev@example.com"
+            },
+            about: `
+                <p class="mb-6">我是一名拥有 6 年以上经验的前端工程师，热衷于探索 Web 技术的边界。我不仅仅是写代码，更是通过技术解决实际问题，创造令人愉悦的用户体验。</p>
+                <p>我擅长使用 <span class="text-neon">React</span>, <span class="text-neon">Vue</span> 和 <span class="text-neon">WebGL</span> 构建高性能的单页应用。在业余时间，我喜欢研究生成式艺术和参与开源社区。</p>
+            `,
+            skills: [
+                { name: "JavaScript (ES6+) / TypeScript", level: "95%" },
+                { name: "React / Next.js", level: "90%" },
+                { name: "Vue 3 / Nuxt", level: "85%" },
+                { name: "Tailwind CSS / SCSS", level: "98%" },
+                { name: "GSAP / Three.js", level: "75%" },
+                { name: "Node.js / GraphQL", level: "80%" }
+            ],
+            experience: [
+                {
+                    role: "高级前端架构师",
+                    company: "TechFlow Inc.",
+                    time: "2021 - Present",
+                    desc: [
+                        "主导公司 SaaS 核心产品重构，性能指标 (LCP) 提升 50%。",
+                        "搭建企业级 Monorepo 架构，统一了 4 个子系统的开发流。",
+                        "负责团队 Code Review 与技术分享，提升团队整体代码质量。"
+                    ]
+                },
+                {
+                    role: "前端开发工程师",
+                    company: "Creative Studio",
+                    time: "2018 - 2021",
+                    desc: [
+                        "开发了超过 20 个高交互性的品牌官网，获得 Awwwards 提名。",
+                        "使用 GSAP 和 WebGL 实现复杂的视差滚动与 3D 展示效果。",
+                        "负责移动端响应式适配，确保在全设备上的完美体验。"
+                    ]
+                }
+            ],
+            contactDesc: "目前我正在寻找新的机会。无论你是想讨论前沿技术，还是有合作意向，我的收件箱随时为你敞开。"
+        };
+
+        /**
+         * =============================================
+         * 2. 渲染引擎 (将配置转换为 HTML)
+         * =============================================
+         */
+        const Render = {
+            init() {
+                this.renderInfo();
+                this.renderAbout();
+                this.renderSkills();
+                this.renderExperience();
+                this.renderContact();
+            },
+            renderInfo() {
+                document.getElementById('nav-logo').innerText = resumeConfig.info.logo;
+                document.getElementById('footer-name').innerText = resumeConfig.info.name;
+                const heroHTML = `
+                    <p class="hero-item font-mono text-neon mb-5 text-sm md:text-base">${resumeConfig.info.greeting}</p>
+                    <h1 class="hero-item text-5xl md:text-8xl font-extrabold text-txt-main mb-4 tracking-tighter leading-none">
+                        ${resumeConfig.info.name.split(" ")[0]} <span class="text-txt-muted">${resumeConfig.info.name.split(" ")[1]}</span>.
+                    </h1>
+                    <h2 class="hero-item text-3xl md:text-6xl font-bold text-txt-muted mb-8 opacity-80">${resumeConfig.info.title}</h2>
+                    <p class="hero-item text-txt-muted text-lg md:text-xl max-w-xl leading-relaxed mb-12">
+                        ${resumeConfig.info.subtitle}
+                    </p>
+                    <div class="hero-item">
+                        <a href="#experience" class="inline-block border-2 border-neon text-neon px-8 py-3 rounded hover:bg-neon hover:text-page-bg transition-colors duration-300 font-bold">
+                            查看经历
+                        </a>
+                    </div>
+                `;
+                document.getElementById('hero-content').innerHTML = heroHTML;
+            },
+            renderAbout() {
+                document.getElementById('about-content').innerHTML = resumeConfig.about;
+            },
+            renderSkills() {
+                const html = resumeConfig.skills.map(skill => `
+                    <div class="skill-item mb-8">
+                        <div class="flex justify-between mb-2 font-mono text-sm text-txt-main">
+                            <span>${skill.name}</span>
+                            <span class="text-neon">${skill.level}</span>
+                        </div>
+                        <div class="h-1 w-full bg-page-card overflow-hidden">
+                            <div class="skill-bar h-full bg-neon w-0" data-width="${skill.level}"></div>
+                        </div>
+                    </div>
+                `).join('');
+                document.getElementById('skills-list').innerHTML = html;
+            },
+            renderExperience() {
+                const html = resumeConfig.experience.map(exp => `
+                    <div class="exp-card group relative pl-8 border-l border-white/10 hover:border-neon transition-colors duration-300">
+                        <div class="absolute -left-[5px] top-0 w-2.5 h-2.5 bg-page-bg border border-neon rounded-full group-hover:bg-neon transition-colors duration-300"></div>
+                        
+                        <h3 class="text-2xl font-bold text-txt-main mb-1">${exp.role}</h3>
+                        <div class="text-neon font-mono text-sm mb-4">${exp.company} &nbsp;|&nbsp; ${exp.time}</div>
+                        
+                        <ul class="space-y-2">
+                            ${exp.desc.map(d => `
+                                <li class="text-txt-muted text-base relative pl-4 before:content-['▹'] before:absolute before:left-0 before:text-neon">
+                                    ${d}
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                `).join('');
+                document.getElementById('experience-list').innerHTML = html;
+            },
+            renderContact() {
+                document.getElementById('contact-desc').innerText = resumeConfig.contactDesc;
+                document.getElementById('contact-btn').href = `mailto:${resumeConfig.info.email}`;
+            }
+        };
+
+        /**
+         * =============================================
+         * 3. 动画引擎 (GSAP Logic)
+         * =============================================
+         */
+        const Anim = {
+            init() {
+                gsap.registerPlugin(ScrollTrigger);
+                this.heroAnim();
+                this.sectionAnim();
+                this.skillsAnim();
+                this.expAnim();
+            },
+            // Hero: 时间轴交错滑入
+            heroAnim() {
+                const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+                tl.from(".hero-item", {
+                    y: 60,
+                    opacity: 0,
+                    duration: 1.2,
+                    stagger: 0.15,
+                    delay: 0.2
+                });
+            },
+            // 通用板块: 滚动淡入上浮
+            sectionAnim() {
+                gsap.utils.toArray(".gsap-section").forEach(section => {
+                    gsap.fromTo(section, 
+                        { y: 60, opacity: 0 },
+                        {
+                            y: 0, 
+                            opacity: 1, 
+                            duration: 1, 
+                            ease: "power2.out",
+                            scrollTrigger: {
+                                trigger: section,
+                                start: "top 85%", // 视口底部以上 15% 处触发
+                                toggleActions: "play none none reverse"
+                            }
+                        }
+                    );
+                });
+            },
+            // 技能条: 动态增长
+            skillsAnim() {
+                gsap.utils.toArray(".skill-bar").forEach(bar => {
+                    gsap.to(bar, {
+                        width: bar.getAttribute("data-width"),
+                        duration: 1.5,
+                        ease: "power2.inOut",
+                        scrollTrigger: {
+                            trigger: bar,
+                            start: "top 90%"
+                        }
+                    });
+                });
+            },
+            // 工作经历: 列表交错弹出
+            expAnim() {
+                gsap.from(".exp-card", {
+                    x: -20,
+                    opacity: 0,
+                    duration: 0.8,
+                    stagger: 0.2,
+                    ease: "back.out(1.7)",
+                    scrollTrigger: {
+                        trigger: "#experience-list",
+                        start: "top 80%"
+                    }
+                });
+            }
+        };
+
+        // 初始化
+        document.addEventListener("DOMContentLoaded", () => {
+            Render.init();
+            // 稍作延迟确保DOM渲染完毕
+            setTimeout(() => Anim.init(), 100);
+        });
+    </script>
+</body>
+</html>
