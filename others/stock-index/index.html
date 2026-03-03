@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A 股行情</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #F8F9FA;
+      --bg-card: #FFFFFF;
+      --text-primary: #1A1A2E;
+      --text-secondary: #6B7280;
+      --text-tertiary: #9CA3AF;
+      --accent-red: #E74C3C;
+      --accent-green: #27AE60;
+      --border-light: #E5E7EB;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 40px 24px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .update-time {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      padding-left: 4px;
+    }
+
+    /* Index Cards */
+    .index-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .index-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .index-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .index-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .index-name {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .index-price {
+      font-size: 24px;
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 4px;
+      letter-spacing: -0.5px;
+    }
+
+    .index-change {
+      font-size: 14px;
+      font-weight: 500;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .change-up {
+      color: var(--accent-red);
+    }
+
+    .change-down {
+      color: var(--accent-green);
+    }
+
+    /* Gainers Table */
+    .gainers-table {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      background: #FAFAFA;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 14px 20px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    td {
+      padding: 16px 20px;
+      font-size: 14px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover {
+      background: #FAFAFA;
+    }
+
+    .rank {
+      font-weight: 600;
+      color: var(--text-tertiary);
+      font-family: 'JetBrains Mono', monospace;
+      width: 50px;
+    }
+
+    .stock-code {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-secondary);
+      font-size: 13px;
+    }
+
+    .stock-name {
+      font-weight: 500;
+    }
+
+    .stock-price {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500;
+    }
+
+    .stock-change {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-light);
+      color: var(--text-tertiary);
+      font-size: 12px;
+    }
+
+    .footer a {
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .index-card {
+      animation: fadeInUp 0.5s ease backwards;
+    }
+
+    .index-card:nth-child(1) { animation-delay: 0.05s; }
+    .index-card:nth-child(2) { animation-delay: 0.1s; }
+    .index-card:nth-child(3) { animation-delay: 0.15s; }
+    .index-card:nth-child(4) { animation-delay: 0.2s; }
+    .index-card:nth-child(5) { animation-delay: 0.25s; }
+
+    .gainers-table {
+      animation: fadeInUp 0.5s ease 0.3s backwards;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>A 股行情</h1>
+      <p class="update-time" id="updateTime">更新于 --:--:--</p>
+    </header>
+
+    <section class="section">
+      <h2 class="section-title">股指行情</h2>
+      <div class="index-grid" id="indexGrid">
+        <!-- Index cards will be inserted here -->
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">涨幅榜 Top 10</h2>
+      <div class="gainers-table">
+        <table>
+          <thead>
+            <tr>
+              <th>排名</th>
+              <th>代码</th>
+              <th>名称</th>
+              <th>最新价</th>
+              <th>涨跌幅</th>
+            </tr>
+          </thead>
+          <tbody id="gainersTable">
+            <!-- Table rows will be inserted here -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>数据来源：东方财富 | <a href="https://zcating.github.io">返回首页</a></p>
+    </footer>
+  </div>
+
+  <script>
+    // Index data
+    const indexData = [
+      { name: '上证指数', price: 4122.68, change: -1.43 },
+      { name: '深证成指', price: 14022.39, change: -3.07 },
+      { name: '创业板指', price: 3209.48, change: -2.57 },
+      { name: '科创50', price: 1388.41, change: -5.21 },
+      { name: '北证50', price: 1415.15, change: -4.11 }
+    ];
+
+    // Gainers data
+    const gainersData = [
+      { rank: 1, code: '300332', name: '天壕能源', price: 7.24, change: 20.07 },
+      { rank: 2, code: '300839', name: '博汇股份', price: 17.20, change: 20.03 },
+      { rank: 3, code: '300157', name: '新锦动力', price: 10.07, change: 20.02 },
+      { rank: 4, code: '300164', name: '通源石油', price: 21.70, change: 20.02 },
+      { rank: 5, code: '300191', name: '潜能恒信', price: 53.08, change: 20.01 },
+      { rank: 6, code: '301158', name: '德石股份', price: 37.44, change: 20.00 },
+      { rank: 7, code: '300483', name: '首华燃气', price: 25.03, change: 19.99 },
+      { rank: 8, code: '301302', name: '华如科技', price: 35.66, change: 19.99 },
+      { rank: 9, code: '300228', name: '富瑞特装', price: 12.81, change: 15.82 },
+      { rank: 10, code: '300435', name: '中泰股份', price: 34.92, change: 14.12 }
+    ];
+
+    // Format price
+    function formatPrice(price) {
+      return price.toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    // Format change
+    function formatChange(change) {
+      const sign = change >= 0 ? '+' : '';
+      return sign + change.toFixed(2) + '%';
+    }
+
+    // Get change class
+    function getChangeClass(change) {
+      return change >= 0 ? 'change-up' : 'change-down';
+    }
+
+    // Render index cards
+    function renderIndexes() {
+      const grid = document.getElementById('indexGrid');
+      grid.innerHTML = indexData.map(item => `
+        <div class="index-card">
+          <div class="index-name">${item.name}</div>
+          <div class="index-price">${formatPrice(item.price)}</div>
+          <div class="index-change ${getChangeClass(item.change)}">${formatChange(item.change)}</div>
+        </div>
+      `).join('');
+    }
+
+    // Render gainers table
+    function renderGainers() {
+      const tbody = document.getElementById('gainersTable');
+      tbody.innerHTML = gainersData.map(item => `
+        <tr>
+          <td class="rank">${item.rank}</td>
+          <td class="stock-code">${item.code}</td>
+          <td class="stock-name">${item.name}</td>
+          <td class="stock-price">${formatPrice(item.price)}</td>
+          <td class="stock-change ${getChangeClass(item.change)}">${formatChange(item.change)}</td>
+        </tr>
+      `).join('');
+    }
+
+    // Update time
+    function updateTime() {
+      const now = new Date();
+      const timeStr = now.toLocaleString('zh-CN', { 
+        year: 'numeric', 
+        month: '2-digit', 
+        day: '2-digit',
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit',
+        hour12: false
+      });
+      document.getElementById('updateTime').textContent = '更新于 ' + timeStr;
+    }
+
+    // Initialize
+    renderIndexes();
+    renderGainers();
+    updateTime();
+
+    // Auto refresh every 30 seconds
+    setInterval(() => {
+      location.reload();
+    }, 30000);
+  </script>
+</body>
+</html>
