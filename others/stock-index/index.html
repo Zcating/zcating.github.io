@@ -49,12 +49,12 @@
       <button class="type-btn" data-type="losers">跌幅榜</button>
     </div>
     <div class="index-tabs" id="aTabs">
-      <div class="index-tab active" data-market="sh"><div class="tab-name">上证指数</div><div class="tab-change" id="sh-change">-1.43%</div></div>
-      <div class="index-tab" data-market="sz"><div class="tab-name">深证成指</div><div class="tab-change" id="sz-change">-3.07%</div></div>
-      <div class="index-tab" data-market="cy"><div class="tab-name">创业板指</div><div class="tab-change" id="cy-change">-2.57%</div></div>
+      <div class="index-tab active" data-market="sh"><div class="tab-name">上证指数</div><div class="tab-change" id="sh-change">加载中</div></div>
+      <div class="index-tab" data-market="sz"><div class="tab-name">深证成指</div><div class="tab-change" id="sz-change">加载中</div></div>
+      <div class="index-tab" data-market="cy"><div class="tab-name">创业板指</div><div class="tab-change" id="cy-change">加载中</div></div>
     </div>
     <div class="index-tabs" id="hkTabs" style="display:none;">
-      <div class="index-tab active" data-market="hsi"><div class="tab-name">恒生指数</div><div class="tab-change" id="hsi-change">-1.12%</div></div>
+      <div class="index-tab active" data-market="hsi"><div class="tab-name">恒生指数</div><div class="tab-change" id="hsi-change">加载中</div></div>
     </div>
     <div class="section-title" id="title">上证涨幅榜 Top 20</div>
     <div class="stock-list" id="list">加载中...</div>
@@ -62,85 +62,137 @@
   </div>
   <script>
     let currentMarket = 'a', currentType = 'gainers', currentIndex = 'sh';
-    const indexData = {sh:{n:'上证指数',c:-1.43},sz:{n:'深证成指',c:-3.07},cy:{n:'创业板指',c:-2.57},hsi:{n:'恒生指数',c:-1.12}};
+    let hkData = [], hkLoaded = false;
+    
+    // A股指数数据
+    async function loadAIndex() {
+      try {
+        const res = await fetch('https://push2.eastmoney.com/api/qt/ulist.np/get?fltt=2&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18&secids=1.000001,0.399001,0.399006,1.000688,0.899050');
+        const json = await res.json();
+        const data = json.data.diff;
+        const map = {sh: 'sh', sz: 'sz', cy: 'cy'};
+        data.forEach(d => {
+          if(d.f12 === '000001') document.getElementById('sh-change').textContent = (d.f3>0?'+':'') + d.f3.toFixed(2) + '%';
+          if(d.f12 === '399001') document.getElementById('sz-change').textContent = (d.f3>0?'+':'') + d.f3.toFixed(2) + '%';
+          if(d.f12 === '399006') document.getElementById('cy-change').textContent = (d.f3>0?'+':'') + d.f3.toFixed(2) + '%';
+        });
+      } catch(e) { console.error(e); }
+    }
+    
+    // A股涨跌幅榜数据
     const aGainers = {sh:[{r:1,c:'601866',n:'中远海发',p:3.25,g:10.17},{r:2,c:'600617',n:'国新能源',p:3.70,g:10.12},{r:3,c:'600339',n:'中油工程',p:5.13,g:10.09},{r:4,c:'601139',n:'深圳燃气',p:7.87,g:10.07},{r:5,c:'600108',n:'亚盛集团',p:4.81,g:10.07},{r:6,c:'605368',n:'蓝天燃气',p:9.41,g:10.06},{r:7,c:'601015',n:'陕西黑猫',p:5.69,g:10.06},{r:8,c:'600403',n:'大有能源',p:7.88,g:10.06},{r:9,c:'600256',n:'广汇能源',p:7.12,g:10.05},{r:10,c:'601857',n:'中国石油',p:13.15,g:10.04},{r:11,c:'600635',n:'大众公用',p:6.91,g:10.03},{r:12,c:'600688',n:'上海石化',p:3.84,g:10.03},{r:13,c:'601872',n:'招商轮船',p:19.65,g:10.02},{r:14,c:'601808',n:'中海油服',p:20.42,g:10.02},{r:15,c:'605169',n:'洪通燃气',p:15.37,g:10.02},{r:16,c:'600367',n:'红星发展',p:25.91,g:10.02},{r:17,c:'600714',n:'金瑞矿业',p:21.74,g:10.02},{r:18,c:'600803',n:'新奥股份',p:24.05,g:10.02},{r:19,c:'601083',n:'锦江航运',p:13.73,g:10.02},{r:20,c:'603080',n:'新疆火炬',p:27.57,g:10.02}],sz:[{r:1,c:'002554',n:'惠博普',p:5.13,g:10.09},{r:2,c:'002682',n:'龙洲股份',p:7.67,g:10.04},{r:3,c:'000968',n:'蓝焰控股',p:10.41,g:10.04},{r:4,c:'002629',n:'仁智股份',p:8.11,g:10.04},{r:5,c:'000554',n:'泰山石油',p:10.85,g:10.04},{r:6,c:'000301',n:'东方盛虹',p:14.58,g:10.04},{r:7,c:'000096',n:'广聚能源',p:13.27,g:10.03},{r:8,c:'002911',n:'佛燃能源',p:17.77,g:10.03},{r:9,c:'001299',n:'美能能源',p:15.47,g:10.03},{r:10,c:'002040',n:'南京港',p:13.17,g:10.03},{r:11,c:'002506',n:'协鑫集成',p:5.16,g:10.02},{r:12,c:'002490',n:'山东墨龙',p:10.65,g:10.02},{r:13,c:'001269',n:'欧晶科技',p:26.03,g:10.02},{r:14,c:'002828',n:'贝肯能源',p:16.37,g:10.01},{r:15,c:'002980',n:'华盛昌',p:35.06,g:10.01},{r:16,c:'002350',n:'北京科锐',p:13.08,g:10.01},{r:17,c:'002957',n:'科瑞技术',p:31.67,g:10.00},{r:18,c:'002952',n:'亚世光电',p:24.43,g:10.00},{r:19,c:'002207',n:'准油股份',p:13.66,g:9.98},{r:20,c:'002491',n:'通鼎互联',p:12.23,g:9.98}],cy:[{r:1,c:'300332',n:'天壕能源',p:7.24,g:20.07},{r:2,c:'300839',n:'博汇股份',p:17.20,g:20.03},{r:3,c:'300157',n:'新锦动力',p:10.07,g:20.02},{r:4,c:'300164',n:'通源石油',p:21.70,g:20.02},{r:5,c:'300191',n:'潜能恒信',p:53.08,g:20.01},{r:6,c:'301158',n:'德石股份',p:37.44,g:20.00},{r:7,c:'300483',n:'首华燃气',p:25.03,g:19.99},{r:8,c:'301302',n:'华如科技',p:35.66,g:19.99},{r:9,c:'300228',n:'富瑞特装',p:12.81,g:15.82},{r:10,c:'300435',n:'中泰股份',p:34.92,g:14.12},{r:11,c:'300658',n:'延江股份',p:27.91,g:13.87},{r:12,c:'301658',n:'首航新能',p:36.09,g:13.49},{r:13,c:'300135',n:'宝利国际',p:5.16,g:12.66},{r:14,c:'301500',n:'飞南资源',p:25.71,g:9.36},{r:15,c:'300335',n:'迪森股份',p:6.90,g:9.35},{r:16,c:'300438',n:'鹏辉能源',p:49.14,g:8.96},{r:17,c:'301613',n:'新铝时代',p:53.50,g:7.69},{r:18,c:'301179',n:'泽宇智能',p:18.88,g:6.79},{r:19,c:'300967',n:'晓鸣股份',p:20.81,g:6.34},{r:20,c:'301626',n:'苏州天脉',p:240.88,g:6.03}]};
     const aLosers = {sh:[{r:1,c:'600537',n:'亿晶光电',p:3.21,g:-10.08},{r:2,c:'603500',n:'祥和实业',p:12.11,g:-10.03},{r:3,c:'600246',n:'万通发展',p:10.95,g:-10.02},{r:4,c:'603601',n:'再升科技',p:11.50,g:-10.02},{r:5,c:'600392',n:'盛和资源',p:28.95,g:-10.01},{r:6,c:'601615',n:'明阳智能',p:19.69,g:-10.01},{r:7,c:'600343',n:'航天动力',p:33.28,g:-10.01},{r:8,c:'600259',n:'中稀有色',p:101.06,g:-10.00},{r:9,c:'605255',n:'天普股份',p:116.45,g:-10.00},{r:10,c:'600391',n:'航发科技',p:46.89,g:-10.00},{r:11,c:'600397',n:'江钨装备',p:19.35,g:-10.00},{r:12,c:'603163',n:'圣晖集成',p:127.44,g:-10.00},{r:13,c:'603920',n:'世运电路',p:57.42,g:-10.00},{r:14,c:'605123',n:'派克新材',p:102.79,g:-10.00},{r:15,c:'600961',n:'株冶集团',p:23.41,g:-10.00},{r:16,c:'601231',n:'环旭电子',p:43.58,g:-10.00},{r:17,c:'603626',n:'科森科技',p:24.68,g:-9.99},{r:18,c:'600610',n:'中毅达',p:10.63,g:-9.99},{r:19,c:'603429',n:'集友股份',p:8.92,g:-9.99},{r:20,c:'603859',n:'能科科技',p:43.88,g:-9.99}],sz:[{r:1,c:'002554',n:'惠博普',p:5.13,g:-10.09},{r:2,c:'002682',n:'龙洲股份',p:7.67,g:-10.04},{r:3,c:'000968',n:'蓝焰控股',p:10.41,g:-10.04},{r:4,c:'002629',n:'仁智股份',p:8.11,g:-10.04},{r:5,c:'000554',n:'泰山石油',p:10.85,g:-10.04},{r:6,c:'000301',n:'东方盛虹',p:14.58,g:-10.04},{r:7,c:'000096',n:'广聚能源',p:13.27,g:-10.03},{r:8,c:'002911',n:'佛燃能源',p:17.77,g:-10.03},{r:9,c:'001299',n:'美能能源',p:15.47,g:-10.03},{r:10,c:'002040',n:'南京港',p:13.17,g:-10.03},{r:11,c:'002506',n:'协鑫集成',p:5.16,g:-10.02},{r:12,c:'002490',n:'山东墨龙',p:10.65,g:-10.02},{r:13,c:'001269',n:'欧晶科技',p:26.03,g:-10.02},{r:14,c:'002828',n:'贝肯能源',p:16.37,g:-10.01},{r:15,c:'002980',n:'华盛昌',p:35.06,g:-10.01},{r:16,c:'002350',n:'北京科锐',p:13.08,g:-10.01},{r:17,c:'002957',n:'科瑞技术',p:31.67,g:-10.00},{r:18,c:'002952',n:'亚世光电',p:24.43,g:-10.00},{r:19,c:'002207',n:'准油股份',p:13.66,g:-9.98},{r:20,c:'002491',n:'通鼎互联',p:12.23,g:-9.98}],cy:[{r:1,c:'300920',n:'润阳科技',p:39.57,g:-14.26},{r:2,c:'300395',n:'菲利华',p:112.43,g:-13.18},{r:3,c:'300774',n:'倍杰特',p:23.80,g:-13.11},{r:4,c:'300136',n:'信维通信',p:68.50,g:-12.66},{r:5,c:'300277',n:'海联讯',p:21.07,g:-12.32},{r:6,c:'300672',n:'国科微',p:138.73,g:-12.14},{r:7,c:'300102',n:'乾照光电',p:32.02,g:-12.08},{r:8,c:'301086',n:'鸿富瀚',p:115.23,g:-12.07},{r:9,c:'301232',n:'飞沃科技',p:188.40,g:-12.04},{r:10,c:'300342',n:'天银机电',p:41.52,g:-11.90},{r:11,c:'301079',n:'邵阳液压',p:42.18,g:-11.72},{r:12,c:'300447',n:'全信股份',p:19.86,g:-11.69},{r:13,c:'300053',n:'航宇微',p:18.55,g:-11.58},{r:14,c:'300113',n:'顺网科技',p:24.12,g:-11.52},{r:15,c:'301005',n:'超捷股份',p:156.99,g:-11.41},{r:16,c:'301117',n:'佳缘科技',p:51.23,g:-11.03},{r:17,c:'301226',n:'祥明智能',p:42.87,g:-10.98},{r:18,c:'300480',n:'光力科技',p:25.90,g:-10.97},{r:19,c:'300922',n:'天秦装备',p:21.63,g:-10.91},{r:20,c:'300711',n:'广哈通信',p:25.80,g:-10.85}]};
-    const hkGainers = [{r:1,c:'02688',n:'新奥能源',p:71.85,g:5.12},{r:2,c:'00857',n:'中国石油股份',p:10.43,g:5.04},{r:3,c:'00883',n:'中国海洋石油',p:27.60,g:3.22},{r:4,c:'00939',n:'建设银行',p:7.95,g:2.19},{r:5,c:'00003',n:'香港中华煤气',p:7.70,g:1.85},{r:6,c:'00135',n:'昆仑能源',p:8.50,g:1.67},{r:7,c:'01398',n:'工商银行',p:6.45,g:1.57},{r:8,c:'01288',n:'农业银行',p:5.24,g:1.55},{r:9,c:'00823',n:'领展房产基金',p:38.52,g:1.53},{r:10,c:'03328',n:'交通银行',p:6.80,g:1.19},{r:11,c:'00384',n:'中国燃气',p:8.18,g:1.11},{r:12,c:'00066',n:'港铁公司',p:36.54,g:0.88},{r:13,c:'00002',n:'中电控股',p:74.80,g:0.88},{r:14,c:'01658',n:'邮储银行',p:4.90,g:0.82},{r:15,c:'00006',n:'电能实业',p:63.30,g:0.80},{r:16,c:'00004',n:'九龙仓集团',p:25.52,g:0.71},{r:17,c:'00392',n:'北京控股',p:35.78,g:0.68},{r:18,c:'03988',n:'中国银行',p:4.56,g:0.66},{r:19,c:'01038',n:'长江基建集团',p:66.10,g:0.53},{r:20,c:'03968',n:'招商银行',p:48.24,g:0.37}];
-    const hkLosers = [{r:1,c:'00700',n:'腾讯控股',p:510.50,g:-0.68},{r:2,c:'09988',n:'阿里巴巴-W',p:134.80,g:-1.17},{r:3,c:'03690',n:'美团-W',p:75.65,g:-2.26},{r:4,c:'01810',n:'小米集团-W',p:31.58,g:-4.71},{r:5,c:'00981',n:'中芯国际',p:62.55,g:-3.17},{r:6,c:'02318',n:'中国平安',p:66.00,g:-0.60},{r:7,c:'02333',n:'长城汽车',p:12.43,g:-1.35},{r:8,c:'06690',n:'海尔智家',p:25.44,g:-2.45},{r:9,c:'03888',n:'金山软件',p:24.66,g:1.07},{r:10,c:'00788',n:'中国铁塔',p:11.00,g:-1.43},{r:11,c:'00005',n:'汇丰控股',p:135.80,g:-2.79},{r:12,c:'00001',n:'长和',p:62.65,g:0.00},{r:13,c:'00175',n:'吉利汽车',p:28.75,g:-2.55},{r:14,c:'00267',n:'中信证券',p:21.55,g:-3.67},{r:15,c:'09669',n:'农夫山泉',p:148.80,g:-1.13},{r:16,c:'01024',n:'快手-W',p:68.25,g:-3.68},{r:17,c:'06186',n:'中国飞鹤',p:8.23,g:-2.14},{r:18,c:'00522',n:'ASM太平洋',p:98.75,g:-4.56},{r:19,c:'06968',n:'中国中免',p:158.30,g:-2.32},{r:20,c:'06808',n:'京东健康',p:28.90,g:-3.85}];
-    let hkData = [], hkLoaded = false;
+    
+    // 备用港股数据
+    const hkBackup = {gainers:[{r:1,c:'02688',n:'新奥能源',p:71.85,g:5.12},{r:2,c:'00857',n:'中国石油股份',p:10.43,g:5.04},{r:3,c:'00883',n:'中国海洋石油',p:27.60,g:3.22},{r:4,c:'00939',n:'建设银行',p:7.95,g:2.19},{r:5,c:'00003',n:'香港中华煤气',p:7.70,g:1.85},{r:6,c:'00135',n:'昆仑能源',p:8.50,g:1.67},{r:7,c:'01398',n:'工商银行',p:6.45,g:1.57},{r:8,c:'01288',n:'农业银行',p:5.24,g:1.55},{r:9,c:'00823',n:'领展房产基金',p:38.52,g:1.53},{r:10,c:'03328',n:'交通银行',p:6.80,g:1.19},{r:11,c:'00384',n:'中国燃气',p:8.18,g:1.11},{r:12,c:'00066',n:'港铁公司',p:36.54,g:0.88},{r:13,c:'00002',n:'中电控股',p:74.80,g:0.88},{r:14,c:'01658',n:'邮储银行',p:4.90,g:0.82},{r:15,c:'00006',n:'电能实业',p:63.30,g:0.80},{r:16,c:'00004',n:'九龙仓集团',p:25.52,g:0.71},{r:17,c:'00392',n:'北京控股',p:35.78,g:0.68},{r:18,c:'03988',n:'中国银行',p:4.56,g:0.66},{r:19,c:'01038',n:'长江基建集团',p:66.10,g:0.53},{r:20,c:'03968',n:'招商银行',p:48.24,g:0.37}],losers:[{r:1,c:'00700',n:'腾讯控股',p:510.50,g:-0.68},{r:2,c:'09988',n:'阿里巴巴-W',p:134.80,g:-1.17},{r:3,c:'03690',n:'美团-W',p:75.65,g:-2.26},{r:4,c:'01810',n:'小米集团-W',p:31.58,g:-4.71},{r:5,c:'00981',n:'中芯国际',p:62.55,g:-3.17},{r:6,c:'02318',n:'中国平安',p:66.00,g:-0.60},{r:7,c:'02333',n:'长城汽车',p:12.43,g:-1.35},{r:8,c:'06690',n:'海尔智家',p:25.44,g:-2.45},{r:9,c:'03888',n:'金山软件',p:24.66,g:1.07},{r:10,c:'00788',n:'中国铁塔',p:11.00,g:-1.43},{r:11,c:'00005',n:'汇丰控股',p:135.80,g:-2.79},{r:12,c:'00001',n:'长和',p:62.65,g:0.00},{r:13,c:'00175',n:'吉利汽车',p:28.75,g:-2.55},{r:14,c:'00267',n:'中信证券',p:21.55,g:-3.67},{r:15,c:'09669',n:'农夫山泉',p:148.80,g:-1.13},{r:16,c:'01024',n:'快手-W',p:68.25,g:-3.68},{r:17,c:'06186',n:'中国飞鹤',p:8.23,g:-2.14},{r:18,c:'00522',n:'ASM太平洋',p:98.75,g:-4.56},{r:19,c:'06968',n:'中国中免',p:158.30,g:-2.32},{r:20,c:'06808',n:'京东健康',p:28.90,g:-3.85}]};
     
     async function loadHK() {
       if(hkLoaded) return;
       try {
-        const po = currentType==='gainers'?1:0;
-        const url = `https://push2.eastmoney.com/api/qt/clist/get?pn=1&pz=100&po=${po}&np=1&fltt=2&invt=2&fid=f3&fs=m:116&fields=f1,f2,f3,f4,f12,f13,f14`;
+        const po = currentType === 'gainers' ? 1 : 0;
+        // 使用朱总找到的 API
+        const url = `https://push2.eastmoney.com/api/qt/clist/get?np=1&fltt=1&invt=2&fs=m%3A128%2Bt%3A3%2Cm%3A128%2Bt%3A4%2Cm%3A128%2Bt%3A1%2Cm%3A128%2Bt%3A2&fields=f12,f13,f14,f1,f2,f3,f4&fid=f3&pn=1&pz=100&po=${po}&dect=1`;
         const res = await fetch(url);
-        const txt = await res.text();
-        const json = JSON.parse(txt);
-        const stocks = json.data.diff.filter(s => s.f1 === 1).slice(0,20).map((s,i) => ({r:i+1,c:s.f12,n:s.f14,p:s.f2,g:s.f3}));
-        hkData = stocks;
+        const json = await res.json();
+        
+        // 过滤：只保留 f1=1 (正股)，排除窝轮/牛熊证
+        let stocks = json.data.diff.filter(s => s.f1 === 1).slice(0, 20).map((s, i) => ({
+          r: i + 1,
+          c: s.f12,
+          n: s.f14,
+          p: s.f2,
+          g: s.f3
+        }));
+        
+        if (stocks.length > 0) {
+          hkData = stocks;
+        } else {
+          hkData = currentType === 'gainers' ? hkBackup.gainers : hkBackup.losers;
+        }
         hkLoaded = true;
       } catch(e) {
-        console.log('API failed, use backup data');
-        hkData = currentType==='gainers'?hkGainers:hkLosers;
+        console.error('HK API failed:', e);
+        hkData = currentType === 'gainers' ? hkBackup.gainers : hkBackup.losers;
         hkLoaded = true;
       }
     }
     
-    function fmtP(p) { return p.toLocaleString('zh-CN',{minimumFractionDigits:2,maximumFractionDigits:2}); }
-    function fmtG(g) { return (g>=0?'+':'') + g.toFixed(2) + '%'; }
-    function cls(g) { return g>=0?'change-up':'change-down'; }
-    function rnk(r) { return r<=3?'top3':''; }
+    function fmtP(p) { 
+      if (p === '-' || p == null) return '-';
+      return Number(p).toLocaleString('zh-CN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    }
+    function fmtG(g) { 
+      if (g === '-' || g == null) return '-';
+      return (g >= 0 ? '+' : '') + Number(g).toFixed(2) + '%';
+    }
+    function cls(g) { return g >= 0 ? 'change-up' : 'change-down'; }
+    function rnk(r) { return r <= 3 ? 'top3' : ''; }
     
     async function render() {
       let data, m, t;
-      if(currentMarket === 'a') {
-        data = currentType==='gainers'?aGainers[currentIndex]:aLosers[currentIndex];
-        m = currentIndex==='sh'?'上证':currentIndex==='sz'?'深证':'创业板';
+      if (currentMarket === 'a') {
+        data = currentType === 'gainers' ? aGainers[currentIndex] : aLosers[currentIndex];
+        m = currentIndex === 'sh' ? '上证' : currentIndex === 'sz' ? '深证' : '创业板';
       } else {
         await loadHK();
         data = hkData;
         m = '港股';
       }
-      t = currentType==='gainers'?'涨幅榜':'跌幅榜';
+      t = currentType === 'gainers' ? '涨幅榜' : '跌幅榜';
+      
       let html = '<div class="stock-item header"><div class="stock-rank">排名</div><div class="stock-code">代码</div><div class="stock-name">名称</div><div class="stock-price">最新价</div><div class="stock-change">涨跌幅</div></div>';
-      data.forEach((s,i) => { html += `<div class="stock-item" style="animation-delay:${i*0.02}s"><div class="stock-rank ${rnk(s.r)}">${s.r}</div><div class="stock-code">${s.c}</div><div class="stock-name">${s.n}</div><div class="stock-price">${fmtP(s.p)}</div><div class="stock-change ${cls(s.g)}">${fmtG(s.g)}</div></div>`; });
+      data.forEach((s, i) => {
+        html += `<div class="stock-item" style="animation-delay:${i * 0.02}s">
+          <div class="stock-rank ${rnk(s.r)}">${s.r}</div>
+          <div class="stock-code">${s.c}</div>
+          <div class="stock-name">${s.n}</div>
+          <div class="stock-price">${fmtP(s.p)}</div>
+          <div class="stock-change ${cls(s.g)}">${fmtG(s.g)}</div>
+        </div>`;
+      });
       document.getElementById('list').innerHTML = html;
       document.getElementById('title').textContent = m + t + ' Top 20';
     }
     
     document.querySelector('.market-toggle').onclick = async e => {
       const btn = e.target.closest('.market-btn');
-      if(!btn) return;
+      if (!btn) return;
       currentMarket = btn.dataset.market;
       document.querySelectorAll('.market-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      document.getElementById('aTabs').style.display = currentMarket==='a'?'flex':'none';
-      document.getElementById('hkTabs').style.display = currentMarket==='hk'?'flex':'none';
-      currentIndex = currentMarket==='a'?'sh':'hsi';
+      document.getElementById('aTabs').style.display = currentMarket === 'a' ? 'flex' : 'none';
+      document.getElementById('hkTabs').style.display = currentMarket === 'hk' ? 'flex' : 'none';
+      currentIndex = currentMarket === 'a' ? 'sh' : 'hsi';
       await render();
     };
+    
     document.querySelector('.type-toggle').onclick = async e => {
       const btn = e.target.closest('.type-btn');
-      if(!btn) return;
+      if (!btn) return;
       currentType = btn.dataset.type;
       document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       hkLoaded = false;
       await render();
     };
+    
     document.getElementById('aTabs').onclick = async e => {
       const tab = e.target.closest('.index-tab');
-      if(!tab) return;
+      if (!tab) return;
       currentIndex = tab.dataset.market;
       document.querySelectorAll('#aTabs .index-tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       await render();
     };
     
-    function time() { document.getElementById('time').textContent = '更新于 ' + new Date().toLocaleString('zh-CN',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}); }
-    render(); time();
-    setInterval(() => { render(); time(); }, 30000);
+    function time() {
+      document.getElementById('time').textContent = '更新于 ' + new Date().toLocaleString('zh-CN', {hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false});
+    }
+    
+    loadAIndex();
+    render();
+    time();
+    setInterval(() => { render(); time(); loadAIndex(); }, 30000);
   </script>
 </body>
 </html>
