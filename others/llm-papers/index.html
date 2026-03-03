@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); 
+  color: #fff; 
+  padding: 40px; 
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+  min-height: 100vh;
+  width: 1400px;
+}
+h1 { color: #ffd700; font-size: 52px; margin-bottom: 30px; border-bottom: 3px solid #ffd700; padding-bottom: 15px; }
+h2 { color: #00d4ff; font-size: 36px; margin: 30px 0 15px; }
+h3 { color: #ff6b6b; font-size: 28px; margin: 25px 0 10px; }
+p { font-size: 22px; line-height: 1.8; margin: 12px 0; }
+a { color: #00d4ff; }
+.num { color: #ff9f43; font-size: 32px; font-weight: bold; margin: 25px 0 15px; }
+.effect { color: #98fb98; font-weight: bold; margin: 15px 0 10px; font-size: 24px; }
+.link { color: #00d4ff; margin: 10px 0; font-size: 20px; }
+hr { border: none; border-top: 1px solid #444; margin: 25px 0; }
+.footer { font-size: 18px; color: #888; text-align: center; margin-top: 30px; }
+.paper { background: rgba(255,255,255,0.05); padding: 25px; border-radius: 12px; margin-bottom: 25px; }
+</style>
+</head>
+<body>
+<h1>🔥 HuggingFace 热门 LLM 论文 TOP 10</h1>
+<hr>
+
+<div class="num">1️⃣ LLM in a flash (260票)</div>
+<div class="paper">
+<h2>高效内存受限设备的 LLM 推理</h2>
+<p class="link">🔗 <a href="https://huggingface.co/papers/2312.11514">huggingface.co/papers/2312.11514</a></p>
+<p><strong>摘要</strong>：解决在有限 DRAM 容量的设备上高效运行 LLM 的挑战。提出两种技术：</p>
+<p>• <strong>Windowing</strong>：通过重用先前激活的神经元来减少数据传输</p>
+<p>• <strong>Row-Column Bundling</strong>：根据 flash 顺序数据访问特点，增加读取的数据块大小</p>
+<p class="effect">效果：可运行比可用 DRAM 大两倍的模型，CPU 推理速度提升 4-5 倍，GPU 提升 20-25 倍</p>
+<hr>
+
+<div class="num">2️⃣ Executable Code Actions (188票)</div>
+<h2>用代码执行替代 JSON 生成</h2>
+<p class="link">🔗 <a href="https://huggingface.co/papers/2402.01030">huggingface.co/papers/2402.01030</a></p>
+<p><strong>摘要</strong>：提出 CodeAct 范式，用可执行 Python 代码统一 LLM 代理的动作空间。集成 Python 解释器，支持多轮交互中动态修正动作。</p>
+<p class="effect">效果：在 API-Bank 基准测试中成功率提升高达 20%</p>
+<hr>
+
+<div class="num">3️⃣ LLM Agent Operating System (73票)</div>
+<h2>LLM 代理操作系统 AIOS</h2>
+<p class="link">🔗 <a href="https://huggingface.co/papers/2403.16971">huggingface.co/papers/2403.16971</a></p>
+<p><strong>摘要</strong>：解决 LLM 代理部署中的挑战：调度优化、上下文维护、异构代理集成。提出 AIOS 架构，优化资源分配、支持上下文切换、并发执行、工具服务、访问控制。</p>
+<hr>
+
+<div class="num">4️⃣ Enhancing Human-Like Responses (61票)</div>
+<h2>让 LLM 更像人</h2>
+<p class="link">🔗 <a href="https://huggingface.co/papers/2501.05032">huggingface.co/papers/2501.05032</a></p>
+<p><strong>摘要</strong>：探索让大语言模型更拟人化的技术，包括：用多样化数据集微调、融入心理学原理、设计更模仿人类推理模式的模型。</p>
+<p class="effect">意义：提升用户体验，拓展 AI 应用边界</p>
+<hr>
+
+<div class="num">5️⃣ CALM - LLM Augmented LLMs (38票)</div>
+<h2>模型组合扩展能力</h2>
+<p class="link">🔗 <a href="https://huggingface.co/papers/2401.02412">huggingface.co/papers/2401.02412</a></p>
+<p><strong>摘要</strong>：提出 CALM 方法，通过跨注意力机制组合不同模型。保留原有模型权重，新增少量参数即可扩展能力。</p>
+<p class="effect">效果：PaLM2-S 搭配小模型，低资源语言翻译提升 13%，代码生成相对提升 40%</p>
+<hr>
+
+<div class="num">6️⃣ Judging the Judges (37票)</div>
+<h2>LLM 作为评判者的评估与偏见</h2>
+<p class="link">🔗 <a href="https://huggingface.co/papers/2406.12624">huggingface.co/papers/2406.12624</a></p>
+<p><strong>摘要</strong>：全面研究 LLM 作为评判者的表现。使用 TriviaQA 评估 9 个评判模型。</p>
+<p class="effect">发现：Llama-3 70B 和 GPT-4 Turbo 与人类对齐良好；强调使用 Cohen's kappa 的重要性</p>
+<hr>
+
+<div class="num">7️⃣ LLM-Rec (28票)</div>
+<h2>LLM 做个性化推荐</h2>
+<p class="link">🔗 <a href="https://huggingface.co/papers/2307.15780">huggingface.co/papers/2307.15780</a></p>
+<p><strong>摘要</strong>：研究通过提示工程增强 LLM 个性化推荐性能。提出四种提示策略：基础提示、推荐驱动提示、参与度引导提示、组合提示。</p>
+<p class="effect">效果：结合原始内容描述和 LLM 增强输入，提升推荐效果</p>
+<hr>
+
+<div class="num">8️⃣ Self-Extend (27票)</div>
+<h2>无需微调扩展上下文窗口</h2>
+<p class="link">🔗 <a href="https://huggingface.co/papers/2401.01325">huggingface.co/papers/2401.01325</a></p>
+<p><strong>摘要</strong>：提出 Self-Extend 方法，激发 LLM 本身处理长上下文的潜力。构建双层注意力信息：组级和邻居级。</p>
+<p class="effect">效果：仅需修改 4 行代码，无需微调即可扩展现有 LLM 上下文窗口</p>
+<hr>
+
+<div class="num">9️⃣ VoiceAssistant-Eval (23票)</div>
+<h2>语音 AI 助手 benchmark</h2>
+<p class="link">🔗 <a href="https://huggingface.co/papers/2509.22651">huggingface.co/papers/2509.22651</a></p>
+<p><strong>摘要</strong>：全面评估 AI 助手在听、说、看方面的能力。包含 10,497 个样本，13 个任务类别。</p>
+<p class="effect">发现：开源模型不一定输闭源模型；大多数模型擅长"说"但听力理解较弱</p>
+<hr>
+
+<div class="num">🔟 Hydragen (20票)</div>
+<h2>高吞吐量推理优化</h2>
+<p class="link">🔗 <a href="https://huggingface.co/papers/2402.05099">huggingface.co/papers/2402.05099</a></p>
+<p><strong>摘要</strong>：针对共享前缀的批量推理优化。分解共享前缀和唯一后缀的注意力计算。</p>
+<p class="effect">效果：端到端吞吐量提升高达 32 倍；支持超长共享上下文</p>
+
+<p class="footer">整理 by 小龙虾 🦞 | 数据来源：HuggingFace Papers</p>
+</body>
+</html>
