@@ -3,429 +3,135 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A 股行情</title>
+  <title>股票行情</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg-primary: #F8F9FA;
-      --bg-card: #FFFFFF;
-      --text-primary: #1A1A2E;
-      --text-secondary: #6B7280;
-      --text-tertiary: #9CA3AF;
-      --accent-red: #E74C3C;
-      --accent-green: #27AE60;
-      --border-light: #E5E7EB;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
-      --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
-      --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 16px;
-    }
-
+    :root { --bg-primary: #F8F9FA; --bg-card: #FFFFFF; --text-primary: #1A1A2E; --text-secondary: #6B7280; --text-tertiary: #9CA3AF; --accent-red: #E74C3C; --accent-green: #27AE60; --border-light: #E5E7EB; --shadow-sm: 0 1px 3px rgba(0,0,0,0.04); --shadow-md: 0 4px 12px rgba(0,0,0,0.06); --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      line-height: 1.6;
-      min-height: 100vh;
-      padding: 40px 24px;
-    }
-
+    body { font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; min-height: 100vh; padding: 40px 24px; }
     .container { max-width: 900px; margin: 0 auto; }
-
     header { text-align: center; margin-bottom: 24px; }
-
     h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 8px; }
-
     .update-time { font-size: 13px; color: var(--text-tertiary); font-family: 'JetBrains Mono', monospace; }
-
-    /* Type Toggle */
-    .type-toggle {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 20px;
-    }
-
-    .type-btn {
-      padding: 8px 24px;
-      border: 2px solid var(--border-light);
-      background: var(--bg-card);
-      border-radius: 20px;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
+    .market-toggle { display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; }
+    .market-btn { padding: 10px 28px; border: 2px solid var(--border-light); background: var(--bg-card); border-radius: 24px; font-size: 15px; font-weight: 500; cursor: pointer; transition: all 0.2s ease; }
+    .market-btn:hover { border-color: var(--text-secondary); }
+    .market-btn.active { background: var(--text-primary); color: white; border-color: var(--text-primary); }
+    .type-toggle { display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; }
+    .type-btn { padding: 8px 24px; border: 2px solid var(--border-light); background: var(--bg-card); border-radius: 20px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s ease; }
     .type-btn:hover { border-color: var(--text-secondary); }
     .type-btn.active { background: var(--text-primary); color: white; border-color: var(--text-primary); }
-
-    /* Index Tabs */
-    .index-tabs {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .index-tab {
-      background: var(--bg-card);
-      border: 2px solid transparent;
-      border-radius: var(--radius-md);
-      padding: 12px 24px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      text-align: center;
-      min-width: 120px;
-      box-shadow: var(--shadow-sm);
-    }
-
+    .index-tabs { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; justify-content: center; }
+    .index-tab { background: var(--bg-card); border: 2px solid transparent; border-radius: var(--radius-md); padding: 12px 24px; cursor: pointer; transition: all 0.2s ease; text-align: center; min-width: 100px; box-shadow: var(--shadow-sm); }
     .index-tab:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
     .index-tab.active { border-color: var(--text-primary); background: var(--text-primary); color: white; }
     .index-tab.active .tab-change { color: rgba(255,255,255,0.8); }
-
     .tab-name { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
     .tab-change { font-size: 13px; font-family: 'JetBrains Mono', monospace; font-weight: 500; }
-
-    /* Section */
     .section { margin-bottom: 32px; }
-
     .section-title { font-size: 14px; font-weight: 500; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; padding-left: 4px; }
-
-    /* Stock List */
     .stock-list { background: var(--bg-card); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
-
-    .stock-item {
-      display: grid;
-      grid-template-columns: 50px 100px 1fr 100px 100px;
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border-light);
-      align-items: center;
-      transition: background 0.15s ease;
-    }
-
+    .stock-item { display: grid; grid-template-columns: 50px 90px 1fr 90px 90px; padding: 14px 20px; border-bottom: 1px solid var(--border-light); align-items: center; transition: background 0.15s ease; }
     .stock-item:last-child { border-bottom: none; }
     .stock-item:hover { background: #FAFAFA; }
     .stock-item.header { background: #FAFAFA; font-size: 12px; font-weight: 500; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; }
-
     .stock-rank { font-weight: 600; color: var(--text-tertiary); font-family: 'JetBrains Mono', monospace; }
     .stock-rank.top3 { color: #FFD700; }
     .stock-code { font-family: 'JetBrains Mono', monospace; color: var(--text-secondary); font-size: 13px; }
     .stock-name { font-weight: 500; }
     .stock-price { font-family: 'JetBrains Mono', monospace; font-weight: 500; text-align: right; }
     .stock-change { font-family: 'JetBrains Mono', monospace; font-weight: 500; text-align: right; }
-
     .change-up { color: var(--accent-red); }
     .change-down { color: var(--accent-green); }
-
     .footer { text-align: center; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border-light); color: var(--text-tertiary); font-size: 12px; }
-    .footer a { color: var(--text-secondary); text-decoration: none; }
-    .footer a:hover { text-decoration: underline; }
-
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     .stock-item { animation: fadeIn 0.3s ease backwards; }
-
-    @media (max-width: 640px) {
-      .stock-item { grid-template-columns: 40px 80px 1fr 80px; }
-      .stock-price { display: none; }
-      .index-tab { min-width: 90px; padding: 10px 16px; }
-    }
+    @media (max-width: 640px) { .stock-item { grid-template-columns: 40px 80px 1fr 80px; } .stock-price { display: none; } .index-tab { min-width: 80px; padding: 10px 14px; } }
   </style>
 </head>
 <body>
   <div class="container">
-    <header>
-      <h1>A 股行情</h1>
-      <p class="update-time" id="updateTime">更新于 --:--:--</p>
-    </header>
-
-    <!-- Type Toggle: Gainers / Losers -->
+    <header><h1>股票行情</h1><p class="update-time" id="updateTime">更新于 --:--:--</p></header>
+    <div class="market-toggle">
+      <button class="market-btn active" data-market="a">A股</button>
+      <button class="market-btn" data-market="hk">港股</button>
+    </div>
     <div class="type-toggle">
       <button class="type-btn active" data-type="gainers">涨幅榜</button>
       <button class="type-btn" data-type="losers">跌幅榜</button>
     </div>
-
-    <!-- Index Tabs -->
-    <div class="index-tabs" id="indexTabs">
-      <div class="index-tab active" data-market="sh">
-        <div class="tab-name">上证指数</div>
-        <div class="tab-change" id="sh-change">-1.43%</div>
-      </div>
-      <div class="index-tab" data-market="sz">
-        <div class="tab-name">深证成指</div>
-        <div class="tab-change" id="sz-change">-3.07%</div>
-      </div>
-      <div class="index-tab" data-market="cy">
-        <div class="tab-name">创业板指</div>
-        <div class="tab-change" id="cy-change">-2.57%</div>
-      </div>
+    <div class="index-tabs" id="aIndexTabs">
+      <div class="index-tab active" data-market="sh"><div class="tab-name">上证指数</div><div class="tab-change" id="sh-change">-1.43%</div></div>
+      <div class="index-tab" data-market="sz"><div class="tab-name">深证成指</div><div class="tab-change" id="sz-change">-3.07%</div></div>
+      <div class="index-tab" data-market="cy"><div class="tab-name">创业板指</div><div class="tab-change" id="cy-change">-2.57%</div></div>
     </div>
-
+    <div class="index-tabs" id="hkIndexTabs" style="display:none;">
+      <div class="index-tab active" data-market="hsi"><div class="tab-name">恒生指数</div><div class="tab-change" id="hsi-change">-1.12%</div></div>
+    </div>
     <section class="section">
-      <div class="section-title" id="currentMarket">上证涨幅榜 Top 20</div>
+      <div class="section-title" id="currentTitle">上证涨幅榜 Top 20</div>
       <div class="stock-list" id="stockList"></div>
     </section>
-
-    <footer class="footer">
-      <p>数据来源：东方财富</p>
-    </footer>
+    <footer class="footer"><p>数据来源：东方财富</p></footer>
   </div>
-
   <script>
-    const indexData = {
-      sh: { name: '上证指数', change: -1.43 },
-      sz: { name: '深证成指', change: -3.07 },
-      cy: { name: '创业板指', change: -2.57 }
-    };
-
-    // Gainers data
-    const gainersData = {
-      sh: [
-        { rank: 1, code: '601866', name: '中远海发', price: 3.25, change: 10.17 },
-        { rank: 2, code: '600617', name: '国新能源', price: 3.70, change: 10.12 },
-        { rank: 3, code: '600339', name: '中油工程', price: 5.13, change: 10.09 },
-        { rank: 4, code: '601139', name: '深圳燃气', price: 7.87, change: 10.07 },
-        { rank: 5, code: '600108', name: '亚盛集团', price: 4.81, change: 10.07 },
-        { rank: 6, code: '605368', name: '蓝天燃气', price: 9.41, change: 10.06 },
-        { rank: 7, code: '601015', name: '陕西黑猫', price: 5.69, change: 10.06 },
-        { rank: 8, code: '600403', name: '大有能源', price: 7.88, change: 10.06 },
-        { rank: 9, code: '600256', name: '广汇能源', price: 7.12, change: 10.05 },
-        { rank: 10, code: '601857', name: '中国石油', price: 13.15, change: 10.04 },
-        { rank: 11, code: '600635', name: '大众公用', price: 6.91, change: 10.03 },
-        { rank: 12, code: '600688', name: '上海石化', price: 3.84, change: 10.03 },
-        { rank: 13, code: '601872', name: '招商轮船', price: 19.65, change: 10.02 },
-        { rank: 14, code: '601808', name: '中海油服', price: 20.42, change: 10.02 },
-        { rank: 15, code: '605169', name: '洪通燃气', price: 15.37, change: 10.02 },
-        { rank: 16, code: '600367', name: '红星发展', price: 25.91, change: 10.02 },
-        { rank: 17, code: '600714', name: '金瑞矿业', price: 21.74, change: 10.02 },
-        { rank: 18, code: '600803', name: '新奥股份', price: 24.05, change: 10.02 },
-        { rank: 19, code: '601083', name: '锦江航运', price: 13.73, change: 10.02 },
-        { rank: 20, code: '603080', name: '新疆火炬', price: 27.57, change: 10.02 }
-      ],
-      sz: [
-        { rank: 1, code: '002554', name: '惠博普', price: 5.13, change: 10.09 },
-        { rank: 2, code: '002682', name: '龙洲股份', price: 7.67, change: 10.04 },
-        { rank: 3, code: '000968', name: '蓝焰控股', price: 10.41, change: 10.04 },
-        { rank: 4, code: '002629', name: '仁智股份', price: 8.11, change: 10.04 },
-        { rank: 5, code: '000554', name: '泰山石油', price: 10.85, change: 10.04 },
-        { rank: 6, code: '000301', name: '东方盛虹', price: 14.58, change: 10.04 },
-        { rank: 7, code: '000096', name: '广聚能源', price: 13.27, change: 10.03 },
-        { rank: 8, code: '002911', name: '佛燃能源', price: 17.77, change: 10.03 },
-        { rank: 9, code: '001299', name: '美能能源', price: 15.47, change: 10.03 },
-        { rank: 10, code: '002040', name: '南 京 港', price: 13.17, change: 10.03 },
-        { rank: 11, code: '002506', name: '协鑫集成', price: 5.16, change: 10.02 },
-        { rank: 12, code: '002490', name: '山东墨龙', price: 10.65, change: 10.02 },
-        { rank: 13, code: '001269', name: '欧晶科技', price: 26.03, change: 10.02 },
-        { rank: 14, code: '002828', name: '贝肯能源', price: 16.37, change: 10.01 },
-        { rank: 15, code: '002980', name: '华盛昌', price: 35.06, change: 10.01 },
-        { rank: 16, code: '002350', name: '北京科锐', price: 13.08, change: 10.01 },
-        { rank: 17, code: '002957', name: '科瑞技术', price: 31.67, change: 10.00 },
-        { rank: 18, code: '002952', name: '亚世光电', price: 24.43, change: 10.00 },
-        { rank: 19, code: '002207', name: '准油股份', price: 13.66, change: 9.98 },
-        { rank: 20, code: '002491', name: '通鼎互联', price: 12.23, change: 9.98 }
-      ],
-      cy: [
-        { rank: 1, code: '300332', name: '天壕能源', price: 7.24, change: 20.07 },
-        { rank: 2, code: '300839', name: '博汇股份', price: 17.20, change: 20.03 },
-        { rank: 3, code: '300157', name: '新锦动力', price: 10.07, change: 20.02 },
-        { rank: 4, code: '300164', name: '通源石油', price: 21.70, change: 20.02 },
-        { rank: 5, code: '300191', name: '潜能恒信', price: 53.08, change: 20.01 },
-        { rank: 6, code: '301158', name: '德石股份', price: 37.44, change: 20.00 },
-        { rank: 7, code: '300483', name: '首华燃气', price: 25.03, change: 19.99 },
-        { rank: 8, code: '301302', name: '华如科技', price: 35.66, change: 19.99 },
-        { rank: 9, code: '300228', name: '富瑞特装', price: 12.81, change: 15.82 },
-        { rank: 10, code: '300435', name: '中泰股份', price: 34.92, change: 14.12 },
-        { rank: 11, code: '300658', name: '延江股份', price: 27.91, change: 13.87 },
-        { rank: 12, code: '301658', name: '首航新能', price: 36.09, change: 13.49 },
-        { rank: 13, code: '300135', name: '宝利国际', price: 5.16, change: 12.66 },
-        { rank: 14, code: '301500', name: '飞南资源', price: 25.71, change: 9.36 },
-        { rank: 15, code: '300335', name: '迪森股份', price: 6.90, change: 9.35 },
-        { rank: 16, code: '300438', name: '鹏辉能源', price: 49.14, change: 8.96 },
-        { rank: 17, code: '301613', name: '新铝时代', price: 53.50, change: 7.69 },
-        { rank: 18, code: '301179', name: '泽宇智能', price: 18.88, change: 6.79 },
-        { rank: 19, code: '300967', name: '晓鸣股份', price: 20.81, change: 6.34 },
-        { rank: 20, code: '301626', name: '苏州天脉', price: 240.88, change: 6.03 }
-      ]
-    };
-
-    // Losers data
-    const losersData = {
-      sh: [
-        { rank: 1, code: '600537', name: '亿晶光电', price: 3.21, change: -10.08 },
-        { rank: 2, code: '603500', name: '祥和实业', price: 12.11, change: -10.03 },
-        { rank: 3, code: '600246', name: '万通发展', price: 10.95, change: -10.02 },
-        { rank: 4, code: '603601', name: '再升科技', price: 11.50, change: -10.02 },
-        { rank: 5, code: '600392', name: '盛和资源', price: 28.95, change: -10.01 },
-        { rank: 6, code: '601615', name: '明阳智能', price: 19.69, change: -10.01 },
-        { rank: 7, code: '600343', name: '航天动力', price: 33.28, change: -10.01 },
-        { rank: 8, code: '600259', name: '中稀有色', price: 101.06, change: -10.00 },
-        { rank: 9, code: '605255', name: '天普股份', price: 116.45, change: -10.00 },
-        { rank: 10, code: '600391', name: '航发科技', price: 46.89, change: -10.00 },
-        { rank: 11, code: '600397', name: '江钨装备', price: 19.35, change: -10.00 },
-        { rank: 12, code: '603163', name: '圣晖集成', price: 127.44, change: -10.00 },
-        { rank: 13, code: '603920', name: '世运电路', price: 57.42, change: -10.00 },
-        { rank: 14, code: '605123', name: '派克新材', price: 102.79, change: -10.00 },
-        { rank: 15, code: '600961', name: '株冶集团', price: 23.41, change: -10.00 },
-        { rank: 16, code: '601231', name: '环旭电子', price: 43.58, change: -10.00 },
-        { rank: 17, code: '603626', name: '科森科技', price: 24.68, change: -9.99 },
-        { rank: 18, code: '600610', name: '中毅达', price: 10.63, change: -9.99 },
-        { rank: 19, code: '603429', name: '集友股份', price: 8.92, change: -9.99 },
-        { rank: 20, code: '603859', name: '能科科技', price: 43.88, change: -9.99 }
-      ],
-      sz: [
-        { rank: 1, code: '002554', name: '惠博普', price: 5.13, change: -10.09 },
-        { rank: 2, code: '002682', name: '龙洲股份', price: 7.67, change: -10.04 },
-        { rank: 3, code: '000968', name: '蓝焰控股', price: 10.41, change: -10.04 },
-        { rank: 4, code: '002629', name: '仁智股份', price: 8.11, change: -10.04 },
-        { rank: 5, code: '000554', name: '泰山石油', price: 10.85, change: -10.04 },
-        { rank: 6, code: '000301', name: '东方盛虹', price: 14.58, change: -10.04 },
-        { rank: 7, code: '000096', name: '广聚能源', price: 13.27, change: -10.03 },
-        { rank: 8, code: '002911', name: '佛燃能源', price: 17.77, change: -10.03 },
-        { rank: 9, code: '001299', name: '美能能源', price: 15.47, change: -10.03 },
-        { rank: 10, code: '002040', name: '南 京 港', price: 13.17, change: -10.03 },
-        { rank: 11, code: '002506', name: '协鑫集成', price: 5.16, change: -10.02 },
-        { rank: 12, code: '002490', name: '山东墨龙', price: 10.65, change: -10.02 },
-        { rank: 13, code: '001269', name: '欧晶科技', price: 26.03, change: -10.02 },
-        { rank: 14, code: '002828', name: '贝肯能源', price: 16.37, change: -10.01 },
-        { rank: 15, code: '002980', name: '华盛昌', price: 35.06, change: -10.01 },
-        { rank: 16, code: '002350', name: '北京科锐', price: 13.08, change: -10.01 },
-        { rank: 17, code: '002957', name: '科瑞技术', price: 31.67, change: -10.00 },
-        { rank: 18, code: '002952', name: '亚世光电', price: 24.43, change: -10.00 },
-        { rank: 19, code: '002207', name: '准油股份', price: 13.66, change: -9.98 },
-        { rank: 20, code: '002491', name: '通鼎互联', price: 12.23, change: -9.98 }
-      ],
-      cy: [
-        { rank: 1, code: '300920', name: '润阳科技', price: 39.57, change: -14.26 },
-        { rank: 2, code: '300395', name: '菲利华', price: 112.43, change: -13.18 },
-        { rank: 3, code: '300774', name: '倍杰特', price: 23.80, change: -13.11 },
-        { rank: 4, code: '300136', name: '信维通信', price: 68.50, change: -12.66 },
-        { rank: 5, code: '300277', name: '海联讯', price: 21.07, change: -12.32 },
-        { rank: 6, code: '300672', name: '国科微', price: 138.73, change: -12.14 },
-        { rank: 7, code: '300102', name: '乾照光电', price: 32.02, change: -12.08 },
-        { rank: 8, code: '301086', name: '鸿富瀚', price: 115.23, change: -12.07 },
-        { rank: 9, code: '301232', name: '飞沃科技', price: 188.40, change: -12.04 },
-        { rank: 10, code: '300342', name: '天银机电', price: 41.52, change: -11.90 },
-        { rank: 11, code: '301079', name: '邵阳液压', price: 42.18, change: -11.72 },
-        { rank: 12, code: '300447', name: '全信股份', price: 19.86, change: -11.69 },
-        { rank: 13, code: '300053', name: '航宇微', price: 18.55, change: -11.58 },
-        { rank: 14, code: '300113', name: '顺网科技', price: 24.12, change: -11.52 },
-        { rank: 15, code: '301005', name: '超捷股份', price: 156.99, change: -11.41 },
-        { rank: 16, code: '301117', name: '佳缘科技', price: 51.23, change: -11.03 },
-        { rank: 17, code: '301226', name: '祥明智能', price: 42.87, change: -10.98 },
-        { rank: 18, code: '300480', name: '光力科技', price: 25.90, change: -10.97 },
-        { rank: 19, code: '300922', name: '天秦装备', price: 21.63, change: -10.91 },
-        { rank: 20, code: '300711', name: '广哈通信', price: 25.80, change: -10.85 }
-      ]
-    };
-
-    let currentMarket = 'sh';
-    let currentType = 'gainers';
-
-    function formatPrice(price) {
-      return price.toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    }
-
-    function formatChange(change) {
-      const sign = change >= 0 ? '+' : '';
-      return sign + change.toFixed(2) + '%';
-    }
-
-    function getChangeClass(change) {
-      return change >= 0 ? 'change-up' : 'change-down';
-    }
-
-    function getRankClass(rank) {
-      return rank <= 3 ? 'top3' : '';
-    }
-
+    const indexData = { sh: { name: '上证指数', change: -1.43 }, sz: { name: '深证成指', change: -3.07 }, cy: { name: '创业板指', change: -2.57 }, hsi: { name: '恒生指数', change: -1.12 } };
+    const aGainersData = { sh: [{rank:1,code:'601866',name:'中远海发',price:3.25,change:10.17},{rank:2,code:'600617',name:'国新能源',price:3.70,change:10.12},{rank:3,code:'600339',name:'中油工程',price:5.13,change:10.09},{rank:4,code:'601139',name:'深圳燃气',price:7.87,change:10.07},{rank:5,code:'600108',name:'亚盛集团',price:4.81,change:10.07},{rank:6,code:'605368',name:'蓝天燃气',price:9.41,change:10.06},{rank:7,code:'601015',name:'陕西黑猫',price:5.69,change:10.06},{rank:8,code:'600403',name:'大有能源',price:7.88,change:10.06},{rank:9,code:'600256',name:'广汇能源',price:7.12,change:10.05},{rank:10,code:'601857',name:'中国石油',price:13.15,change:10.04},{rank:11,code:'600635',name:'大众公用',price:6.91,change:10.03},{rank:12,code:'600688',name:'上海石化',price:3.84,change:10.03},{rank:13,code:'601872',name:'招商轮船',price:19.65,change:10.02},{rank:14,code:'601808',name:'中海油服',price:20.42,change:10.02},{rank:15,code:'605169',name:'洪通燃气',price:15.37,change:10.02},{rank:16,code:'600367',name:'红星发展',price:25.91,change:10.02},{rank:17,code:'600714',name:'金瑞矿业',price:21.74,change:10.02},{rank:18,code:'600803',name:'新奥股份',price:24.05,change:10.02},{rank:19,code:'601083',name:'锦江航运',price:13.73,change:10.02},{rank:20,code:'603080',name:'新疆火炬',price:27.57,change:10.02}], sz: [{rank:1,code:'002554',name:'惠博普',price:5.13,change:10.09},{rank:2,code:'002682',name:'龙洲股份',price:7.67,change:10.04},{rank:3,code:'000968',name:'蓝焰控股',price:10.41,change:10.04},{rank:4,code:'002629',name:'仁智股份',price:8.11,change:10.04},{rank:5,code:'000554',name:'泰山石油',price:10.85,change:10.04},{rank:6,code:'000301',name:'东方盛虹',price:14.58,change:10.04},{rank:7,code:'000096',name:'广聚能源',price:13.27,change:10.03},{rank:8,code:'002911',name:'佛燃能源',price:17.77,change:10.03},{rank:9,code:'001299',name:'美能能源',price:15.47,change:10.03},{rank:10,code:'002040',name:'南 京 港',price:13.17,change:10.03},{rank:11,code:'002506',name:'协鑫集成',price:5.16,change:10.02},{rank:12,code:'002490',name:'山东墨龙',price:10.65,change:10.02},{rank:13,code:'001269',name:'欧晶科技',price:26.03,change:10.02},{rank:14,code:'002828',name:'贝肯能源',price:16.37,change:10.01},{rank:15,code:'002980',name:'华盛昌',price:35.06,change:10.01},{rank:16,code:'002350',name:'北京科锐',price:13.08,change:10.01},{rank:17,code:'002957',name:'科瑞技术',price:31.67,change:10.00},{rank:18,code:'002952',name:'亚世光电',price:24.43,change:10.00},{rank:19,code:'002207',name:'准油股份',price:13.66,change:9.98},{rank:20,code:'002491',name:'通鼎互联',price:12.23,change:9.98}], cy: [{rank:1,code:'300332',name:'天壕能源',price:7.24,change:20.07},{rank:2,code:'300839',name:'博汇股份',price:17.20,change:20.03},{rank:3,code:'300157',name:'新锦动力',price:10.07,change:20.02},{rank:4,code:'300164',name:'通源石油',price:21.70,change:20.02},{rank:5,code:'300191',name:'潜能恒信',price:53.08,change:20.01},{rank:6,code:'301158',name:'德石股份',price:37.44,change:20.00},{rank:7,code:'300483',name:'首华燃气',price:25.03,change:19.99},{rank:8,code:'301302',name:'华如科技',price:35.66,change:19.99},{rank:9,code:'300228',name:'富瑞特装',price:12.81,change:15.82},{rank:10,code:'300435',name:'中泰股份',price:34.92,change:14.12},{rank:11,code:'300658',name:'延江股份',price:27.91,change:13.87},{rank:12,code:'301658',name:'首航新能',price:36.09,change:13.49},{rank:13,code:'300135',name:'宝利国际',price:5.16,change:12.66},{rank:14,code:'301500',name:'飞南资源',price:25.71,change:9.36},{rank:15,code:'300335',name:'迪森股份',price:6.90,change:9.35},{rank:16,code:'300438',name:'鹏辉能源',price:49.14,change:8.96},{rank:17,code:'301613',name:'新铝时代',price:53.50,change:7.69},{rank:18,code:'301179',name:'泽宇智能',price:18.88,change:6.79},{rank:19,code:'300967',name:'晓鸣股份',price:20.81,change:6.34},{rank:20,code:'301626',name:'苏州天脉',price:240.88,change:6.03}] };
+    const aLosersData = { sh: [{rank:1,code:'600537',name:'亿晶光电',price:3.21,change:-10.08},{rank:2,code:'603500',name:'祥和实业',price:12.11,change:-10.03},{rank:3,code:'600246',name:'万通发展',price:10.95,change:-10.02},{rank:4,code:'603601',name:'再升科技',price:11.50,change:-10.02},{rank:5,code:'600392',name:'盛和资源',price:28.95,change:-10.01},{rank:6,code:'601615',name:'明阳智能',price:19.69,change:-10.01},{rank:7,code:'600343',name:'航天动力',price:33.28,change:-10.01},{rank:8,code:'600259',name:'中稀有色',price:101.06,change:-10.00},{rank:9,code:'605255',name:'天普股份',price:116.45,change:-10.00},{rank:10,code:'600391',name:'航发科技',price:46.89,change:-10.00},{rank:11,code:'600397',name:'江钨装备',price:19.35,change:-10.00},{rank:12,code:'603163',name:'圣晖集成',price:127.44,change:-10.00},{rank:13,code:'603920',name:'世运电路',price:57.42,change:-10.00},{rank:14,code:'605123',name:'派克新材',price:102.79,change:-10.00},{rank:15,code:'600961',name:'株冶集团',price:23.41,change:-10.00},{rank:16,code:'601231',name:'环旭电子',price:43.58,change:-10.00},{rank:17,code:'603626',name:'科森科技',price:24.68,change:-9.99},{rank:18,code:'600610',name:'中毅达',price:10.63,change:-9.99},{rank:19,code:'603429',name:'集友股份',price:8.92,change:-9.99},{rank:20,code:'603859',name:'能科科技',price:43.88,change:-9.99}], sz: [{rank:1,code:'002554',name:'惠博普',price:5.13,change:-10.09},{rank:2,code:'002682',name:'龙洲股份',price:7.67,change:-10.04},{rank:3,code:'000968',name:'蓝焰控股',price:10.41,change:-10.04},{rank:4,code:'002629',name:'仁智股份',price:8.11,change:-10.04},{rank:5,code:'000554',name:'泰山石油',price:10.85,change:-10.04},{rank:6,code:'000301',name:'东方盛虹',price:14.58,change:-10.04},{rank:7,code:'000096',name:'广聚能源',price:13.27,change:-10.03},{rank:8,code:'002911',name:'佛燃能源',price:17.77,change:-10.03},{rank:9,code:'001299',name:'美能能源',price:15.47,change:-10.03},{rank:10,code:'002040',name:'南 京 港',price:13.17,change:-10.03},{rank:11,code:'002506',name:'协鑫集成',price:5.16,change:-10.02},{rank:12,code:'002490',name:'山东墨龙',price:10.65,change:-10.02},{rank:13,code:'001269',name:'欧晶科技',price:26.03,change:-10.02},{rank:14,code:'002828',name:'贝肯能源',price:16.37,change:-10.01},{rank:15,code:'002980',name:'华盛昌',price:35.06,change:-10.01},{rank:16,code:'002350',name:'北京科锐',price:13.08,change:-10.01},{rank:17,code:'002957',name:'科瑞技术',price:31.67,change:-10.00},{rank:18,code:'002952',name:'亚世光电',price:24.43,change:-10.00},{rank:19,code:'002207',name:'准油股份',price:13.66,change:-9.98},{rank:20,code:'002491',name:'通鼎互联',price:12.23,change:-9.98}], cy: [{rank:1,code:'300920',name:'润阳科技',price:39.57,change:-14.26},{rank:2,code:'300395',name:'菲利华',price:112.43,change:-13.18},{rank:3,code:'300774',name:'倍杰特',price:23.80,change:-13.11},{rank:4,code:'300136',name:'信维通信',price:68.50,change:-12.66},{rank:5,code:'300277',name:'海联讯',price:21.07,change:-12.32},{rank:6,code:'300672',name:'国科微',price:138.73,change:-12.14},{rank:7,code:'300102',name:'乾照光电',price:32.02,change:-12.08},{rank:8,code:'301086',name:'鸿富瀚',price:115.23,change:-12.07},{rank:9,code:'301232',name:'飞沃科技',price:188.40,change:-12.04},{rank:10,code:'300342',name:'天银机电',price:41.52,change:-11.90},{rank:11,code:'301079',name:'邵阳液压',price:42.18,change:-11.72},{rank:12,code:'300447',name:'全信股份',price:19.86,change:-11.69},{rank:13,code:'300053',name:'航宇微',price:18.55,change:-11.58},{rank:14,code:'300113',name:'顺网科技',price:24.12,change:-11.52},{rank:15,code:'301005',name:'超捷股份',price:156.99,change:-11.41},{rank:16,code:'301117',name:'佳缘科技',price:51.23,change:-11.03},{rank:17,code:'301226',name:'祥明智能',price:42.87,change:-10.98},{rank:18,code:'300480',name:'光力科技',price:25.90,change:-10.97},{rank:19,code:'300922',name:'天秦装备',price:21.63,change:-10.91},{rank:20,code:'300711',name:'广哈通信',price:25.80,change:-10.85}] };
+    const hkGainersData = [{rank:1,code:'02688',name:'新奥能源',price:71.85,change:5.12},{rank:2,code:'00857',name:'中国石油股份',price:10.43,change:5.04},{rank:3,code:'00883',name:'中国海洋石油',price:27.60,change:3.22},{rank:4,code:'00939',name:'建设银行',price:7.95,change:2.19},{rank:5,code:'00003',name:'香港中华煤气',price:7.70,change:1.85},{rank:6,code:'00135',name:'昆仑能源',price:8.50,change:1.67},{rank:7,code:'01398',name:'工商银行',price:6.45,change:1.57},{rank:8,code:'01288',name:'农业银行',price:5.24,change:1.55},{rank:9,code:'00823',name:'领展房产基金',price:38.52,change:1.53},{rank:10,code:'03328',name:'交通银行',price:6.80,change:1.19},{rank:11,code:'00384',name:'中国燃气',price:8.18,change:1.11},{rank:12,code:'00066',name:'港铁公司',price:36.54,change:0.88},{rank:13,code:'00002',name:'中电控股',price:74.80,change:0.88},{rank:14,code:'01658',name:'邮储银行',price:4.90,change:0.82},{rank:15,code:'00006',name:'电能实业',price:63.30,change:0.80},{rank:16,code:'00004',name:'九龙仓集团',price:25.52,change:0.71},{rank:17,code:'00392',name:'北京控股',price:35.78,change:0.68},{rank:18,code:'03988',name:'中国银行',price:4.56,change:0.66},{rank:19,code:'01038',name:'长江基建集团',price:66.10,change:0.53},{rank:20,code:'03968',name:'招商银行',price:48.24,change:0.37}];
+    const hkLosersData = [{rank:1,code:'00700',name:'腾讯控股',price:510.50,change:-0.68},{rank:2,code:'09988',name:'阿里巴巴-W',price:134.80,change:-1.17},{rank:3,code:'03690',name:'美团-W',price:75.65,change:-2.26},{rank:4,code:'01810',name:'小米集团-W',price:31.58,change:-4.71},{rank:5,code:'00981',name:'中芯国际',price:62.55,change:-3.17},{rank:6,code:'02318',name:'中国平安',price:66.00,change:-0.60},{rank:7,code:'02333',name:'长城汽车',price:12.43,change:-1.35},{rank:8,code:'06690',name:'海尔智家',price:25.44,change:-2.45},{rank:9,code:'03888',name:'金山软件',price:24.66,change:1.07},{rank:10,code:'00788',name:'中国铁塔',price:11.00,change:-1.43},{rank:11,code:'00005',name:'汇丰控股',price:135.80,change:-2.79},{rank:12,code:'00001',name:'长和',price:62.65,change:0.00},{rank:13,code:'00175',name:'吉利汽车',price:28.75,change:-2.55},{rank:14,code:'00267',name:'中信证券',price:21.55,change:-3.67},{rank:15,code:'09669',name:'农夫山泉',price:148.80,change:-1.13},{rank:16,code:'01024',name:'快手-W',price:68.25,change:-3.68},{rank:17,code:'06186',name:'中国飞鹤',price:8.23,change:-2.14},{rank:18,code:'00522',name:'ASM太平洋',price:98.75,change:-4.56},{rank:19,code:'06968',name:'中国中免',price:158.30,change:-2.32},{rank:20,code:'06808',name:'京东健康',price:28.90,change:-3.85}];
+    let currentMarket = 'a', currentType = 'gainers', currentIndex = 'sh';
+    function formatPrice(p) { return p.toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+    function formatChange(c) { return (c >= 0 ? '+' : '') + c.toFixed(2) + '%'; }
+    function getChangeClass(c) { return c >= 0 ? 'change-up' : 'change-down'; }
+    function getRankClass(r) { return r <= 3 ? 'top3' : ''; }
     function renderStockList() {
       const list = document.getElementById('stockList');
-      const data = currentType === 'gainers' ? gainersData[currentMarket] : losersData[currentMarket];
-      const marketName = currentMarket === 'sh' ? '上证' : currentMarket === 'sz' ? '深证' : '创业板';
-      const typeName = currentType === 'gainers' ? '涨幅榜' : '跌幅榜';
-      
-      let html = `
-        <div class="stock-item header">
-          <div class="stock-rank">排名</div>
-          <div class="stock-code">代码</div>
-          <div class="stock-name">名称</div>
-          <div class="stock-price">最新价</div>
-          <div class="stock-change">涨跌幅</div>
-        </div>
-      `;
-      
-      data.forEach((item, idx) => {
-        html += `
-          <div class="stock-item" style="animation-delay: ${idx * 0.02}s">
-            <div class="stock-rank ${getRankClass(item.rank)}">${item.rank}</div>
-            <div class="stock-code">${item.code}</div>
-            <div class="stock-name">${item.name}</div>
-            <div class="stock-price">${formatPrice(item.price)}</div>
-            <div class="stock-change ${getChangeClass(item.change)}">${formatChange(item.change)}</div>
-          </div>
-        `;
-      });
-      
+      let data, marketName, typeName;
+      if (currentMarket === 'a') {
+        data = currentType === 'gainers' ? aGainersData[currentIndex] : aLosersData[currentIndex];
+        marketName = currentIndex === 'sh' ? '上证' : currentIndex === 'sz' ? '深证' : '创业板';
+      } else {
+        data = currentType === 'gainers' ? hkGainersData : hkLosersData;
+        marketName = '港股';
+      }
+      typeName = currentType === 'gainers' ? '涨幅榜' : '跌幅榜';
+      let html = '<div class="stock-item header"><div class="stock-rank">排名</div><div class="stock-code">代码</div><div class="stock-name">名称</div><div class="stock-price">最新价</div><div class="stock-change">涨跌幅</div></div>';
+      data.forEach((item, idx) => { html += `<div class="stock-item" style="animation-delay:${idx*0.02}s"><div class="stock-rank ${getRankClass(item.rank)}">${item.rank}</div><div class="stock-code">${item.code}</div><div class="stock-name">${item.name}</div><div class="stock-price">${formatPrice(item.price)}</div><div class="stock-change ${getChangeClass(item.change)}">${formatChange(item.change)}</div></div>`; });
       list.innerHTML = html;
-      document.getElementById('currentMarket').textContent = `${marketName}${typeName} Top 20`;
+      document.getElementById('currentTitle').textContent = marketName + typeName + ' Top 20';
     }
-
-    function updateTabChanges() {
-      const markets = ['sh', 'sz', 'cy'];
-      markets.forEach(m => {
-        const el = document.getElementById(`${m}-change`);
-        if (el) {
-          const change = indexData[m].change;
-          el.textContent = formatChange(change);
-          el.className = 'tab-change ' + getChangeClass(change);
-        }
-      });
-    }
-
-    // Type toggle handler
+    document.querySelector('.market-toggle').addEventListener('click', function(e) {
+      const btn = e.target.closest('.market-btn');
+      if (!btn) return;
+      currentMarket = btn.dataset.market;
+      document.querySelectorAll('.market-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('aIndexTabs').style.display = currentMarket === 'a' ? 'flex' : 'none';
+      document.getElementById('hkIndexTabs').style.display = currentMarket === 'hk' ? 'flex' : 'none';
+      currentIndex = currentMarket === 'a' ? 'sh' : 'hsi';
+      renderStockList();
+    });
     document.querySelector('.type-toggle').addEventListener('click', function(e) {
       const btn = e.target.closest('.type-btn');
       if (!btn) return;
-      
+      currentType = btn.dataset.type;
       document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      currentType = btn.dataset.type;
       renderStockList();
     });
-
-    // Tab click handler
-    document.getElementById('indexTabs').addEventListener('click', function(e) {
+    document.getElementById('aIndexTabs').addEventListener('click', function(e) {
       const tab = e.target.closest('.index-tab');
       if (!tab) return;
-      
-      const market = tab.dataset.market;
-      if (market === currentMarket) return;
-      
-      document.querySelectorAll('.index-tab').forEach(t => t.classList.remove('active'));
+      currentIndex = tab.dataset.market;
+      document.querySelectorAll('#aIndexTabs .index-tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
-      currentMarket = market;
       renderStockList();
     });
-
-    function updateTime() {
-      const now = new Date();
-      const timeStr = now.toLocaleString('zh-CN', { 
-        year: 'numeric', month: '2-digit', day: '2-digit',
-        hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
-      });
-      document.getElementById('updateTime').textContent = '更新于 ' + timeStr;
-    }
-
-    renderStockList();
-    updateTabChanges();
-    updateTime();
-
+    function updateTime() { const now = new Date(); document.getElementById('updateTime').textContent = '更新于 ' + now.toLocaleString('zh-CN', {year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}); }
+    renderStockList(); updateTime();
     setInterval(() => { location.reload(); }, 30000);
   </script>
 </body>
