@@ -46,11 +46,11 @@
 
     header {
       text-align: center;
-      margin-bottom: 48px;
+      margin-bottom: 32px;
     }
 
     h1 {
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 600;
       letter-spacing: -0.5px;
       margin-bottom: 8px;
@@ -62,8 +62,57 @@
       font-family: 'JetBrains Mono', monospace;
     }
 
+    /* Index Tabs */
+    .index-tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .index-tab {
+      background: var(--bg-card);
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      padding: 12px 24px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+      min-width: 120px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .index-tab:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .index-tab.active {
+      border-color: var(--text-primary);
+      background: var(--text-primary);
+      color: white;
+    }
+
+    .index-tab.active .tab-change {
+      color: rgba(255,255,255,0.8);
+    }
+
+    .tab-name {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .tab-change {
+      font-size: 13px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500;
+    }
+
+    /* Section */
     .section {
-      margin-bottom: 40px;
+      margin-bottom: 32px;
     }
 
     .section-title {
@@ -76,104 +125,48 @@
       padding-left: 4px;
     }
 
-    /* Index Cards */
-    .index-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 16px;
-    }
-
-    @media (max-width: 768px) {
-      .index-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    .index-card {
-      background: var(--bg-card);
-      border-radius: var(--radius-md);
-      padding: 20px;
-      box-shadow: var(--shadow-sm);
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
-    }
-
-    .index-card:hover {
-      box-shadow: var(--shadow-md);
-      transform: translateY(-2px);
-    }
-
-    .index-name {
-      font-size: 13px;
-      color: var(--text-secondary);
-      margin-bottom: 8px;
-    }
-
-    .index-price {
-      font-size: 24px;
-      font-weight: 600;
-      font-family: 'JetBrains Mono', monospace;
-      margin-bottom: 4px;
-      letter-spacing: -0.5px;
-    }
-
-    .index-change {
-      font-size: 14px;
-      font-weight: 500;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .change-up {
-      color: var(--accent-red);
-    }
-
-    .change-down {
-      color: var(--accent-green);
-    }
-
-    /* Gainers Table */
-    .gainers-table {
+    /* Stock List */
+    .stock-list {
       background: var(--bg-card);
       border-radius: var(--radius-lg);
       overflow: hidden;
       box-shadow: var(--shadow-sm);
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
+    .stock-item {
+      display: grid;
+      grid-template-columns: 50px 100px 1fr 100px 100px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-light);
+      align-items: center;
+      transition: background 0.15s ease;
     }
 
-    th {
+    .stock-item:last-child {
+      border-bottom: none;
+    }
+
+    .stock-item:hover {
+      background: #FAFAFA;
+    }
+
+    .stock-item.header {
       background: #FAFAFA;
       font-size: 12px;
       font-weight: 500;
       color: var(--text-tertiary);
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      padding: 14px 20px;
-      text-align: left;
-      border-bottom: 1px solid var(--border-light);
     }
 
-    td {
-      padding: 16px 20px;
-      font-size: 14px;
-      border-bottom: 1px solid var(--border-light);
-    }
-
-    tr:last-child td {
-      border-bottom: none;
-    }
-
-    tr:hover {
-      background: #FAFAFA;
-    }
-
-    .rank {
+    .stock-rank {
       font-weight: 600;
       color: var(--text-tertiary);
       font-family: 'JetBrains Mono', monospace;
-      width: 50px;
+    }
+
+    .stock-rank.top3 {
+      color: #FFD700;
     }
 
     .stock-code {
@@ -189,16 +182,27 @@
     .stock-price {
       font-family: 'JetBrains Mono', monospace;
       font-weight: 500;
+      text-align: right;
     }
 
     .stock-change {
       font-family: 'JetBrains Mono', monospace;
       font-weight: 500;
+      text-align: right;
     }
 
+    .change-up {
+      color: var(--accent-red);
+    }
+
+    .change-down {
+      color: var(--accent-green);
+    }
+
+    /* Footer */
     .footer {
       text-align: center;
-      margin-top: 48px;
+      margin-top: 40px;
       padding-top: 24px;
       border-top: 1px solid var(--border-light);
       color: var(--text-tertiary);
@@ -215,63 +219,79 @@
     }
 
     /* Animations */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .index-card {
-      animation: fadeInUp 0.5s ease backwards;
+    .stock-item {
+      animation: fadeIn 0.3s ease backwards;
     }
 
-    .index-card:nth-child(1) { animation-delay: 0.05s; }
-    .index-card:nth-child(2) { animation-delay: 0.1s; }
-    .index-card:nth-child(3) { animation-delay: 0.15s; }
-    .index-card:nth-child(4) { animation-delay: 0.2s; }
-    .index-card:nth-child(5) { animation-delay: 0.25s; }
+    .stock-item:nth-child(1) { animation-delay: 0.02s; }
+    .stock-item:nth-child(2) { animation-delay: 0.04s; }
+    .stock-item:nth-child(3) { animation-delay: 0.06s; }
+    .stock-item:nth-child(4) { animation-delay: 0.08s; }
+    .stock-item:nth-child(5) { animation-delay: 0.1s; }
+    .stock-item:nth-child(6) { animation-delay: 0.12s; }
+    .stock-item:nth-child(7) { animation-delay: 0.14s; }
+    .stock-item:nth-child(8) { animation-delay: 0.16s; }
+    .stock-item:nth-child(9) { animation-delay: 0.18s; }
+    .stock-item:nth-child(10) { animation-delay: 0.2s; }
+    .stock-item:nth-child(11) { animation-delay: 0.22s; }
+    .stock-item:nth-child(12) { animation-delay: 0.24s; }
+    .stock-item:nth-child(13) { animation-delay: 0.26s; }
+    .stock-item:nth-child(14) { animation-delay: 0.28s; }
+    .stock-item:nth-child(15) { animation-delay: 0.3s; }
+    .stock-item:nth-child(16) { animation-delay: 0.32s; }
+    .stock-item:nth-child(17) { animation-delay: 0.34s; }
+    .stock-item:nth-child(18) { animation-delay: 0.36s; }
+    .stock-item:nth-child(19) { animation-delay: 0.38s; }
+    .stock-item:nth-child(20) { animation-delay: 0.4s; }
 
-    .gainers-table {
-      animation: fadeInUp 0.5s ease 0.3s backwards;
+    /* Responsive */
+    @media (max-width: 640px) {
+      .stock-item {
+        grid-template-columns: 40px 80px 1fr 80px;
+      }
+      .stock-price {
+        display: none;
+      }
+      .index-tab {
+        min-width: 90px;
+        padding: 10px 16px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>A 股行情</h1>
+      <h1>A 股涨幅榜</h1>
       <p class="update-time" id="updateTime">更新于 --:--:--</p>
     </header>
 
-    <section class="section">
-      <h2 class="section-title">股指行情</h2>
-      <div class="index-grid" id="indexGrid">
-        <!-- Index cards will be inserted here -->
+    <!-- Index Tabs -->
+    <div class="index-tabs" id="indexTabs">
+      <div class="index-tab active" data-market="sh">
+        <div class="tab-name">上证指数</div>
+        <div class="tab-change" id="sh-change">-1.43%</div>
       </div>
-    </section>
+      <div class="index-tab" data-market="sz">
+        <div class="tab-name">深证成指</div>
+        <div class="tab-change" id="sz-change">-3.07%</div>
+      </div>
+      <div class="index-tab" data-market="cy">
+        <div class="tab-name">创业板指</div>
+        <div class="tab-change" id="cy-change">-2.57%</div>
+      </div>
+    </div>
 
+    <!-- Stock List -->
     <section class="section">
-      <h2 class="section-title">涨幅榜 Top 10</h2>
-      <div class="gainers-table">
-        <table>
-          <thead>
-            <tr>
-              <th>排名</th>
-              <th>代码</th>
-              <th>名称</th>
-              <th>最新价</th>
-              <th>涨跌幅</th>
-            </tr>
-          </thead>
-          <tbody id="gainersTable">
-            <!-- Table rows will be inserted here -->
-          </tbody>
-        </table>
+      <div class="section-title" id="currentMarket">上证涨幅榜 Top 20</div>
+      <div class="stock-list" id="stockList">
+        <!-- Stock items will be inserted here -->
       </div>
     </section>
 
@@ -282,69 +302,166 @@
 
   <script>
     // Index data
-    const indexData = [
-      { name: '上证指数', price: 4122.68, change: -1.43 },
-      { name: '深证成指', price: 14022.39, change: -3.07 },
-      { name: '创业板指', price: 3209.48, change: -2.57 },
-      { name: '科创50', price: 1388.41, change: -5.21 },
-      { name: '北证50', price: 1415.15, change: -4.11 }
-    ];
+    const indexData = {
+      sh: { name: '上证指数', change: -1.43 },
+      sz: { name: '深证成指', change: -3.07 },
+      cy: { name: '创业板指', change: -2.57 }
+    };
 
-    // Gainers data
-    const gainersData = [
-      { rank: 1, code: '300332', name: '天壕能源', price: 7.24, change: 20.07 },
-      { rank: 2, code: '300839', name: '博汇股份', price: 17.20, change: 20.03 },
-      { rank: 3, code: '300157', name: '新锦动力', price: 10.07, change: 20.02 },
-      { rank: 4, code: '300164', name: '通源石油', price: 21.70, change: 20.02 },
-      { rank: 5, code: '300191', name: '潜能恒信', price: 53.08, change: 20.01 },
-      { rank: 6, code: '301158', name: '德石股份', price: 37.44, change: 20.00 },
-      { rank: 7, code: '300483', name: '首华燃气', price: 25.03, change: 19.99 },
-      { rank: 8, code: '301302', name: '华如科技', price: 35.66, change: 19.99 },
-      { rank: 9, code: '300228', name: '富瑞特装', price: 12.81, change: 15.82 },
-      { rank: 10, code: '300435', name: '中泰股份', price: 34.92, change: 14.12 }
-    ];
+    // Stock data by market
+    const stockData = {
+      // Shanghai (60xxxx)
+      sh: [
+        { rank: 1, code: '601866', name: '中远海发', price: 3.25, change: 10.17 },
+        { rank: 2, code: '600617', name: '国新能源', price: 3.70, change: 10.12 },
+        { rank: 3, code: '600339', name: '中油工程', price: 5.13, change: 10.09 },
+        { rank: 4, code: '601139', name: '深圳燃气', price: 7.87, change: 10.07 },
+        { rank: 5, code: '600108', name: '亚盛集团', price: 4.81, change: 10.07 },
+        { rank: 6, code: '605368', name: '蓝天燃气', price: 9.41, change: 10.06 },
+        { rank: 7, code: '601015', name: '陕西黑猫', price: 5.69, change: 10.06 },
+        { rank: 8, code: '600403', name: '大有能源', price: 7.88, change: 10.06 },
+        { rank: 9, code: '600256', name: '广汇能源', price: 7.12, change: 10.05 },
+        { rank: 10, code: '601857', name: '中国石油', price: 13.15, change: 10.04 },
+        { rank: 11, code: '600635', name: '大众公用', price: 6.91, change: 10.03 },
+        { rank: 12, code: '600688', name: '上海石化', price: 3.84, change: 10.03 },
+        { rank: 13, code: '601872', name: '招商轮船', price: 19.65, change: 10.02 },
+        { rank: 14, code: '601808', name: '中海油服', price: 20.42, change: 10.02 },
+        { rank: 15, code: '605169', name: '洪通燃气', price: 15.37, change: 10.02 },
+        { rank: 16, code: '600367', name: '红星发展', price: 25.91, change: 10.02 },
+        { rank: 17, code: '600714', name: '金瑞矿业', price: 21.74, change: 10.02 },
+        { rank: 18, code: '600803', name: '新奥股份', price: 24.05, change: 10.02 },
+        { rank: 19, code: '601083', name: '锦江航运', price: 13.73, change: 10.02 },
+        { rank: 20, code: '603080', name: '新疆火炬', price: 27.57, change: 10.02 }
+      ],
+      // Shenzhen Main Board (00xxxx)
+      sz: [
+        { rank: 1, code: '002554', name: '惠博普', price: 5.13, change: 10.09 },
+        { rank: 2, code: '002682', name: '龙洲股份', price: 7.67, change: 10.04 },
+        { rank: 3, code: '000968', name: '蓝焰控股', price: 10.41, change: 10.04 },
+        { rank: 4, code: '002629', name: '仁智股份', price: 8.11, change: 10.04 },
+        { rank: 5, code: '000554', name: '泰山石油', price: 10.85, change: 10.04 },
+        { rank: 6, code: '000301', name: '东方盛虹', price: 14.58, change: 10.04 },
+        { rank: 7, code: '000096', name: '广聚能源', price: 13.27, change: 10.03 },
+        { rank: 8, code: '002911', name: '佛燃能源', price: 17.77, change: 10.03 },
+        { rank: 9, code: '001299', name: '美能能源', price: 15.47, change: 10.03 },
+        { rank: 10, code: '002040', name: '南 京 港', price: 13.17, change: 10.03 },
+        { rank: 11, code: '002506', name: '协鑫集成', price: 5.16, change: 10.02 },
+        { rank: 12, code: '002490', name: '山东墨龙', price: 10.65, change: 10.02 },
+        { rank: 13, code: '001269', name: '欧晶科技', price: 26.03, change: 10.02 },
+        { rank: 14, code: '002828', name: '贝肯能源', price: 16.37, change: 10.01 },
+        { rank: 15, code: '002980', name: '华盛昌', price: 35.06, change: 10.01 },
+        { rank: 16, code: '002350', name: '北京科锐', price: 13.08, change: 10.01 },
+        { rank: 17, code: '002957', name: '科瑞技术', price: 31.67, change: 10.00 },
+        { rank: 18, code: '002952', name: '亚世光电', price: 24.43, change: 10.00 },
+        { rank: 19, code: '002207', name: '准油股份', price: 13.66, change: 9.98 },
+        { rank: 20, code: '002491', name: '通鼎互联', price: 12.23, change: 9.98 }
+      ],
+      // ChiNext (30xxxx)
+      cy: [
+        { rank: 1, code: '300332', name: '天壕能源', price: 7.24, change: 20.07 },
+        { rank: 2, code: '300839', name: '博汇股份', price: 17.20, change: 20.03 },
+        { rank: 3, code: '300157', name: '新锦动力', price: 10.07, change: 20.02 },
+        { rank: 4, code: '300164', name: '通源石油', price: 21.70, change: 20.02 },
+        { rank: 5, code: '300191', name: '潜能恒信', price: 53.08, change: 20.01 },
+        { rank: 6, code: '301158', name: '德石股份', price: 37.44, change: 20.00 },
+        { rank: 7, code: '300483', name: '首华燃气', price: 25.03, change: 19.99 },
+        { rank: 8, code: '301302', name: '华如科技', price: 35.66, change: 19.99 },
+        { rank: 9, code: '300228', name: '富瑞特装', price: 12.81, change: 15.82 },
+        { rank: 10, code: '300435', name: '中泰股份', price: 34.92, change: 14.12 },
+        { rank: 11, code: '300658', name: '延江股份', price: 27.91, change: 13.87 },
+        { rank: 12, code: '301658', name: '首航新能', price: 36.09, change: 13.49 },
+        { rank: 13, code: '300135', name: '宝利国际', price: 5.16, change: 12.66 },
+        { rank: 14, code: '301500', name: '飞南资源', price: 25.71, change: 9.36 },
+        { rank: 15, code: '300335', name: '迪森股份', price: 6.90, change: 9.35 },
+        { rank: 16, code: '300438', name: '鹏辉能源', price: 49.14, change: 8.96 },
+        { rank: 17, code: '301613', name: '新铝时代', price: 53.50, change: 7.69 },
+        { rank: 18, code: '301179', name: '泽宇智能', price: 18.88, change: 6.79 },
+        { rank: 19, code: '300967', name: '晓鸣股份', price: 20.81, change: 6.34 },
+        { rank: 20, code: '301626', name: '苏州天脉', price: 240.88, change: 6.03 }
+      ]
+    };
 
-    // Format price
+    let currentMarket = 'sh';
+
+    // Format functions
     function formatPrice(price) {
       return price.toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
-    // Format change
     function formatChange(change) {
       const sign = change >= 0 ? '+' : '';
       return sign + change.toFixed(2) + '%';
     }
 
-    // Get change class
     function getChangeClass(change) {
       return change >= 0 ? 'change-up' : 'change-down';
     }
 
-    // Render index cards
-    function renderIndexes() {
-      const grid = document.getElementById('indexGrid');
-      grid.innerHTML = indexData.map(item => `
-        <div class="index-card">
-          <div class="index-name">${item.name}</div>
-          <div class="index-price">${formatPrice(item.price)}</div>
-          <div class="index-change ${getChangeClass(item.change)}">${formatChange(item.change)}</div>
-        </div>
-      `).join('');
+    function getRankClass(rank) {
+      return rank <= 3 ? 'top3' : '';
     }
 
-    // Render gainers table
-    function renderGainers() {
-      const tbody = document.getElementById('gainersTable');
-      tbody.innerHTML = gainersData.map(item => `
-        <tr>
-          <td class="rank">${item.rank}</td>
-          <td class="stock-code">${item.code}</td>
-          <td class="stock-name">${item.name}</td>
-          <td class="stock-price">${formatPrice(item.price)}</td>
-          <td class="stock-change ${getChangeClass(item.change)}">${formatChange(item.change)}</td>
-        </tr>
-      `).join('');
+    // Render stock list
+    function renderStockList(market) {
+      const list = document.getElementById('stockList');
+      const data = stockData[market];
+      const marketName = market === 'sh' ? '上证' : market === 'sz' ? '深证' : '创业板';
+      
+      let html = `
+        <div class="stock-item header">
+          <div class="stock-rank">排名</div>
+          <div class="stock-code">代码</div>
+          <div class="stock-name">名称</div>
+          <div class="stock-price">最新价</div>
+          <div class="stock-change">涨跌幅</div>
+        </div>
+      `;
+      
+      data.forEach(item => {
+        html += `
+          <div class="stock-item">
+            <div class="stock-rank ${getRankClass(item.rank)}">${item.rank}</div>
+            <div class="stock-code">${item.code}</div>
+            <div class="stock-name">${item.name}</div>
+            <div class="stock-price">${formatPrice(item.price)}</div>
+            <div class="stock-change ${getChangeClass(item.change)}">${formatChange(item.change)}</div>
+          </div>
+        `;
+      });
+      
+      list.innerHTML = html;
+      document.getElementById('currentMarket').textContent = `${marketName}涨幅榜 Top 20`;
     }
+
+    // Update tab changes
+    function updateTabChanges() {
+      const markets = ['sh', 'sz', 'cy'];
+      markets.forEach(m => {
+        const el = document.getElementById(`${m}-change`);
+        if (el) {
+          const change = indexData[m].change;
+          el.textContent = formatChange(change);
+          el.className = 'tab-change ' + getChangeClass(change);
+        }
+      });
+    }
+
+    // Tab click handler
+    document.getElementById('indexTabs').addEventListener('click', function(e) {
+      const tab = e.target.closest('.index-tab');
+      if (!tab) return;
+      
+      const market = tab.dataset.market;
+      if (market === currentMarket) return;
+      
+      // Update active state
+      document.querySelectorAll('.index-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      
+      // Render new data
+      currentMarket = market;
+      renderStockList(market);
+    });
 
     // Update time
     function updateTime() {
@@ -362,11 +479,11 @@
     }
 
     // Initialize
-    renderIndexes();
-    renderGainers();
+    renderStockList(currentMarket);
+    updateTabChanges();
     updateTime();
 
-    // Auto refresh every 30 seconds
+    // Auto refresh
     setInterval(() => {
       location.reload();
     }, 30000);
