@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mimoo - 日式烘焙工坊</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        mimoo: {
+                            pink: '#FFB7C5',
+                            darkpink: '#FF8FA3',
+                            cream: '#FFF5E6',
+                            brown: '#8B6F5C',
+                            darkbrown: '#5D4037',
+                            matcha: '#A8C686',
+                            sakura: '#FFDEE9'
+                        }
+                    },
+                    fontFamily: {
+                        'jp': ['"Zen Maru Gothic"', '"Noto Sans JP"', 'sans-serif']
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 3s infinite',
+                        'float': 'float 4s ease-in-out infinite',
+                        'wiggle': 'wiggle 1s ease-in-out infinite',
+                        'pulse-soft': 'pulse-soft 2s ease-in-out infinite',
+                        'steam': 'steam 2s ease-in-out infinite',
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                        'slide-up': 'slideUp 0.6s ease-out forwards',
+                        'pop': 'pop 0.3s ease-out forwards'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' }
+                        },
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' }
+                        },
+                        'pulse-soft': {
+                            '0%, 100%': { opacity: 1 },
+                            '50%': { opacity: 0.7 }
+                        },
+                        steam: {
+                            '0%': { transform: 'translateY(0) scale(1)', opacity: 0.8 },
+                            '100%': { transform: 'translateY(-30px) scale(1.5)', opacity: 0 }
+                        },
+                        fadeIn: {
+                            '0%': { opacity: 0 },
+                            '100%': { opacity: 1 }
+                        },
+                        slideUp: {
+                            '0%': { opacity: 0, transform: 'translateY(30px)' },
+                            '100%': { opacity: 1, transform: 'translateY(0)' }
+                        },
+                        pop: {
+                            '0%': { transform: 'scale(0.8)', opacity: 0 },
+                            '100%': { transform: 'scale(1)', opacity: 1 }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Zen Maru Gothic', 'Noto Sans JP', sans-serif; }
+        .steam-line {
+            position: absolute;
+            width: 8px;
+            height: 40px;
+            background: linear-gradient(to top, rgba(255,255,255,0.8), transparent);
+            border-radius: 50%;
+            animation: steam 2s ease-in-out infinite;
+        }
+        .steam-line:nth-child(1) { left: 20%; animation-delay: 0s; }
+        .steam-line:nth-child(2) { left: 50%; animation-delay: 0.5s; }
+        .steam-line:nth-child(3) { left: 80%; animation-delay: 1s; }
+        .card-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(255, 183, 197, 0.3);
+        }
+        .btn-bounce:active {
+            transform: scale(0.95);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #FFF5E6 0%, #FFDEE9 50%, #FFF5E6 100%);
+        }
+        .gradient-bg-2 {
+            background: linear-gradient(180deg, #FFF5E6 0%, #FFEFEE 100%);
+        }
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .gradient-animate {
+            background-size: 200% 200%;
+            animation: gradient-shift 8s ease infinite;
+        }
+        .scroll-item {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .scroll-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Header Component
+        const Header = () => {
+            const [scrolled, setScrolled] = useState(false);
+            const [menuOpen, setMenuOpen] = useState(false);
+
+            useEffect(() => {
+                const handleScroll = () => setScrolled(window.scrollY > 50);
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            return (
+                <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-sm shadow-md py-3' : 'bg-transparent py-5'}`}>
+                    <div className="max-w-6xl mx-auto px-4 flex items-center justify-between">
+                        <a href="#" className="text-3xl font-bold text-mimoo-darkpink tracking-wider hover:scale-105 transition-transform">
+                            🍓 mimoo
+                        </a>
+                        
+                        {/* Desktop Nav */}
+                        <nav className="hidden md:flex items-center gap-8">
+                            <a href="#home" className="text-mimoo-brown hover:text-mimoo-darkpink transition-colors font-medium">首页</a>
+                            <a href="#products" className="text-mimoo-brown hover:text-mimoo-darkpink transition-colors font-medium">产品</a>
+                            <a href="#factory" className="text-mimoo-brown hover:text-mimoo-darkpink transition-colors font-medium">代加工</a>
+                            <a href="#about" className="text-mimoo-brown hover:text-mimoo-darkpink transition-colors font-medium">关于</a>
+                            <a href="#contact" className="text-mimoo-brown hover:text-mimoo-darkpink transition-colors font-medium">联系</a>
+                        </nav>
+
+                        {/* Mobile Menu Button */}
+                        <button className="md:hidden text-mimoo-brown" onClick={() => setMenuOpen(!menuOpen)}>
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                {menuOpen ? (
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                ) : (
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                                )}
+                            </svg>
+                        </button>
+                    </div>
+
+                    {/* Mobile Menu */}
+                    {menuOpen && (
+                        <div className="md:hidden bg-white shadow-lg absolute top-full left-0 right-0">
+                            <nav className="flex flex-col p-4 gap-4">
+                                <a href="#home" className="text-mimoo-brown py-2 border-b border-mimoo-pink" onClick={() => setMenuOpen(false)}>首页</a>
+                                <a href="#products" className="text-mimoo-brown py-2 border-b border-mimoo-pink" onClick={() => setMenuOpen(false)}>产品</a>
+                                <a href="#factory" className="text-mimoo-brown py-2 border-b border-mimoo-pink" onClick={() => setMenuOpen(false)}>代加工</a>
+                                <a href="#about" className="text-mimoo-brown py-2 border-b border-mimoo-pink" onClick={() => setMenuOpen(false)}>关于</a>
+                                <a href="#contact" className="text-mimoo-brown py-2" onClick={() => setMenuOpen(false)}>联系</a>
+                            </nav>
+                        </div>
+                    )}
+                </header>
+            );
+        };
+
+        // Hero Section
+        const Hero = () => (
+            <section id="home" className="relative min-h-screen gradient-bg-2 flex items-center overflow-hidden">
+                {/* Decorative Elements */}
+                <div className="absolute top-20 left-10 text-6xl animate-float opacity-30">🍞</div>
+                <div className="absolute top-40 right-20 text-5xl animate-float opacity-30" style={{animationDelay: '1s'}}>🥐</div>
+                <div className="absolute bottom-40 left-20 text-5xl animate-float opacity-30" style={{animationDelay: '2s'}}>🍰</div>
+                <div className="absolute bottom-20 right-40 text-6xl animate-float opacity-30" style={{animationDelay: '0.5s'}}>🍩</div>
+                
+                <div className="max-w-6xl mx-auto px-4 py-32 grid md:grid-cols-2 gap-12 items-center w-full">
+                    <div className="text-center md:text-left order-2 md:order-1">
+                        <div className="inline-block bg-mimoo-pink/30 px-4 py-2 rounded-full mb-6 animate-fade-in">
+                            <span className="text-mimoo-darkpink font-medium">✨ 日式手工烘焙 ✨</span>
+                        </div>
+                        <h1 className="text-5xl md:text-6xl font-bold text-mimoo-darkbrown mb-6 animate-slide-up" style={{animationDelay: '0.2s'}}>
+                            遇见甜蜜的<br/>
+                            <span className="text-mimoo-darkpink">幸福滋味</span>
+                        </h1>
+                        <p className="text-xl text-mimoo-brown mb-8 animate-slide-up" style={{animationDelay: '0.4s'}}>
+                            来自日本的手作温度<br/>
+                            每一口都是心动的味道
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start animate-slide-up" style={{animationDelay: '0.6s'}}>
+                            <a href="#products" className="btn-bounce bg-mimoo-darkpink text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-mimoo-pink transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                                探索产品
+                            </a>
+                            <a href="#factory" className="btn-bounce bg-white text-mimoo-darkpink border-2 border-mimoo-darkpink px-8 py-4 rounded-full font-bold text-lg hover:bg-mimoo-pink/20 transition-all">
+                                代加工服务
+                            </a>
+                        </div>
+                    </div>
+                    <div className="order-1 md:order-2 flex justify-center">
+                        <div className="relative">
+                            {/* Main Image */}
+                            <div className="w-72 h-72 md:w-96 md:h-96 bg-gradient-to-br from-mimoo-pink to-mimoo-darkpink rounded-full flex items-center justify-center shadow-2xl animate-float">
+                                <span className="text-8xl md:text-9xl">🍓</span>
+                            </div>
+                            {/* Floating badges */}
+                            <div className="absolute -top-4 -right-4 bg-white p-4 rounded-2xl shadow-lg animate-wiggle">
+                                <span className="text-3xl">🥯</span>
+                            </div>
+                            <div className="absolute -bottom-2 -left-4 bg-white p-3 rounded-2xl shadow-lg animate-wiggle" style={{animationDelay: '0.5s'}}>
+                                <span className="text-2xl">🍪</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        );
+
+        // Products Section
+        const products = [
+            { id: 1, name: '草莓大福', desc: '软糯Q弹的和果子', emoji: '🍡', color: 'from-pink-300 to-rose-300' },
+            { id: 2, name: '奶油面包', desc: '绵密奶香入口即化', emoji: '🍞', color: 'from-amber-200 to-yellow-300' },
+            { id: 3, name: '抹茶红豆', desc: '宇治抹茶配甜蜜红豆', emoji: '🍰', color: 'from-green-200 to-emerald-200' },
+            { id: 4, name: '樱花麻薯', desc: '春日限定的浪漫', emoji: '🌸', color: 'from-pink-200 to-rose-200' },
+            { id: 5, name: '黄油曲奇', desc: '酥脆香浓的经典', emoji: '🍪', color: 'from-amber-100 to-orange-100' },
+            { id: 6, name: '卡斯特拉', desc: '日式柔软的云朵蛋糕', emoji: '🧁', color: 'from-yellow-100 to-amber-100' },
+        ];
+
+        const Products = () => (
+            <section id="products" className="py-24 bg-white relative">
+                <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-mimoo-cream to-white"></div>
+                <div className="max-w-6xl mx-auto px-4">
+                    <div className="text-center mb-16">
+                        <span className="text-mimoo-darkpink font-medium">Our Products</span>
+                        <h2 className="text-4xl md:text-5xl font-bold text-mimoo-darkbrown mt-2 mb-4">招牌产品</h2>
+                        <p className="text-mimoo-brown text-lg max-w-2xl mx-auto">
+                            严格选用优质原料，传统工艺与现代技术结合
+                        </p>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {products.map((product, index) => (
+                            <div 
+                                key={product.id}
+                                className="scroll-item card-hover bg-white rounded-3xl p-6 shadow-lg border-2 border-mimoo-pink/20 transition-all duration-300 cursor-pointer group"
+                            >
+                                <div className={`w-full h-48 bg-gradient-to-br ${product.color} rounded-2xl mb-6 flex items-center justify-center text-7xl group-hover:scale-110 transition-transform duration-300`}>
+                                    {product.emoji}
+                                </div>
+                                <h3 className="text-xl font-bold text-mimoo-darkbrown mb-2">{product.name}</h3>
+                                <p className="text-mimoo-brown">{product.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+        );
+
+        // Factory Section
+        const Factory = () => (
+            <section id="factory" className="py-24 gradient-bg relative overflow-hidden">
+                <div className="absolute inset-0 opacity-10">
+                    <div className="absolute top-10 left-10 text-9xl">🏭</div>
+                    <div className="absolute bottom-10 right-10 text-9xl">⚙️</div>
+                </div>
+                <div className="max-w-6xl mx-auto px-4 relative z-10">
+                    <div className="grid md:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <span className="text-mimoo-darkpink font-medium">OEM Service</span>
+                            <h2 className="text-4xl md:text-5xl font-bold text-mimoo-darkbrown mt-2 mb-6">代加工服务</h2>
+                            <p className="text-mimoo-brown text-lg mb-8">
+                                我们拥有专业的烘焙工厂和经验丰富的研发团队，<br/>
+                                为您提供从配方开发到量产的一站式服务。
+                            </p>
+                            <ul className="space-y-4 mb-8">
+                                {[
+                                    '📦 多种包装规格可选',
+                                    '🔬 配方定制研发',
+                                    '📋 品质检测认证',
+                                    '🚚 物流配送支持'
+                                ].map((item, i) => (
+                                    <li key={i} className="flex items-center gap-3 text-mimoo-darkbrown text-lg">
+                                        <span className="text-mimoo-darkpink">{item.split(' ')[0]}</span>
+                                        {item.slice(2)}
+                                    </li>
+                                ))}
+                            </ul>
+                            <a href="#contact" className="btn-bounce inline-block bg-mimoo-darkbrown text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-mimoo-brown transition-all shadow-lg">
+                                咨询代加工
+                            </a>
+                        </div>
+                        <div className="flex justify-center">
+                            <div className="relative">
+                                <div className="w-80 h-80 bg-white rounded-3xl shadow-2xl flex items-center justify-center">
+                                    <div className="text-center">
+                                        <div className="text-8xl mb-4">🏭</div>
+                                        <p className="text-mimoo-brown font-medium">日式标准化工厂</p>
+                                    </div>
+                                </div>
+                                <div className="absolute -bottom-6 -right-6 bg-mimoo-pink p-4 rounded-2xl shadow-lg animate-wiggle">
+                                    <span className="text-3xl">✅</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        );
+
+        // About Section
+        const About = () => (
+            <section id="about" className="py-24 bg-white relative">
+                <div className="max-w-6xl mx-auto px-4">
+                    <div className="grid md:grid-cols-2 gap-12 items-center">
+                        <div className="flex justify-center order-2 md:order-1">
+                            <div className="relative">
+                                <div className="w-72 h-72 md:w-80 md:h-80 bg-gradient-to-br from-mimoo-pink to-mimoo-darkpink rounded-full flex items-center justify-center shadow-2xl">
+                                    <span className="text-8xl">🐰</span>
+                                </div>
+                                <div className="absolute -top-4 -right-4 bg-white p-3 rounded-full shadow-lg animate-pulse-soft">
+                                    <span className="text-3xl">💕</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="order-1 md:order-2">
+                            <span className="text-mimoo-darkpink font-medium">About Mimoo</span>
+                            <h2 className="text-4xl md:text-5xl font-bold text-mimoo-darkbrown mt-2 mb-6">关于 Mimoo</h2>
+                            <p className="text-mimoo-brown text-lg mb-6 leading-relaxed">
+                                Mimoo 创立于对甜点的热爱。我们相信，美食不仅仅是味觉的享受，更是心灵的治愈。
+                            </p>
+                            <p className="text-mimoo-brown text-lg mb-8 leading-relaxed">
+                                每一款产品都倾注了我们对品质的坚持和对美学的追求。
+                                希望 Mimoo 的甜点能为您带来心动的时刻。
+                            </p>
+                            <div className="flex gap-8">
+                                <div className="text-center">
+                                    <div className="text-3xl font-bold text-mimoo-darkpink">5+</div>
+                                    <div className="text-mimoo-brown">年经验</div>
+                                </div>
+                                <div className="text-center">
+                                    <div className="text-3xl font-bold text-mimoo-darkpink">50+</div>
+                                    <div className="text-mimoo-brown">款产品</div>
+                                </div>
+                                <div className="text-center">
+                                    <div className="text-3xl font-bold text-mimoo-darkpink">10k+</div>
+                                    <div className="text-mimoo-brown">忠实粉丝</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        );
+
+        // Contact Section
+        const Contact = () => {
+            const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+            const [submitted, setSubmitted] = useState(false);
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                setSubmitted(true);
+                setTimeout(() => {
+                    setFormData({ name: '', email: '', message: '' });
+                    setSubmitted(false);
+                }, 3000);
+            };
+
+            return (
+                <section id="contact" className="py-24 gradient-bg">
+                    <div className="max-w-4xl mx-auto px-4">
+                        <div className="text-center mb-12">
+                            <span className="text-mimoo-darkpink font-medium">Contact Us</span>
+                            <h2 className="text-4xl md:text-5xl font-bold text-mimoo-darkbrown mt-2 mb-4">联系我们</h2>
+                            <p className="text-mimoo-brown text-lg">
+                                有任何问题或合作意向，欢迎随时联系我们
+                            </p>
+                        </div>
+                        
+                        <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12">
+                            {submitted ? (
+                                <div className="text-center py-12">
+                                    <div className="text-6xl mb-4 animate-pop">✅</div>
+                                    <h3 className="text-2xl font-bold text-mimoo-darkbrown mb-2">消息已发送！</h3>
+                                    <p className="text-mimoo-brown">我们会尽快回复您~</p>
+                                </div>
+                            ) : (
+                                <form onSubmit={handleSubmit} className="space-y-6">
+                                    <div>
+                                        <label className="block text-mimoo-darkbrown font-medium mb-2">您的名字</label>
+                                        <input 
+                                            type="text" 
+                                            required
+                                            value={formData.name}
+                                            onChange={(e) => setFormData({...formData, name: e.target.value})}
+                                            className="w-full px-6 py-4 border-2 border-mimoo-pink/30 rounded-2xl focus:border-mimoo-darkpink focus:outline-none transition-colors"
+                                            placeholder="请输入您的名字"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-mimoo-darkbrown font-medium mb-2">邮箱地址</label>
+                                        <input 
+                                            type="email" 
+                                            required
+                                            value={formData.email}
+                                            onChange={(e) => setFormData({...formData, email: e.target.value})}
+                                            className="w-full px-6 py-4 border-2 border-mimoo-pink/30 rounded-2xl focus:border-mimoo-darkpink focus:outline-none transition-colors"
+                                            placeholder="your@email.com"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-mimoo-darkbrown font-medium mb-2">留言</label>
+                                        <textarea 
+                                            required
+                                            rows={5}
+                                            value={formData.message}
+                                            onChange={(e) => setFormData({...formData, message: e.target.value})}
+                                            className="w-full px-6 py-4 border-2 border-mimoo-pink/30 rounded-2xl focus:border-mimoo-darkpink focus:outline-none transition-colors resize-none"
+                                            placeholder="请告诉我们您的需求..."
+                                        />
+                                    </div>
+                                    <button 
+                                        type="submit"
+                                        className="btn-bounce w-full bg-mimoo-darkpink text-white py-4 rounded-2xl font-bold text-lg hover:bg-mimoo-pink transition-all shadow-lg hover:shadow-xl"
+                                    >
+                                        发送消息 ✉️
+                                    </button>
+                                </form>
+                            )}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // Footer
+        const Footer = () => (
+            <footer className="bg-mimoo-darkbrown text-white py-12">
+                <div className="max-w-6xl mx-auto px-4">
+                    <div className="grid md:grid-cols-4 gap-8 mb-8">
+                        <div>
+                            <h3 className="text-2xl font-bold mb-4">🍓 mimoo</h3>
+                            <p className="text-white/70">日式手工烘焙工坊</p>
+                            <p className="text-white/70">让每一口都充满幸福</p>
+                        </div>
+                        <div>
+                            <h4 className="font-bold mb-4">快速链接</h4>
+                            <ul className="space-y-2 text-white/70">
+                                <li><a href="#products" className="hover:text-mimoo-pink transition-colors">产品列表</a></li>
+                                <li><a href="#factory" className="hover:text-mimoo-pink transition-colors">代加工</a></li>
+                                <li><a href="#about" className="hover:text-mimoo-pink transition-colors">关于我们</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="font-bold mb-4">联系我们</h4>
+                            <ul className="space-y-2 text-white/70">
+                                <li>📧 mimoo@example.com</li>
+                                <li>📍 某市某区某街道</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="font-bold mb-4">关注我们</h4>
+                            <div className="flex gap-4">
+                                <a href="#" className="text-2xl hover:scale-125 transition-transform">📸</a>
+                                <a href="#" className="text-2xl hover:scale-125 transition-transform">💬</a>
+                                <a href="#" className="text-2xl hover:scale-125 transition-transform">📱</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="border-t border-white/20 pt-8 text-center text-white/50">
+                        <p>© 2024 Mimoo. All rights reserved. | 用心制作每一份甜蜜</p>
+                    </div>
+                </div>
+            </footer>
+        );
+
+        // Scroll Animation Component
+        const ScrollAnimation = ({ children }) => {
+            const [isVisible, setIsVisible] = useState(false);
+            const ref = useRef(null);
+
+            useEffect(() => {
+                const observer = new IntersectionObserver(
+                    ([entry]) => {
+                        if (entry.isIntersecting) {
+                            setIsVisible(true);
+                        }
+                    },
+                    { threshold: 0.1 }
+                );
+
+                if (ref.current) {
+                    observer.observe(ref.current);
+                }
+
+                return () => observer.disconnect();
+            }, []);
+
+            return (
+                <div ref={ref} className={isVisible ? 'scroll-item visible' : 'scroll-item'}>
+                    {children}
+                </div>
+            );
+        };
+
+        // Main App
+        const App = () => (
+            <div className="font-jp">
+                <Header />
+                <main>
+                    <Hero />
+                    <Products />
+                    <Factory />
+                    <About />
+                    <Contact />
+                </main>
+                <Footer />
+            </div>
+        );
+
+        // Render
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
