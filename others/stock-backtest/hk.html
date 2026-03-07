@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>策略回测报告 - RSI+MA20 均线回归</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
+      background: #f5f7fa;
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
+    }
+    .container { max-width: 1000px; margin: 0 auto; }
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+      color: #1a1a2e;
+    }
+    .subtitle {
+      text-align: center;
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+    .stat-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .stat-card .label {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 8px;
+    }
+    .stat-card .value {
+      font-size: 24px;
+      font-weight: 600;
+    }
+    .stat-card .value.positive { color: #e74c3c; }
+    .stat-card .value.negative { color: #27ae60; }
+    .stat-card .value.neutral { color: #333; }
+    #chart {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      margin-bottom: 30px;
+      height: 350px;
+    }
+    .trades-section {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .trades-section h2 {
+      font-size: 18px;
+      margin-bottom: 16px;
+      color: #1a1a2e;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th, td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+    th {
+      background: #f8f9fa;
+      font-weight: 600;
+      color: #666;
+    }
+    tr:hover { background: #fafafa; }
+    .signal-buy { color: #e74c3c; font-weight: 600; }
+    .signal-sell { color: #27ae60; font-weight: 600; }
+    .profit-positive { color: #e74c3c; }
+    .profit-negative { color: #27ae60; }
+    .info-section {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      margin-bottom: 30px;
+    }
+    .info-section h2 {
+      font-size: 18px;
+      margin-bottom: 16px;
+      color: #1a1a2e;
+    }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      font-size: 14px;
+    }
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .info-item .label { color: #666; }
+    .info-item .value { font-weight: 500; }
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #999;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📈 策略回测报告</h1>
+    <p class="subtitle">RSI + MA20 均线回归策略 | 30天回测</p>
+    
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="label">总收益率</div>
+        <div class="value negative">
+          -4.93%
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="label">胜率</div>
+        <div class="value negative">
+          0.0%
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="label">最大回撤</div>
+        <div class="value negative">
+          -14.67%
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="label">交易次数</div>
+        <div class="value neutral">
+          1 次
+        </div>
+      </div>
+    </div>
+    
+    <div id="chart"></div>
+    
+    <div class="info-section">
+      <h2>📋 回测信息</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="label">初始资金</span>
+          <span class="value">¥100,000</span>
+        </div>
+        <div class="info-item">
+          <span class="label">回测天数</span>
+          <span class="value">30 天</span>
+        </div>
+        <div class="info-item">
+          <span class="label">股票池</span>
+          <span class="value">10 只</span>
+        </div>
+        <div class="info-item">
+          <span class="label">盈利次数</span>
+          <span class="value">0 次</span>
+        </div>
+        <div class="info-item">
+          <span class="label">亏损次数</span>
+          <span class="value">1 次</span>
+        </div>
+        <div class="info-item">
+          <span class="label">平均盈利</span>
+          <span class="value profit-positive">+0.00%</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="trades-section">
+      <h2>📝 交易记录</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>日期</th>
+            <th>股票</th>
+            <th>操作</th>
+            <th>价格</th>
+            <th>数量</th>
+            <th>金额</th>
+            <th>收益率</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+    <tr>
+      <td>-02-06</td>
+      <td>hk01810 (hk01810)</td>
+      <td class="signal-buy">买入</td>
+      <td>¥35.18</td>
+      <td>2800</td>
+      <td>¥98,504</td>
+      <td class="">
+        -
+      </td>
+    </tr>
+  
+    <tr>
+      <td>-03-06</td>
+      <td>hk01810 (hk01810)</td>
+      <td class="signal-sell">卖出</td>
+      <td>¥33.42</td>
+      <td>2800</td>
+      <td>¥93,576</td>
+      <td class="profit-negative">
+        -5.00%
+      </td>
+    </tr>
+  
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="footer">
+      生成时间: 2026/3/7 14:17:30
+    </div>
+  </div>
+  
+  <script>
+    
+    var chart = echarts.init(document.getElementById('chart'));
+    var option = {
+      title: { text: '账户权益曲线', left: 'center', textStyle: { fontSize: 14, fontWeight: 'normal' } },
+      tooltip: { trigger: 'axis' },
+      grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+      xAxis: { type: 'category', data: ["-01-21","-01-22","-01-23","-01-26","-01-27","-01-28","-01-29","-01-30","-02-02","-02-03","-02-04","-02-05","-02-06","-02-09","-02-10","-02-11","-02-12","-02-13","-02-16","-02-20","-02-23","-02-24","-02-25","-02-26","-02-27","-03-02","-03-03","-03-04","-03-05","-03-06"], axisLabel: { rotate: 45 } },
+      yAxis: { type: 'value', scale: true },
+      series: [{
+        type: 'line',
+        data: [100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100056.00000000001,101120,105376,103752.00000000001,104648.00000000001,104143.99999999999,100504,103864,101568,101176,100000,99216,94288,89920,91096,91656.00000000001,95072],
+        smooth: true,
+        lineStyle: { color: '#5470c6', width: 2 },
+        areaStyle: { color: 'rgba(84, 112, 198, 0.1)' },
+        symbol: 'circle',
+        symbolSize: 4
+      }]
+    };
+    chart.setOption(option);
+    window.addEventListener('resize', function() { chart.resize(); });
+  
+  </script>
+</body>
+</html>
