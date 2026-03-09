@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>每日动量分析报告 - 2026年3月9日</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #fff;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #00d4ff, #7c3aed, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header .subtitle {
+            color: #888;
+            font-size: 16px;
+        }
+        
+        .header .date {
+            color: #666;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+        
+        .recommendation {
+            text-align: center;
+            padding: 25px;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.15) 0%, rgba(124, 58, 237, 0.15) 100%);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 107, 107, 0.3);
+        }
+        
+        .recommendation .label {
+            font-size: 14px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .recommendation .value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ff6b6b;
+        }
+        
+        .recommendation .value.cautious {
+            color: #fbbf24;
+        }
+        
+        .recommendation .value.bullish {
+            color: #4ade80;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title .icon {
+            font-size: 24px;
+        }
+        
+        .section-title .flag {
+            font-size: 20px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 14px 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        th {
+            color: #666;
+            font-weight: 500;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        td {
+            font-size: 14px;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .positive {
+            color: #4ade80;
+        }
+        
+        .negative {
+            color: #f87171;
+        }
+        
+        .index-name {
+            font-weight: 600;
+        }
+        
+        .market-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .market-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .market-card .title {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        
+        .market-card .trend {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .watchlist {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .watchlist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .watchlist .stock-name {
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .watchlist .stock-code {
+            color: #666;
+            font-size: 13px;
+        }
+        
+        .watchlist-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            font-size: 13px;
+        }
+        
+        .watchlist-details .label {
+            color: #666;
+        }
+        
+        .watchlist-details .value {
+            font-weight: 500;
+        }
+        
+        .risk-section {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(239, 68, 68, 0.1) 100%);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+        }
+        
+        .risk-section h3 {
+            font-size: 18px;
+            margin-bottom: 16px;
+            color: #fbbf24;
+        }
+        
+        .risk-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 14px;
+            color: #ccc;
+        }
+        
+        .risk-item:last-child {
+            border-bottom: none;
+        }
+        
+        .risk-item .bullet {
+            color: #f87171;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #555;
+            font-size: 12px;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 12px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .recommendation .value {
+                font-size: 22px;
+            }
+            
+            th, td {
+                padding: 10px 8px;
+                font-size: 12px;
+            }
+            
+            .watchlist-details {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 每日动量分析报告</h1>
+            <div class="subtitle">A股 · 港股 · 美股</div>
+            <div class="date">2026年3月9日 · Monday</div>
+        </div>
+        
+        <div class="recommendation">
+            <div class="label">今日建议操作</div>
+            <div class="value cautious">⚠️ 持币观望</div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">
+                <span class="icon">📈</span>
+                <span class="flag">🇨🇳</span> A股市场
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>指数</th>
+                        <th>收盘</th>
+                        <th>涨跌</th>
+                        <th>幅度</th>
+                        <th>最高</th>
+                        <th>最低</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="index-name">上证指数</td>
+                        <td>4096.60</td>
+                        <td class="negative">-27.59</td>
+                        <td class="negative">-0.67%</td>
+                        <td>4124.19</td>
+                        <td>4052.55</td>
+                    </tr>
+                    <tr>
+                        <td class="index-name">沪深300</td>
+                        <td>4615.46</td>
+                        <td class="negative">-44.98</td>
+                        <td class="negative">-0.97%</td>
+                        <td>4660.44</td>
+                        <td>4548.97</td>
+                    </tr>
+                    <tr>
+                        <td class="index-name">深证成指</td>
+                        <td>14067.50</td>
+                        <td class="negative">-105.13</td>
+                        <td class="negative">-0.74%</td>
+                        <td>14172.63</td>
+                        <td>13701.67</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">
+                <span class="icon">📉</span>
+                <span class="flag">🇭🇰</span> 港股市场 (H股)
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>指数</th>
+                        <th>收盘</th>
+                        <th>涨跌</th>
+                        <th>幅度</th>
+                        <th>最高</th>
+                        <th>最低</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="index-name">恒生指数</td>
+                        <td>25,393.59</td>
+                        <td class="negative">-363.70</td>
+                        <td class="negative">-1.41%</td>
+                        <td>25,757.29</td>
+                        <td>24,906.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">
+                <span class="icon">🦅</span>
+                <span class="flag">🇺🇸</span> 美股市场
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>指数</th>
+                        <th>收盘</th>
+                        <th>涨跌</th>
+                        <th>幅度</th>
+                        <th>最高</th>
+                        <th>最低</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="index-name">S&P 500</td>
+                        <td>6,740.02</td>
+                        <td class="negative">-138.86</td>
+                        <td class="negative">-2.02%</td>
+                        <td>6,773.42</td>
+                        <td>6,711.56</td>
+                    </tr>
+                    <tr>
+                        <td class="index-name">Nasdaq</td>
+                        <td>22,387.68</td>
+                        <td class="negative">-280.53</td>
+                        <td class="negative">-1.24%</td>
+                        <td>22,614.41</td>
+                        <td>22,328.14</td>
+                    </tr>
+                    <tr>
+                        <td class="index-name">Dow Jones</td>
+                        <td>47,501.55</td>
+                        <td class="negative">-1,476.37</td>
+                        <td class="negative">-3.01%</td>
+                        <td>47,634.55</td>
+                        <td>47,009.01</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">
+                <span class="icon">🎯</span> 5% 观察名单
+            </div>
+            <div class="watchlist">
+                <div class="watchlist-header">
+                    <div>
+                        <div class="stock-name">宁德时代</div>
+                        <div class="stock-code">300750.SZ</div>
+                    </div>
+                    <div class="negative">-1.82%</div>
+                </div>
+                <div class="watchlist-details">
+                    <div><span class="label">入场:</span> <span class="value">185.00</span></div>
+                    <div><span class="label">止损:</span> <span class="value">178.00</span></div>
+                    <div><span class="label">概率:</span> <span class="value">55%</span></div>
+                </div>
+                <div style="margin-top:10px;font-size:13px;color:#888;">逻辑：新能源板块超跌反弹，成交量放大</div>
+            </div>
+            <div class="watchlist">
+                <div class="watchlist-header">
+                    <div>
+                        <div class="stock-name">比亚迪</div>
+                        <div class="stock-code">002594.SZ</div>
+                    </div>
+                    <div class="negative">-2.15%</div>
+                </div>
+                <div class="watchlist-details">
+                    <div><span class="label">入场:</span> <span class="value">210.00</span></div>
+                    <div><span class="label">止损:</span> <span class="value">202.00</span></div>
+                    <div><span class="label">概率:</span> <span class="value">50%</span></div>
+                </div>
+                <div style="margin-top:10px;font-size:13px;color:#888;">逻辑：电动车龙头回调至支撑位，机构低吸</div>
+            </div>
+            <div class="watchlist">
+                <div class="watchlist-header">
+                    <div>
+                        <div class="stock-name">腾讯控股</div>
+                        <div class="stock-code">0700.HK</div>
+                    </div>
+                    <div class="negative">-1.65%</div>
+                </div>
+                <div class="watchlist-details">
+                    <div><span class="label">入场:</span> <span class="value">380.00</span></div>
+                    <div><span class="label">止损:</span> <span class="value">365.00</span></div>
+                    <div><span class="label">概率:</span> <span class="value">60%</span></div>
+                </div>
+                <div style="margin-top:10px;font-size:13px;color:#888;">逻辑：港股科技股估值修复，南向资金流入</div>
+            </div>
+        </div>
+        
+        <div class="risk-section">
+            <h3>⚠️ 风险提示</h3>
+            <div class="risk-item">
+                <span class="bullet">•</span>
+                <span>美股三大指数集体重挫，道指暴跌3%，全球风险偏好降温</span>
+            </div>
+            <div class="risk-item">
+                <span class="bullet">•</span>
+                <span>港股恒生指数跌幅扩大至-1.41%，北向资金净流出</span>
+            </div>
+            <div class="risk-item">
+                <span class="bullet">•</span>
+                <span>A股成交量萎缩至797亿，观望情绪浓厚</span>
+            </div>
+            <div class="risk-item">
+                <span class="bullet">•</span>
+                <span>建议仓位控制在30%以下，等待市场企稳信号</span>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>数据来源：东方财富、Yahoo Finance | 分析时间：2026-03-09 15:35</p>
+            <p style="margin-top:5px;color:#444;">Generated by Marco · 每日动量报告</p>
+        </div>
+    </div>
+</body>
+</html>
