@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>美股盘前报告 - 2026年3月10日</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e4e4e7;
+            line-height: 1.6;
+            padding: 16px;
+        }
+        .container { max-width: 680px; margin: 0 auto; }
+        .header {
+            text-align: center;
+            padding: 24px 16px;
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(220, 38, 38, 0.3);
+        }
+        .header h1 { font-size: 24px; font-weight: 700; margin-bottom: 8px; color: #fff; }
+        .header .date { font-size: 14px; opacity: 0.9; color: #fff; }
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .recommend-box {
+            text-align: center;
+            padding: 24px;
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.2) 0%, rgba(185, 28, 28, 0.2) 100%);
+            border-radius: 12px;
+            border: 1px solid rgba(220, 38, 38, 0.3);
+        }
+        .recommend-label { font-size: 14px; color: #a1a1aa; margin-bottom: 8px; }
+        .recommend-value { font-size: 28px; font-weight: 700; color: #fbbf24; }
+        .reason { margin-top: 16px; font-size: 14px; color: #a1a1aa; text-align: left; }
+        .reason ul { margin-left: 16px; margin-top: 8px; }
+        .reason li { margin-bottom: 6px; }
+        .hot-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+        .hot-tag {
+            font-size: 12px;
+            padding: 4px 12px;
+            background: rgba(220, 38, 38, 0.3);
+            border-radius: 20px;
+            color: #fca5a5;
+        }
+        .stock-list { display: flex; flex-direction: column; gap: 12px; }
+        .stock-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .stock-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .stock-name { font-size: 16px; font-weight: 600; color: #fff; }
+        .stock-code { font-size: 12px; color: #71717a; background: rgba(255, 255, 255, 0.1); padding: 2px 8px; border-radius: 4px; }
+        .stock-logic { font-size: 13px; color: #a1a1aa; margin-bottom: 8px; }
+        .stock-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag { font-size: 11px; padding: 4px 10px; border-radius: 20px; font-weight: 500; }
+        .tag-entry { background: rgba(34, 197, 94, 0.2); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
+        .tag-stop { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .tag-prob { background: rgba(251, 191, 36, 0.2); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
+        .risk-section {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+        .risk-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-size: 14px; }
+        .risk-item:last-child { margin-bottom: 0; }
+        .risk-icon { color: #f87171; font-size: 16px; }
+        .position-advice {
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 12px;
+        }
+        .position-advice .label { color: #fbbf24; font-weight: 600; margin-bottom: 6px; }
+        .position-advice .value { font-size: 20px; font-weight: 700; color: #fbbf24; }
+        .footer { text-align: center; padding: 24px 16px; color: #71717a; font-size: 12px; }
+        .disclaimer {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 11px;
+            color: #71717a;
+            margin-top: 12px;
+        }
+        .us-section { border-left: 3px solid #3b82f6; }
+        .us-section .section-title { color: #60a5fa; }
+        .index-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+        .index-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+        }
+        .index-name { font-size: 12px; color: #a1a1aa; margin-bottom: 4px; }
+        .index-value { font-size: 18px; font-weight: 700; color: #fff; }
+        .index-change { font-size: 12px; }
+        .up { color: #4ade80; }
+        .down { color: #f87171; }
+        .time-note {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 12px;
+            color: #60a5fa;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        @media (max-width: 480px) {
+            body { padding: 12px; }
+            .header { padding: 20px 16px; }
+            .header h1 { font-size: 20px; }
+            .section { padding: 16px; }
+            .recommend-value { font-size: 24px; }
+            .stock-item { padding: 14px; }
+            .index-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🇺🇸 美股盘前报告</h1>
+            <div class="date">2026年3月10日 星期二 18:40 (北京)</div>
+        </div>
+        
+        <div class="time-note">
+            ⏰ 北京时间18:40 = 纽约时间05:40 (盘前交易时段)
+        </div>
+        
+        <div class="section">
+            <div class="section-title"><span class="icon">📈</span>盘前市场情绪</div>
+            <div class="recommend-box">
+                <div class="recommend-label">盘前建议</div>
+                <div class="recommend-value">谨慎观望</div>
+            </div>
+            <div class="reason">
+                <ul>
+                    <li>⚠️ 昨日美股因中东局势紧张大幅震荡</li>
+                    <li>⚠️ 原油期货昨日暴跌10%，能源股承压</li>
+                    <li>🌏 亚太强反弹：日经+2.68%，韩股+5.54%</li>
+                    <li>📊 A股创业板涨3%，做多情绪蔓延</li>
+                    <li>🇭🇰 港股恒生指数涨2%，智谱暴涨20%</li>
+                    <li>💼 今日盘前重点关注：中概股、科技股</li>
+                </ul>
+            </div>
+            <div class="hot-tags">
+                <span class="hot-tag">🛢️ 原油</span>
+                <span class="hot-tag">🤖 AI科技</span>
+                <span class="hot-tag">🇨🇳 中概股</span>
+                <span class="hot-tag">🔵 半导体</span>
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title"><span class="icon">🌏</span>外围市场表现</div>
+            <div class="index-grid">
+                <div class="index-item">
+                    <div class="index-name">日经225</div>
+                    <div class="index-value">54144</div>
+                    <div class="index-change up">+2.68%</div>
+                </div>
+                <div class="index-item">
+                    <div class="index-name">韩国KOSPI</div>
+                    <div class="index-value">5543</div>
+                    <div class="index-change up">+5.54%</div>
+                </div>
+                <div class="index-item">
+                    <div class="index-name">恒生指数</div>
+                    <div class="index-value">涨2%</div>
+                    <div class="index-change up">+2.15%</div>
+                </div>
+                <div class="index-item">
+                    <div class="index-name">德国DAX</div>
+                    <div class="index-value">23409</div>
+                    <div class="index0.77%-change down">-</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section us-section">
+            <div class="section-title"><span class="icon">🎯</span>盘前关注标的</div>
+            <div class="stock-list">
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <span class="stock-name">NVIDIA</span>
+                        <span class="stock-code">NVDA</span>
+                    </div>
+                    <div class="stock-logic">AI芯片龙头，A股算力概念持续爆发，关注美股映射机会</div>
+                    <div class="stock-tags">
+                        <span class="tag tag-entry">盘前关注：130美元支撑</span>
+                        <span class="tag tag-stop">止损：跌破125美元</span>
+                        <span class="tag tag-prob">概率：55%</span>
+                    </div>
+                </div>
+                
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <span class="stock-name">Tesla</span>
+                        <span class="stock-code">TSLA</span>
+                    </div>
+                    <div class="stock-logic">中国新能源车竞争加剧，关注今日盘前走势</div>
+                    <div class="stock-tags">
+                        <span class="tag tag-entry">盘前关注：250美元支撑</span>
+                        <span class="tag tag-stop">止损：跌破240美元</span>
+                        <span class="tag tag-prob">概率：50%</span>
+                    </div>
+                </div>
+                
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <span class="stock-name">Apple</span>
+                        <span class="stock-code">AAPL</span>
+                    </div>
+                    <div class="stock-logic">iPhone 17e上市，关注换机需求预期</div>
+                    <div class="stock-tags">
+                        <span class="tag tag-entry">盘前关注：220美元支撑</span>
+                        <span class="tag tag-stop">止损：跌破215美元</span>
+                        <span class="tag tag-prob">概率：60%</span>
+                    </div>
+                </div>
+                
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <span class="stock-name">Baidu</span>
+                        <span class="stock-code">BIDU</span>
+                    </div>
+                    <div class="stock-logic">港股智谱映射，AI大模型概念持续发酵</div>
+                    <div class="stock-tags">
+                        <span class="tag tag-entry">盘前关注：110美元支撑</span>
+                        <span class="tag tag-stop">止损：跌破105美元</span>
+                        <span class="tag tag-prob">概率：55%</span>
+                    </div>
+                </div>
+                
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <span class="stock-name">Alibaba</span>
+                        <span class="stock-code">BABA</span>
+                    </div>
+                    <div class="stock-logic">港股科技股反弹，关注阿里云和AI进展</div>
+                    <div class="stock-tags">
+                        <span class="tag tag-entry">盘前关注：140美元支撑</span>
+                        <span class="tag tag-stop">止损：跌破135美元</span>
+                        <span class="tag tag-prob">概率：58%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section risk-section">
+            <div class="section-title"><span class="icon">⚠️</span>风险提示</div>
+            <div class="risk-item"><span class="risk-icon">🔴</span>中东局势不确定性，原油波动影响能源股</div>
+            <div class="risk-item"><span class="risk-icon">🔴</span>昨日美股大跌后技术面需要修复</div>
+            <div class="risk-item"><span class="risk-icon">🟡</span>盘前交易量低，波动可能放大</div>
+            <div class="risk-item"><span class="risk-icon">🟡</span>美联储政策预期不明朗</div>
+            <div class="position-advice">
+                <div class="label">仓位控制建议</div>
+                <div class="value">20%-30%</div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div>报告生成时间：2026-03-10 18:40</div>
+            <div class="disclaimer">免责声明：本报告仅供参考，不构成投资建议。美股有风险，入市需谨慎。</div>
+        </div>
+    </div>
+</body>
+</html>
