@@ -64,9 +64,6 @@
         .stock-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
         .stock-name { font-size: 16px; font-weight: 600; color: #fff; }
         .stock-code { font-size: 12px; color: #71717a; background: rgba(255, 255, 255, 0.1); padding: 2px 8px; border-radius: 4px; }
-        .stock-change { font-size: 14px; font-weight: 600; }
-        .stock-change.up { color: #4ade80; }
-        .stock-change.down { color: #f87171; }
         .stock-logic { font-size: 13px; color: #a1a1aa; margin-bottom: 8px; }
         .stock-tags { display: flex; flex-wrap: wrap; gap: 8px; }
         .tag { font-size: 11px; padding: 4px 10px; border-radius: 20px; font-weight: 500; }
@@ -100,13 +97,13 @@
         }
         .hk-section { border-left: 3px solid #ffd700; }
         .hk-section .section-title { color: #ffd700; }
-        .global-market { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 16px; }
-        .global-item { background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; text-align: center; }
-        .global-name { font-size: 12px; color: #a1a1aa; }
-        .global-value { font-size: 14px; font-weight: 600; color: #fff; }
-        .global-change { font-size: 12px; }
-        .global-change.up { color: #4ade80; }
-        .global-change.down { color: #f87171; }
+        .index-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 16px; }
+        .index-item { background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; text-align: center; }
+        .index-name { font-size: 12px; color: #71717a; }
+        .index-value { font-size: 18px; font-weight: 600; color: #fff; margin: 4px 0; }
+        .index-change { font-size: 12px; }
+        .up { color: #4ade80; }
+        .down { color: #f87171; }
         @media (max-width: 480px) {
             body { padding: 12px; }
             .header { padding: 20px 16px; }
@@ -114,7 +111,7 @@
             .section { padding: 16px; }
             .recommend-value { font-size: 24px; }
             .stock-item { padding: 14px; }
-            .global-market { grid-template-columns: repeat(2, 1fr); }
+            .index-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -129,44 +126,40 @@
         <!-- 市场情绪 -->
         <div class="section">
             <div class="section-title"><span class="icon">📈</span>市场情绪与操作建议</div>
+            <div class="index-grid">
+                <div class="index-item">
+                    <div class="index-name">上证指数</div>
+                    <div class="index-value">4122.49</div>
+                    <div class="index-change down">-0.02%</div>
+                </div>
+                <div class="index-item">
+                    <div class="index-name">深证成指</div>
+                    <div class="index-value">14467.23</div>
+                    <div class="index-change up">+0.79%</div>
+                </div>
+                <div class="index-item">
+                    <div class="index-name">创业板指</div>
+                    <div class="index-value">3356.03</div>
+                    <div class="index-change up">+1.51%</div>
+                </div>
+                <div class="index-item">
+                    <div class="index-name">科创50</div>
+                    <div class="index-value">1416.20</div>
+                    <div class="index-change down">-0.31%</div>
+                </div>
+            </div>
             <div class="recommend-box">
                 <div class="recommend-label">今日建议</div>
                 <div class="recommend-value">保守买入</div>
             </div>
             <div class="reason">
                 <ul>
-                    <li>✅ 外围市场普涨：日经+2.13%，韩综+3.22%，德指+2.39%</li>
-                    <li>✅ 港股通连续净流入（昨日沪港通+深港通合计4.39亿）</li>
-                    <li>⚠️ A股昨日涨跌参半，量能仍待观察</li>
-                    <li>⚠️ 近期市场波动加大，建议控制仓位</li>
+                    <li>✅ 外围市场强劲：日经+2.39%，韩国KOSPI+3.31%，德国DAX+2.39%</li>
+                    <li>✅ 创业板领涨+1.51%，题材股活跃度回升</li>
+                    <li>✅ 港股通净流入7.17亿元，资金面偏暖</li>
+                    <li>⚠️ 上证指数微跌-0.02%，上方压力犹存</li>
+                    <li>⚠️ 科创50表现疲软-0.31%，分化明显</li>
                 </ul>
-            </div>
-        </div>
-        
-        <!-- 全球市场 -->
-        <div class="section">
-            <div class="section-title"><span class="icon">🌏</span>外围市场表现</div>
-            <div class="global-market">
-                <div class="global-item">
-                    <div class="global-name">日经225</div>
-                    <div class="global-value">55,403</div>
-                    <div class="global-change up">+2.13%</div>
-                </div>
-                <div class="global-item">
-                    <div class="global-name">韩国KOSPI</div>
-                    <div class="global-value">5,710</div>
-                    <div class="global-change up">+3.22%</div>
-                </div>
-                <div class="global-item">
-                    <div class="global-name">德国DAX</div>
-                    <div class="global-value">23,968</div>
-                    <div class="global-change up">+2.39%</div>
-                </div>
-                <div class="global-item">
-                    <div class="global-name">法国CAC40</div>
-                    <div class="global-value">8,057</div>
-                    <div class="global-change up">+1.79%</div>
-                </div>
             </div>
         </div>
         
@@ -176,123 +169,102 @@
             <div class="stock-list">
                 <div class="stock-item">
                     <div class="stock-header">
-                        <div>
-                            <span class="stock-name">海博思创</span>
-                            <span class="stock-code">688411</span>
-                        </div>
-                        <span class="stock-change up">+12.95%</span>
+                        <span class="stock-name">首航新能</span>
+                        <span class="stock-code">301658</span>
                     </div>
-                    <div class="stock-logic">储能龙头，技术面放量突破新高，量价配合良好</div>
+                    <div class="stock-logic">新能源板块涨停，量价齐升，量比5.04，换手率44.87%活跃</div>
                     <div class="stock-tags">
-                        <span class="tag tag-entry">入场：260-270</span>
-                        <span class="tag tag-stop">止损：235</span>
-                        <span class="tag tag-prob">概率：65%</span>
+                        <span class="tag tag-entry">入场: 突破46元</span>
+                        <span class="tag tag-stop">止损: 42元</span>
+                        <span class="tag tag-prob">概率: 65%</span>
                     </div>
                 </div>
                 <div class="stock-item">
                     <div class="stock-header">
-                        <div>
-                            <span class="stock-name">德业股份</span>
-                            <span class="stock-code">605117</span>
-                        </div>
-                        <span class="stock-change up">+10.00%</span>
+                        <span class="stock-name">天邑股份</span>
+                        <span class="stock-code">300504</span>
                     </div>
-                    <div class="stock-logic">光伏逆变器+储能双赛道，业绩增长确定性强</div>
+                    <div class="stock-logic">5G+光通信概念，放量涨停，量比16.51，短期动量强劲</div>
                     <div class="stock-tags">
-                        <span class="tag tag-entry">入场：125-130</span>
-                        <span class="tag tag-stop">止损：115</span>
-                        <span class="tag tag-prob">概率：60%</span>
+                        <span class="tag tag-entry">入场: 突破19.5元</span>
+                        <span class="tag tag-stop">止损: 17.5元</span>
+                        <span class="tag tag-prob">概率: 60%</span>
                     </div>
                 </div>
                 <div class="stock-item">
                     <div class="stock-header">
-                        <div>
-                            <span class="stock-name">三孚股份</span>
-                            <span class="stock-code">603938</span>
-                        </div>
-                        <span class="stock-change up">+10.01%</span>
+                        <span class="stock-name">宝莱特</span>
+                        <span class="stock-code">300246</span>
                     </div>
-                    <div class="stock-logic">硅基材料龙头，受益光伏景气周期</div>
+                    <div class="stock-logic">医疗器械+AI概念，底部启动，量比11.51，突破前高</div>
                     <div class="stock-tags">
-                        <span class="tag tag-entry">入场：28-29</span>
-                        <span class="tag tag-stop">止损：26</span>
-                        <span class="tag tag-prob">概率：55%</span>
+                        <span class="tag tag-entry">入场: 突破17元</span>
+                        <span class="tag tag-stop">止损: 15元</span>
+                        <span class="tag tag-prob">概率: 58%</span>
                     </div>
                 </div>
                 <div class="stock-item">
                     <div class="stock-header">
-                        <div>
-                            <span class="stock-name">正泰电源</span>
-                            <span class="stock-code">002150</span>
-                        </div>
-                        <span class="stock-change up">+10.01%</span>
+                        <span class="stock-name">海博思创</span>
+                        <span class="stock-code">688411</span>
                     </div>
-                    <div class="stock-logic">储能PCS龙头，受益于工商业储能需求爆发</div>
+                    <div class="stock-logic">储能龙头，科创板+新能源概念，机构资金持续流入</div>
                     <div class="stock-tags">
-                        <span class="tag tag-entry">入场：28-29</span>
-                        <span class="tag tag-stop">止损：25.5</span>
-                        <span class="tag tag-prob">概率：58%</span>
+                        <span class="tag tag-entry">入场: 突破280元</span>
+                        <span class="tag tag-stop">止损: 250元</span>
+                        <span class="tag tag-prob">概率: 55%</span>
                     </div>
                 </div>
                 <div class="stock-item">
                     <div class="stock-header">
-                        <div>
-                            <span class="stock-name">和顺石油</span>
-                            <span class="stock-code">603353</span>
-                        </div>
-                        <span class="stock-change up">+10.01%</span>
+                        <span class="stock-name">节能风电</span>
+                        <span class="stock-code">601016</span>
                     </div>
-                    <div class="stock-logic">油气改革+新能源布局，双轮驱动</div>
+                    <div class="stock-logic">新能源电力板块，业绩预增，量比8.63，突破年线</div>
                     <div class="stock-tags">
-                        <span class="tag tag-entry">入场：40-41</span>
-                        <span class="tag tag-stop">止损：37</span>
-                        <span class="tag tag-prob">概率：52%</span>
+                        <span class="tag tag-entry">入场: 突破4.1元</span>
+                        <span class="tag tag-stop">止损: 3.7元</span>
+                        <span class="tag tag-prob">概率: 52%</span>
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- 港股观察 -->
+        <!-- 港股分析 -->
         <div class="section hk-section">
             <div class="section-title"><span class="icon">🇭🇰</span>港股观察</div>
             <div class="stock-list">
                 <div class="stock-item">
                     <div class="stock-header">
-                        <div>
-                            <span class="stock-name">腾讯控股</span>
-                            <span class="stock-code">0700.HK</span>
-                        </div>
+                        <span class="stock-name">腾讯控股</span>
+                        <span class="stock-code">0700.HK</span>
                     </div>
-                    <div class="stock-logic">港股压舱石，AI布局领先，回购持续</div>
+                    <div class="stock-logic">港股科技股风向标，港股通持续净买入，关注420港元支撑</div>
                     <div class="stock-tags">
-                        <span class="tag tag-entry">入场：380-390</span>
-                        <span class="tag tag-stop">止损：360</span>
+                        <span class="tag tag-entry">入场: 企稳430港元</span>
+                        <span class="tag tag-stop">止损: 400港元</span>
                     </div>
                 </div>
                 <div class="stock-item">
                     <div class="stock-header">
-                        <div>
-                            <span class="stock-name">美团</span>
-                            <span class="stock-code">3690.HK</span>
-                        </div>
+                        <span class="stock-name">美团</span>
+                        <span class="stock-code">3690.HK</span>
                     </div>
-                    <div class="stock-logic">本地生活龙头，业绩韧性较强</div>
+                    <div class="stock-logic">本地生活龙头，受益消费复苏，回调至120日均线附近</div>
                     <div class="stock-tags">
-                        <span class="tag tag-entry">入场：120-125</span>
-                        <span class="tag tag-stop">止损：110</span>
+                        <span class="tag tag-entry">入场: 企稳145港元</span>
+                        <span class="tag tag-stop">止损: 130港元</span>
                     </div>
                 </div>
                 <div class="stock-item">
                     <div class="stock-header">
-                        <div>
-                            <span class="stock-name">快手</span>
-                            <span class="stock-code">1024.HK</span>
-                        </div>
+                        <span class="stock-name">比亚迪股份</span>
+                        <span class="stock-code">1211.HK</span>
                     </div>
-                    <div class="stock-logic">直播电商增长强劲，盈利改善明显</div>
+                    <div class="stock-logic">新能源车龙头，港股通热门标的，关注250港元支撑</div>
                     <div class="stock-tags">
-                        <span class="tag tag-entry">入场：55-58</span>
-                        <span class="tag tag-stop">止损：50</span>
+                        <span class="tag tag-entry">入场: 突破260港元</span>
+                        <span class="tag tag-stop">止损: 235港元</span>
                     </div>
                 </div>
             </div>
@@ -301,9 +273,10 @@
         <!-- 风险提示 -->
         <div class="section risk-section">
             <div class="section-title"><span class="icon">⚠️</span>风险提示</div>
-            <div class="risk-item"><span class="risk-icon">🔴</span>美联储议息会议临近，流动性预期或有变化</div>
-            <div class="risk-item"><span class="risk-icon">🔴</span>地缘政治不确定性仍存，原油价格波动</div>
-            <div class="risk-item"><span class="risk-icon">🔴</span>A股量能不足，题材轮动较快</div>
+            <div class="risk-item"><span class="risk-icon">🔴</span>上证指数仍在4100-4150区间震荡，突破前保持谨慎</div>
+            <div class="risk-item"><span class="risk-icon">🔴</span>科创50连续调整，-0.31%表现疲软，科技股分化明显</div>
+            <div class="risk-item"><span class="risk-icon">🔴</span>北向资金虽然净流入，但整体流入量有限，需观察持续性</div>
+            <div class="risk-item"><span class="risk-icon">🟡</span>外围市场涨幅较大，A股跟涨力度不足，警惕冲高回落</div>
             <div class="position-advice">
                 <div class="label">仓位控制建议</div>
                 <div class="value">30%-40%</div>
@@ -311,7 +284,7 @@
         </div>
         
         <div class="footer">
-            <div>报告生成时间：2026-03-11 10:10</div>
+            <div>报告生成时间：2026-03-11 10:30</div>
             <div class="disclaimer">免责声明：本报告仅供参考，不构成投资建议。股市有风险，入市需谨慎。</div>
         </div>
     </div>
