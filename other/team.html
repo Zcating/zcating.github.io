@@ -3,16 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>团队介绍</title>
+    <title>团队介绍 - AI Squad</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #1a1a2e;
-            --secondary: #16213e;
-            --accent: #0f3460;
-            --highlight: #e94560;
-            --text: #eaeaea;
-            --text-muted: #a0a0a0;
-            --card-bg: #1f1f3a;
+            --bg-dark: #0f0f23;
+            --bg-light: #1a1a3e;
+            --pixel-blue: #00d4ff;
+            --pixel-pink: #ff6b9d;
+            --pixel-green: #39ff14;
+            --pixel-yellow: #ffe135;
+            --pixel-purple: #bf00ff;
+            --pixel-red: #ff3333;
+            --pixel-orange: #ff9500;
+            --text-light: #ffffff;
+            --text-dim: #8888aa;
+            --border-color: #4444aa;
         }
 
         * {
@@ -22,218 +28,446 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            font-family: 'Press Start 2P', cursive;
+            background: 
+                linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-light) 50%, var(--bg-dark) 100%),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 212, 255, 0.03) 2px,
+                    rgba(0, 212, 255, 0.03) 4px
+                );
             min-height: 100vh;
-            color: var(--text);
-            line-height: 1.6;
+            color: var(--text-light);
+            line-height: 1.8;
+            background-size: 100% 100%, 100% 4px;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 30px 15px;
         }
 
+        /* Pixel Art Title */
         header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
+            padding: 20px;
         }
 
         h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, var(--text), var(--highlight));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 1.5rem;
+            color: var(--pixel-yellow);
+            text-shadow: 
+                4px 4px 0 var(--pixel-red),
+                -2px -2px 0 var(--pixel-blue);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            animation: flicker 3s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 95%, 100% { opacity: 1; }
+            96% { opacity: 0.8; }
+            97% { opacity: 1; }
+            98% { opacity: 0.9; }
         }
 
         .subtitle {
-            color: var(--text-muted);
-            font-size: 1.1rem;
+            color: var(--pixel-green);
+            font-size: 0.55rem;
+            text-shadow: 2px 2px 0 var(--bg-dark);
         }
 
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
+        .subtitle::before {
+            content: '▶ ';
+            animation: blink 1s infinite;
         }
 
-        .member-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 30px;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Pixel Decorations */
+        .pixel-decoration {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .pixel-heart {
+            width: 20px;
+            height: 20px;
+            background: var(--pixel-pink);
             position: relative;
-            overflow: hidden;
+            animation: beat 1s infinite;
         }
 
-        .member-card::before {
+        .pixel-heart::before,
+        .pixel-heart::after {
             content: '';
             position: absolute;
-            top: 0;
+            width: 10px;
+            height: 10px;
+            background: var(--pixel-pink);
+            border-radius: 50%;
+        }
+
+        .pixel-heart::before {
+            top: -5px;
             left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--highlight), var(--accent));
-            opacity: 0;
-            transition: opacity 0.3s ease;
+        }
+
+        .pixel-heart::after {
+            top: 0;
+            left: 10px;
+        }
+
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .pixel-star {
+            color: var(--pixel-yellow);
+            font-size: 1rem;
+            animation: spin 4s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Team Grid */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        /* Pixel Card */
+        .member-card {
+            background: var(--bg-light);
+            border: 4px solid var(--border-color);
+            padding: 20px;
+            position: relative;
+            transition: all 0.2s;
         }
 
         .member-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(-4px);
+            border-color: var(--pixel-blue);
+            box-shadow: 
+                8px 8px 0 var(--pixel-purple),
+                -4px -4px 0 var(--pixel-blue);
         }
 
-        .member-card:hover::before {
-            opacity: 1;
-        }
-
+        /* Pixel Avatar */
         .avatar {
             width: 80px;
             height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent), var(--highlight));
+            background: var(--bg-dark);
+            border: 4px solid var(--pixel-blue);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            margin-bottom: 20px;
-            font-weight: 600;
+            margin: 0 auto 15px;
+            font-size: 1.8rem;
+            position: relative;
+            image-rendering: pixelated;
         }
 
+        .avatar::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            right: 4px;
+            bottom: 4px;
+            border: 2px dashed rgba(0, 212, 255, 0.3);
+        }
+
+        /* Different border colors for avatars */
+        .member-card:nth-child(1) .avatar { border-color: var(--pixel-pink); }
+        .member-card:nth-child(1) .avatar::after { border-color: rgba(255, 107, 157, 0.3); }
+        .member-card:nth-child(2) .avatar { border-color: var(--pixel-yellow); }
+        .member-card:nth-child(2) .avatar::after { border-color: rgba(255, 225, 53, 0.3); }
+        .member-card:nth-child(3) .avatar { border-color: var(--pixel-green); }
+        .member-card:nth-child(3) .avatar::after { border-color: rgba(57, 255, 20, 0.3); }
+        .member-card:nth-child(4) .avatar { border-color: var(--pixel-purple); }
+        .member-card:nth-child(4) .avatar::after { border-color: rgba(191, 0, 255, 0.3); }
+        .member-card:nth-child(5) .avatar { border-color: var(--pixel-orange); }
+        .member-card:nth-child(5) .avatar::after { border-color: rgba(255, 149, 0, 0.3); }
+
         .member-name {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-size: 0.7rem;
+            text-align: center;
+            margin-bottom: 10px;
+            color: var(--pixel-yellow);
         }
 
         .member-role {
-            color: var(--highlight);
-            font-weight: 500;
-            font-size: 0.95rem;
+            color: var(--pixel-pink);
+            font-size: 0.5rem;
+            text-align: center;
             margin-bottom: 12px;
+            padding: 4px 8px;
+            background: var(--bg-dark);
+            display: inline-block;
+            border: 2px solid var(--pixel-pink);
+            width: 100%;
         }
 
         .member-desc {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            line-height: 1.7;
+            color: var(--text-dim);
+            font-size: 0.45rem;
+            line-height: 2;
+            text-align: center;
+        }
+
+        /* Pixel Tags */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 15px;
         }
 
         .tag {
-            display: inline-block;
-            background: rgba(233, 69, 96, 0.15);
-            color: var(--highlight);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            margin-top: 12px;
-            margin-right: 6px;
-            margin-bottom: 6px;
+            background: var(--bg-dark);
+            color: var(--pixel-green);
+            padding: 4px 8px;
+            font-size: 0.35rem;
+            border: 2px solid var(--pixel-green);
+            cursor: pointer;
+            transition: all 0.2s;
         }
 
+        .tag:hover {
+            background: var(--pixel-green);
+            color: var(--bg-dark);
+        }
+
+        /* Pixel Character Decoration */
+        .pixel-char {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 1.2rem;
+            opacity: 0.5;
+        }
+
+        /* Footer */
         footer {
             text-align: center;
-            margin-top: 60px;
-            padding: 30px 0;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 40px;
+            padding: 20px;
+            border-top: 4px dashed var(--border-color);
         }
 
+        footer p {
+            color: var(--text-dim);
+            font-size: 0.4rem;
+        }
+
+        footer p::before {
+            content: '♦ ';
+            color: var(--pixel-red);
+        }
+
+        footer p::after {
+            content: ' ♦';
+            color: var(--pixel-red);
+        }
+
+        /* Scanline Effect */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.1),
+                rgba(0, 0, 0, 0.1) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            z-index: 1000;
+        }
+
+        /* Mobile Responsive */
         @media (max-width: 480px) {
             .container {
-                padding: 30px 16px;
+                padding: 20px 10px;
             }
 
             h1 {
-                font-size: 2rem;
+                font-size: 1rem;
+            }
+
+            .subtitle {
+                font-size: 0.4rem;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
             }
 
             .member-card {
-                padding: 24px;
+                padding: 15px;
             }
 
             .avatar {
-                width: 70px;
-                height: 70px;
-                font-size: 1.6rem;
+                width: 60px;
+                height: 60px;
+                font-size: 1.4rem;
             }
 
             .member-name {
-                font-size: 1.2rem;
+                font-size: 0.6rem;
             }
+
+            .member-role {
+                font-size: 0.4rem;
+            }
+
+            .member-desc {
+                font-size: 0.38rem;
+            }
+
+            .tag {
+                font-size: 0.3rem;
+                padding: 3px 6px;
+            }
+
+            footer p {
+                font-size: 0.35rem;
+            }
+        }
+
+        /* Pixel Button Style */
+        .pixel-btn {
+            display: inline-block;
+            background: var(--pixel-red);
+            color: white;
+            padding: 8px 16px;
+            font-size: 0.5rem;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            margin-top: 15px;
+        }
+
+        .pixel-btn::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border: 2px solid white;
+        }
+
+        .pixel-btn:hover {
+            background: var(--pixel-orange);
         }
     </style>
 </head>
 <body>
+    <div class="scanlines"></div>
+    
     <div class="container">
         <header>
-            <h1>AI Squad</h1>
-            <p class="subtitle">Artificial Intelligence Squad · 让AI为你工作</p>
+            <h1>AI SQUAD</h1>
+            <p class="subtitle">让AI为你工作</p>
         </header>
+
+        <div class="pixel-decoration">
+            <div class="pixel-heart"></div>
+            <span class="pixel-star">★</span>
+            <span class="pixel-star">★</span>
+            <span class="pixel-star">★</span>
+            <div class="pixel-heart"></div>
+        </div>
 
         <div class="team-grid">
             <div class="member-card">
-                <div class="avatar">刘</div>
+                <div class="avatar">👾</div>
                 <div class="member-name">小刘</div>
                 <div class="member-role">项目管理总监</div>
-                <div class="member-desc">负责团队任务分配与项目整体管理，协调各方资源，确保项目高效推进。</div>
-                <span class="tag">任务管理</span>
-                <span class="tag">资源协调</span>
+                <div class="member-desc">负责团队任务分配与项目整体管理，协调各方资源，确保项目高效推进</div>
+                <div class="tags">
+                    <span class="tag">任务管理</span>
+                    <span class="tag">资源协调</span>
+                </div>
+                <span class="pixel-char">🎮</span>
             </div>
 
             <div class="member-card">
-                <div class="avatar">M</div>
+                <div class="avatar">📈</div>
                 <div class="member-name">Marco</div>
                 <div class="member-role">量化交易策略师</div>
-                <div class="member-desc">15年华尔街经验，专注量化交易策略开发，擅长美股、A股、港股日内交易。</div>
-                <span class="tag">量化策略</span>
-                <span class="tag">美股</span>
-                <span class="tag">A股</span>
-                <span class="tag">港股</span>
+                <div class="member-desc">15年华尔街经验，专注量化交易策略开发，擅长美股、A股、港股日内交易</div>
+                <div class="tags">
+                    <span class="tag">量化策略</span>
+                    <span class="tag">美股</span>
+                    <span class="tag">A股</span>
+                    <span class="tag">港股</span>
+                </div>
+                <span class="pixel-char">💰</span>
             </div>
 
             <div class="member-card">
-                <div class="avatar">美</div>
-                <div class="member-name">小美 🎀</div>
+                <div class="avatar">🎨</div>
+                <div class="member-name">小美</div>
                 <div class="member-role">UGC运营专家</div>
-                <div class="member-desc">擅长社区平台运营与内容策划，专注用户增长与活跃度提升，擅长PPT制作。</div>
-                <span class="tag">社区运营</span>
-                <span class="tag">PPT制作</span>
-                <span class="tag">UGC</span>
+                <div class="member-desc">擅长社区平台运营与内容策划，专注用户增长与活跃度提升，擅长PPT制作</div>
+                <div class="tags">
+                    <span class="tag">社区运营</span>
+                    <span class="tag">PPT制作</span>
+                    <span class="tag">UGC</span>
+                </div>
+                <span class="pixel-char">🎀</span>
             </div>
 
             <div class="member-card">
-                <div class="avatar">W</div>
+                <div class="avatar">⚡</div>
                 <div class="member-name">Web Fullstack</div>
                 <div class="member-role">全栈工程师</div>
-                <div class="member-desc">精通 Node.js 与 React 开发，负责前后端架构设计与实现，技术全面。</div>
-                <span class="tag">Node.js</span>
-                <span class="tag">React</span>
-                <span class="tag">Fullstack</span>
+                <div class="member-desc">精通 Node.js 与 React 开发，负责前后端架构设计与实现，技术全面</div>
+                <div class="tags">
+                    <span class="tag">Node.js</span>
+                    <span class="tag">React</span>
+                    <span class="tag">Fullstack</span>
+                </div>
+                <span class="pixel-char">💻</span>
             </div>
 
             <div class="member-card">
-                <div class="avatar">C</div>
+                <div class="avatar">⏰</div>
                 <div class="member-name">Cron Task</div>
                 <div class="member-role">定时任务管理</div>
-                <div class="member-desc">专注于自动化任务调度与执行，擅长定时任务设计与系统自动化运维。</div>
-                <span class="tag">定时任务</span>
-                <span class="tag">自动化</span>
-                <span class="tag">运维</span>
+                <div class="member-desc">专注于自动化任务调度与执行，擅长定时任务设计与系统自动化运维</div>
+                <div class="tags">
+                    <span class="tag">定时任务</span>
+                    <span class="tag">自动化</span>
+                    <span class="tag">运维</span>
+                </div>
+                <span class="pixel-char">🤖</span>
             </div>
         </div>
 
         <footer>
-            <p>© 2026 团队介绍</p>
+            <p>© 2026 AI SQUAD - ALL RIGHTS RESERVED</p>
         </footer>
     </div>
 </body>
