@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>智能团队介绍</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 40px 0 30px;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #00d4ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+        }
+        
+        .team-section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            padding-left: 5px;
+        }
+        
+        .member-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        
+        .member-card:active {
+            transform: scale(0.98);
+            border-color: rgba(0,212,255,0.3);
+        }
+        
+        .member-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+        
+        .member-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+        }
+        
+        .member-info h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .member-info p {
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+        }
+        
+        .member-desc {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        
+        .skill-tag {
+            background: rgba(0,212,255,0.15);
+            color: #00d4ff;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            color: rgba(255,255,255,0.4);
+            font-size: 12px;
+        }
+        
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 智能团队</h1>
+            <p>AI Agents Team · 让工作更高效</p>
+        </div>
+        
+        <div class="team-section">
+            <div class="section-title">核心成员</div>
+            
+            <div class="member-card">
+                <div class="member-header">
+                    <div class="member-avatar">刘</div>
+                    <div class="member-info">
+                        <h3>小刘</h3>
+                        <p>项目管理总监</p>
+                    </div>
+                </div>
+                <div class="member-desc">
+                    自主拆解任务、分配给 subagent 执行，协调各 AI 智能体完成复杂目标。
+                </div>
+                <div class="skills">
+                    <span class="skill-tag">任务管理</span>
+                    <span class="skill-tag">工作流编排</span>
+                    <span class="skill-tag">智能分配</span>
+                </div>
+            </div>
+            
+            <div class="member-card">
+                <div class="member-header">
+                    <div class="member-avatar" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">M</div>
+                    <div class="member-info">
+                        <h3>Marco</h3>
+                        <p>量化交易策略师</p>
+                    </div>
+                </div>
+                <div class="member-desc">
+                    15年华尔街经验，专注美股/A股/港股日内交易策略。每日提供动量报告与5支观察股票。
+                </div>
+                <div class="skills">
+                    <span class="skill-tag">量化分析</span>
+                    <span class="skill-tag">日内交易</span>
+                    <span class="skill-tag">风险控制</span>
+                </div>
+            </div>
+            
+            <div class="member-card">
+                <div class="member-header">
+                    <div class="member-avatar" style="background: linear-gradient(135deg, #ec4899, #8b5cf6);">美</div>
+                    <div class="member-info">
+                        <h3>小美 🎀</h3>
+                        <p>UGC运营专家</p>
+                    </div>
+                </div>
+                <div class="member-desc">
+                    社区平台运营高手，擅长内容策划、用户增长、PPT演示制作。
+                </div>
+                <div class="skills">
+                    <span class="skill-tag">社区运营</span>
+                    <span class="skill-tag">内容策划</span>
+                    <span class="skill-tag">PPT制作</span>
+                </div>
+            </div>
+            
+            <div class="member-card">
+                <div class="member-header">
+                    <div class="member-avatar" style="background: linear-gradient(135deg, #10b981, #06b6d4);">全</div>
+                    <div class="member-info">
+                        <h3>Web Fullstack</h3>
+                        <p>全栈工程师</p>
+                    </div>
+                </div>
+                <div class="member-desc">
+                    Node.js + React 全栈开发，擅长从需求到上线的全链路开发。
+                </div>
+                <div class="skills">
+                    <span class="skill-tag">React</span>
+                    <span class="skill-tag">Node.js</span>
+                    <span class="skill-tag">TypeScript</span>
+                </div>
+            </div>
+            
+            <div class="member-card">
+                <div class="member-header">
+                    <div class="member-avatar" style="background: linear-gradient(135deg, #6366f1, #14b8a6);">Cron</div>
+                    <div class="member-info">
+                        <h3>Cron Task</h3>
+                        <p>定时任务管理</p>
+                    </div>
+                </div>
+                <div class="member-desc">
+                    定时任务大师，支持周期性提醒、工作流自动化执行。
+                </div>
+                <div class="skills">
+                    <span class="skill-tag">定时任务</span>
+                    <span class="skill-tag">自动化</span>
+                    <span class="skill-tag">提醒</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="footer">
+            <p>Powered by OpenClaw</p>
+        </div>
+    </div>
+</body>
+</html>
