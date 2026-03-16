@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>每日动量报告 - 2026年3月12日</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e4e4e7;
+            line-height: 1.6;
+            padding: 16px;
+        }
+        .container { max-width: 680px; margin: 0 auto; }
+        .header {
+            text-align: center;
+            padding: 24px 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+        }
+        .header h1 { font-size: 24px; font-weight: 700; margin-bottom: 8px; color: #fff; }
+        .header .date { font-size: 14px; opacity: 0.9; color: #fff; }
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .recommend-box {
+            text-align: center;
+            padding: 24px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+            border-radius: 12px;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+        .recommend-label { font-size: 14px; color: #a1a1aa; margin-bottom: 8px; }
+        .recommend-value { font-size: 28px; font-weight: 700; color: #fbbf24; }
+        .reason { margin-top: 16px; font-size: 14px; color: #a1a1aa; text-align: left; }
+        .reason ul { margin-left: 16px; margin-top: 8px; }
+        .reason li { margin-bottom: 6px; }
+        .warning {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 12px;
+        }
+        .warning .title { color: #f87171; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+        .stock-list { display: flex; flex-direction: column; gap: 12px; }
+        .stock-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .stock-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .stock-name { font-size: 16px; font-weight: 600; color: #fff; }
+        .stock-code { font-size: 12px; color: #71717a; background: rgba(255, 255, 255, 0.1); padding: 2px 8px; border-radius: 4px; }
+        .stock-logic { font-size: 13px; color: #a1a1aa; margin-bottom: 8px; }
+        .stock-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag { font-size: 11px; padding: 4px 10px; border-radius: 20px; font-weight: 500; }
+        .tag-entry { background: rgba(34, 197, 94, 0.2); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
+        .tag-stop { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .tag-prob { background: rgba(251, 191, 36, 0.2); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
+        .risk-section {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+        .risk-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-size: 14px; }
+        .risk-item:last-child { margin-bottom: 0; }
+        .risk-icon { color: #f87171; font-size: 16px; }
+        .position-advice {
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 12px;
+        }
+        .position-advice .label { color: #fbbf24; font-weight: 600; margin-bottom: 6px; }
+        .position-advice .value { font-size: 20px; font-weight: 700; color: #fbbf24; }
+        .footer { text-align: center; padding: 24px 16px; color: #71717a; font-size: 12px; }
+        .disclaimer {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 11px;
+            color: #71717a;
+            margin-top: 12px;
+        }
+        .hk-section { border-left: 3px solid #ffd700; }
+        .hk-section .section-title { color: #ffd700; }
+        .market-overview { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+        .market-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+        }
+        .market-card .name { font-size: 12px; color: #a1a1aa; margin-bottom: 4px; }
+        .market-card .value { font-size: 16px; font-weight: 600; color: #fff; }
+        .market-card .change { font-size: 12px; }
+        .up { color: #4ade80; }
+        .down { color: #f87171; }
+        .update-badge {
+            display: inline-block;
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+        @media (max-width: 480px) {
+            body { padding: 12px; }
+            .header { padding: 20px 16px; }
+            .header h1 { font-size: 20px; }
+            .section { padding: 16px; }
+            .recommend-value { font-size: 24px; }
+            .stock-item { padding: 14px; }
+            .market-overview { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header">
+            <h1>🀄️ 每日动量报告</h1>
+            <div class="date">2026年3月12日 星期四</div>
+        </div>
+        
+        <!-- 盘中更新 -->
+        <div class="section">
+            <div class="update-badge">📢 盘中策略更新</div>
+            <div class="section-title"><span class="icon">⏰</span>12:00 盘中情况</div>
+            <div class="market-overview">
+                <div class="market-card">
+                    <div class="name">上证指数</div>
+                    <div class="value">4106.96</div>
+                    <div class="change down">-0.64%</div>
+                </div>
+                <div class="market-card">
+                    <div class="name">深证成指</div>
+                    <div class="value">14270.35</div>
+                    <div class="change down">-1.35%</div>
+                </div>
+                <div class="market-card">
+                    <div class="name">创业板指</div>
+                    <div class="value">3293.49</div>
+                    <div class="change down">-1.67%</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 市场情绪 -->
+        <div class="section">
+            <div class="section-title"><span class="icon">📈</span>盘中操作建议</div>
+            <div class="recommend-box">
+                <div class="recommend-label">当前建议</div>
+                <div class="recommend-value">持币观望</div>
+            </div>
+            <div class="reason">
+                <ul>
+                    <li>⚠️ 市场早盘冲高后大幅回落，三大指数均由涨转跌</li>
+                    <li>⚠️ 创业板指领跌1.67%，科技股抛压明显</li>
+                    <li>⚠️ 港股科技股持续走弱，阿里巴巴跌2.25%，腾讯跌1.09%</li>
+                    <li>⚠️ 成交量虽放大但以抛压为主，建议谨慎行事</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- 港股分析 -->
+        <div class="section hk-section">
+            <div class="section-title"><span class="icon">🇭🇰</span>港股盘中情况</div>
+            <div class="stock-list">
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <span class="stock-name">腾讯控股</span>
+                        <span class="stock-code">00700</span>
+                    </div>
+                    <div class="stock-logic">盘中走势偏弱，短期承压</div>
+                    <div class="stock-tags">
+                        <span class="tag tag-stop">现价: 546港币 (-1.09%)</span>
+                    </div>
+                </div>
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <span class="stock-name">阿里巴巴</span>
+                        <span class="stock-code">09988</span>
+                    </div>
+                    <div class="stock-logic">跌幅较大，观望为主</div>
+                    <div class="stock-tags">
+                        <span class="tag tag-stop">现价: 130.2港币 (-2.25%)</span>
+                    </div>
+                </div>
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <span class="stock-name">美团-W</span>
+                        <span class="stock-code">03690</span>
+                    </div>
+                    <div class="stock-logic">持续调整，暂不介入</div>
+                    <div class="stock-tags">
+                        <span class="tag tag-stop">现价: 76.1港币 (-1.68%)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 风险提示 -->
+        <div class="section risk-section">
+            <div class="section-title"><span class="icon">⚠️</span>风险提示</div>
+            <div class="risk-item"><span class="risk-icon">🔴</span>市场由涨转跌：盘前乐观情绪迅速消退，警惕短期回调风险</div>
+            <div class="risk-item"><span class="risk-icon">🔴</span>科技股抛压：创业板指领跌1.67%，AI、光伏等赛道股承压</div>
+            <div class="risk-item"><span class="risk-icon">🔴</span>港股传导：港股科技股集体下跌，可能加剧A股科技板块调整</div>
+            <div class="position-advice">
+                <div class="label">仓位控制建议</div>
+                <div class="value">20%-30%</div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div>报告生成时间：2026-03-12 12:01</div>
+            <div class="disclaimer">免责声明：本报告仅供参考，不构成投资建议。股市有风险，入市需谨慎。</div>
+        </div>
+    </div>
+</body>
+</html>

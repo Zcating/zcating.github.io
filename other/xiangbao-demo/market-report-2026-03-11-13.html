@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>每日动量报告 - 2026年3月11日</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e4e4e7;
+            line-height: 1.6;
+            padding: 16px;
+        }
+        .container { max-width: 680px; margin: 0 auto; }
+        .header {
+            text-align: center;
+            padding: 24px 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+        }
+        .header h1 { font-size: 24px; font-weight: 700; margin-bottom: 8px; color: #fff; }
+        .header .date { font-size: 14px; opacity: 0.9; color: #fff; }
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .recommend-box {
+            text-align: center;
+            padding: 24px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+            border-radius: 12px;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+        .recommend-label { font-size: 14px; color: #a1a1aa; margin-bottom: 8px; }
+        .recommend-value { font-size: 28px; font-weight: 700; color: #fbbf24; }
+        .reason { margin-top: 16px; font-size: 14px; color: #a1a1aa; text-align: left; }
+        .reason ul { margin-left: 16px; margin-top: 8px; }
+        .reason li { margin-bottom: 6px; }
+        .stock-list { display: flex; flex-direction: column; gap: 12px; }
+        .stock-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .stock flex; justify-content-header { display:: space-between; align-items: center; margin-bottom: 12px; }
+        .stock-name { font-size: 16px; font-weight: 600; color: #fff; }
+        .stock-code { font-size: 12px; color: #71717a; background: rgba(255, 255, 255, 0.1); padding: 2px 8px; border-radius: 4px; }
+        .stock-change { font-size: 14px; font-weight: 600; }
+        .stock-change.up { color: #4ade80; }
+        .stock-change.down { color: #f87171; }
+        .stock-logic { font-size: 13px; color: #a1a1aa; margin-bottom: 8px; }
+        .stock-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag { font-size: 11px; padding: 4px 10px; border-radius: 20px; font-weight: 500; }
+        .tag-entry { background: rgba(34, 197, 94, 0.2); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
+        .tag-stop { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .tag-prob { background: rgba(251, 191, 36, 0.2); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
+        .risk-section {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+        .risk-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-size: 14px; }
+        .risk-item:last-child { margin-bottom: 0; }
+        .risk-icon { color: #f87171; font-size: 16px; }
+        .position-advice {
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 12px;
+        }
+        .position-advice .label { color: #fbbf24; font-weight: 600; margin-bottom: 6px; }
+        .position-advice .value { font-size: 20px; font-weight: 700; color: #fbbf24; }
+        .footer { text-align: center; padding: 24px 16px; color: #71717a; font-size: 12px; }
+        .disclaimer {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 11px;
+            color: #71717a;
+            margin-top: 12px;
+        }
+        .hk-section { border-left: 3px solid #ffd700; }
+        .hk-section .section-title { color: #ffd700; }
+        .index-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+        .index-item { text-align: center; padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px; }
+        .index-name { font-size: 12px; color: #71717a; margin-bottom: 4px; }
+        .index-value { font-size: 18px; font-weight: 700; color: #fff; }
+        .index-change { font-size: 12px; }
+        .index-change.up { color: #4ade80; }
+        .index-change.down { color: #f87171; }
+        @media (max-width: 480px) {
+            body { padding: 12px; }
+            .header { padding: 20px 16px; }
+            .header h1 { font-size: 20px; }
+            .section { padding: 16px; }
+            .recommend-value { font-size: 24px; }
+            .stock-item { padding: 14px; }
+            .index-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🀄️ 每日动量报告</h1>
+            <div class="date">2026年3月11日 星期三 午后</div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title"><span class="icon">📈</span>市场情绪与操作建议</div>
+            <div class="index-grid">
+                <div class="index-item">
+                    <div class="index-name">上证指数</div>
+                    <div class="index-value">4124.62</div>
+                    <div class="index-change up">+0.04%</div>
+                </div>
+                <div class="index-item">
+                    <div class="index-name">深证成指</div>
+                    <div class="index-value">14445.27</div>
+                    <div class="index-change up">+0.64%</div>
+                </div>
+                <div class="index-item">
+                    <div class="index-name">创业板指</div>
+                    <div class="index-value">3348.65</div>
+                    <div class="index-change up">+4.03%</div>
+                </div>
+            </div>
+            <div class="recommend-box">
+                <div class="recommend-label">午后建议</div>
+                <div class="recommend-value">保守买入</div>
+            </div>
+            <div class="reason">
+                <ul>
+                    <li>✅ 创业板继续领涨+4%，但涨幅较早盘收窄</li>
+                    <li>⚠️ 上证指数走弱翻绿，个股分化明显</li>
+                    <li>⚠️ 港股集体回调，美团跌近3%</li>
+                    <li>⚠️ 午后量能萎缩，警惕回落风险</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title"><span class="icon">🎯</span>5%观察名单（A股）</div>
+            <div class="stock-list">
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <div>
+                            <span class="stock-name">宁德时代</span>
+                            <span class="stock-code">300750</span>
+                        </div>
+                    </div>
+                    <div class="stock-logic">创业板权重+新能源龙头，震荡整理后仍有反弹空间</div>
+                    <div class="stock-tags">
+                        <span class="tag tag-entry">入场：380以下</span>
+                        <span class="tag tag-stop">止损：365</span>
+                        <span class="tag tag-prob">概率：60%</span>
+                    </div>
+                </div>
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <div>
+                            <span class="stock-name">东方财富</span>
+                            <span class="stock-code">300059</span>
+                        </div>
+                    </div>
+                    <div class="stock-logic">互联网金融龙头，创业板情绪指标</div>
+                    <div class="stock-tags">
+                        <span class="tag tag-entry">入场：20.8以下</span>
+                        <span class="tag tag-stop">止损：20.0</span>
+                        <span class="tag tag-prob">概率：55%</span>
+                    </div>
+                </div>
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <div>
+                            <span class="stock-name">阳光电源</span>
+                            <span class="stock-code">300274</span>
+                        </div>
+                    </div>
+                    <div class="stock-logic">光伏逆变器龙头，受益于储能板块反弹</div>
+                    <div class="stock-tags">
+                        <span class="tag tag-entry">入场：93以下</span>
+                        <span class="tag tag-stop">止损：88</span>
+                        <span class="tag tag-prob">概率：55%</span>
+                    </div>
+                </div>
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <div>
+                            <span class="stock-name">中际旭创</span>
+                            <span class="stock-code">300308</span>
+                        </div>
+                    </div>
+                    <div class="stock-logic">光模块龙头，AI算力概念</div>
+                    <div class="stock-tags">
+                        <span class="tag tag-entry">入场：155以下</span>
+                        <span class="tag tag-stop">止损：145</span>
+                        <span class="tag tag-prob">概率：55%</span>
+                    </div>
+                </div>
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <div>
+                            <span class="stock-name">汇川技术</span>
+                            <span class="stock-code">300124</span>
+                        </div>
+                    </div>
+                    <div class="stock-logic">工控龙头，国产替代概念</div>
+                    <div class="stock-tags">
+                        <span class="tag tag-entry">入场：73以下</span>
+                        <span class="tag tag-stop">止损：70</span>
+                        <span class="tag tag-prob">概率：52%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section hk-section">
+            <div class="section-title"><span class="icon">🇭🇰</span>港股观察（实时数据）</div>
+            <div class="stock-list">
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <div>
+                            <span class="stock-name">腾讯控股</span>
+                            <span class="stock-code">0700.HK</span>
+                        </div>
+                        <span class="stock-change">0.0%</span>
+                    </div>
+                    <div class="stock-logic">当前553.5港元，关注5日均线支撑</div>
+                    <div class="stock-tags">
+                        <span class="tag tag-entry">入场：530以下</span>
+                        <span class="tag tag-stop">止损：500</span>
+                    </div>
+                </div>
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <div>
+                            <span class="stock-name">阿里巴巴</span>
+                            <span class="stock-code">09988.HK</span>
+                        </div>
+                        <span class="stock-change down">-0.45%</span>
+                    </div>
+                    <div class="stock-logic">当前132.9港元，回调至60日均线附近</div>
+                    <div class="stock-tags">
+                        <span class="tag tag-entry">入场：125以下</span>
+                        <span class="tag tag-stop">止损：118</span>
+                    </div>
+                </div>
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <div>
+                            <span class="stock-name">美团</span>
+                            <span class="stock-code">03690.HK</span>
+                        </div>
+                        <span class="stock-change down">-2.84%</span>
+                    </div>
+                    <div class="stock-logic">当前76.85港元，超跌，关注反弹机会</div>
+                    <div class="stock-tags">
+                        <span class="tag tag-entry">入场：72以下</span>
+                        <span class="tag tag-stop">止损：68</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section risk-section">
+            <div class="section-title"><span class="icon">⚠️</span>风险提示</div>
+            <div class="risk-item"><span class="risk-icon">🔴</span>创业板午后涨幅收窄，警惕获利了结</div>
+            <div class="risk-item"><span class="risk-icon">🔴</span>港股集体走弱，美团跌近3%</div>
+            <div class="risk-item"><span class="risk-icon">🔴</span>两市量能午后萎缩，多头动能不足</div>
+            <div class="position-advice">
+                <div class="label">仓位控制建议</div>
+                <div class="value">40%-50%</div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div>报告生成时间：2026-03-11 13:27</div>
+            <div class="disclaimer">免责声明：本报告仅供参考，不构成投资建议。股市有风险，入市需谨慎。</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>每日行情 - 2026年3月9日</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #fff;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #00d4ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header .date {
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .section-title .icon {
+            font-size: 20px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        th {
+            color: #888;
+            font-weight: 500;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        td {
+            font-size: 14px;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .positive {
+            color: #4ade80;
+        }
+        
+        .negative {
+            color: #f87171;
+        }
+        
+        .index-name {
+            font-weight: 600;
+        }
+        
+        .summary {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .summary h3 {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: #00d4ff;
+        }
+        
+        .summary ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .summary li {
+            padding: 8px 0;
+            color: #ccc;
+            font-size: 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .summary li:last-child {
+            border-bottom: none;
+        }
+        
+        .highlight {
+            color: #fbbf24;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 12px;
+            }
+            
+            .header h1 {
+                font-size: 22px;
+            }
+            
+            th, td {
+                padding: 10px 8px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📈 每日行情</h1>
+            <div class="date">2026年3月9日 · A股 & 港股</div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">
+                <span class="icon">🇨🇳</span> A股市场
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>指数</th>
+                        <th>收盘</th>
+                        <th>涨跌</th>
+                        <th>幅度</th>
+                        <th>最高</th>
+                        <th>最低</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="index-name">上证指数</td>
+                        <td>4102.65</td>
+                        <td class="negative">-21.54</td>
+                        <td class="negative">-0.52%</td>
+                        <td>4124.19</td>
+                        <td>4052.55</td>
+                    </tr>
+                    <tr>
+                        <td class="index-name">深证成指</td>
+                        <td>14094.01</td>
+                        <td class="negative">-78.62</td>
+                        <td class="negative">-0.55%</td>
+                        <td>14172.63</td>
+                        <td>13701.67</td>
+                    </tr>
+                    <tr>
+                        <td class="index-name">创业板指</td>
+                        <td>3215.73</td>
+                        <td class="negative">-13.57</td>
+                        <td class="negative">-0.42%</td>
+                        <td>3229.30</td>
+                        <td>3111.88</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">
+                <span class="icon">🇭🇰</span> 港股市场
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>指数</th>
+                        <th>收盘</th>
+                        <th>涨跌</th>
+                        <th>幅度</th>
+                        <th>最高</th>
+                        <th>最低</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="index-name">恒生指数</td>
+                        <td>25330.18</td>
+                        <td class="negative">-427.11</td>
+                        <td class="negative highlight">-1.66%</td>
+                        <td>25757.29</td>
+                        <td>24906.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="summary">
+            <h3>📊 市场小结</h3>
+            <ul>
+                <li>• A股三大指数小幅回调，跌幅<span class="highlight">0.4%-0.5%</span>，属正常调整</li>
+                <li>• 港股恒生指数跌幅较大（<span class="highlight">-1.66%</span>），明显弱于A股</li>
+                <li>• 成交量基本持平，市场情绪偏谨慎</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

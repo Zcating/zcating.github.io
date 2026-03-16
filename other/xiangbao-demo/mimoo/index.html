@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mimoo - 日式烘焙工坊</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/react-router@7/umd/react-router.production.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            cream: '#FEF9F3',
+                            sand: '#F2E8E0',
+                            rose: '#E8B4B8',
+                            dustyrose: '#D4969A',
+                            cocoa: '#8D6E5C',
+                            darkcocoa: '#4A3728',
+                            matcha: '#A8C4A2',
+                            sakura: '#F7EBED',
+                            gold: '#C9A85C',
+                            honey: '#E8C872',
+                            lavender: '#C9B8D4',
+                            mint: '#B5D8C8',
+                            peach: '#F5C4A8',
+                            blush: '#F2D4D4'
+                        }
+                    },
+                    fontFamily: {
+                        'jp': ['"Zen Kaku Gothic New"', '"Noto Sans JP"', 'sans-serif']
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 2s infinite',
+                        'pulse-gentle': 'pulse-gentle 3s ease-in-out infinite',
+                        'shimmer': 'shimmer 2s linear infinite'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        },
+                        'pulse-gentle': {
+                            '0%, 100%': { opacity: 1 },
+                            '50%': { opacity: 0.6 }
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Zen Kaku Gothic New', 'Noto Sans JP', sans-serif;
+            background: #FDF8F3;
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #FDF8F3; }
+        ::-webkit-scrollbar-thumb { background: #D4A5A5; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #C89090; }
+        
+        .gsap-reveal {
+            opacity: 0;
+            transform: translateY(60px);
+        }
+        .gsap-reveal-text {
+            overflow: hidden;
+        }
+        .gsap-reveal-text span {
+            display: inline-block;
+            transform: translateY(100%);
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(160deg, #FEF9F3 0%, #F7EBED 30%, #F2E8E0 60%, #FEF9F3 100%);
+        }
+        .card-shadow {
+            box-shadow: 0 4px 30px rgba(74, 55, 40, 0.06);
+        }
+        .card-shadow:hover {
+            box-shadow: 0 20px 60px rgba(212, 150, 154, 0.2);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #D4969A 0%, #C9A85C 50%, #D4969A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: gradient-shift 4s ease infinite;
+        }
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #D4969A 0%, #E8B4B8 100%);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(212, 150, 154, 0.35);
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #C89090;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Page transitions */
+        .page-enter {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+        .page-enter-active {
+            opacity: 1;
+            transform: translateX(0);
+            transition: all 0.4s ease;
+        }
+        
+        /* Decorative patterns */
+        .pattern-dots {
+            background-image: radial-gradient(#E8B4B8 0.5px, transparent 0.5px);
+            background-size: 16px 16px;
+        }
+        .pattern-lines {
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 8px,
+                rgba(232, 180, 184, 0.04) 8px,
+                rgba(232, 180, 184, 0.04) 16px
+            );
+        }
+        /* Glass morphism effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        /* Subtle grain texture */
+        .grain::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+        }
+        /* Elegant hover effect */
+        .card-hover {
+            position: relative;
+            overflow: hidden;
+        }
+        .card-hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        .card-hover:hover::before {
+            left: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState, useEffect, useRef, createContext, useContext } = React;
+        const { BrowserRouter, HashRouter, Routes, Route, Link, useLocation } = ReactRouter;
+
+        // Scroll context for GSAP
+        const ScrollContext = createContext(null);
+
+        // Initialize GSAP ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Navigation Component
+        const Navigation = () => {
+            const [scrolled, setScrolled] = useState(false);
+            const [menuOpen, setMenuOpen] = useState(false);
+            const location = useLocation();
+
+            useEffect(() => {
+                const handleScroll = () => {
+                    setScrolled(window.scrollY > 80);
+                };
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            useEffect(() => {
+                setMenuOpen(false);
+            }, [location]);
+
+            const navLinks = [
+                { path: '#/', label: '首页' },
+                { path: '#/products', label: '产品' },
+                { path: '#/factory', label: '代加工' },
+                { path: '#/about', label: '关于' },
+                { path: '#/contact', label: '联系' }
+            ];
+
+            return (
+                <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'bg-white/90 backdrop-blur-xl shadow-sm py-4' : 'bg-transparent py-6'}`}>
+                    <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+                        <Link to="#/" className="text-2xl font-bold text-brand-dustyrose tracking-wider hover:scale-105 transition-transform">
+                            <span className="text-brand-cocoa">mimoo</span>
+                        </Link>
+                        
+                        <div className="hidden md:flex items-center gap-10">
+                            {navLinks.map(link => (
+                                <Link 
+                                    key={link.path} 
+                                    to={link.path}
+                                    className={`nav-link text-sm font-medium tracking-wide transition-colors ${location.hash === link.path.slice(2) || (link.path === '#/' && location.hash === '') ? 'text-brand-dustyrose' : 'text-brand-cocoa hover:text-brand-dustyrose'}`}
+                                >
+                                    {link.label}
+                                </Link>
+                            ))}
+                        </div>
+
+                        <button className="md:hidden text-brand-cocoa p-2" onClick={() => setMenuOpen(!menuOpen)}>
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                {menuOpen ? (
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                ) : (
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                                )}
+                            </svg>
+                        </button>
+                    </div>
+
+                    {menuOpen && (
+                        <div className="md:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-xl shadow-lg">
+                            <div className="flex flex-col p-4 gap-2">
+                                {navLinks.map(link => (
+                                    <Link 
+                                        key={link.path} 
+                                        to={link.path}
+                                        className={`px-4 py-3 rounded-lg transition-colors ${location.hash === link.path.slice(2) ? 'bg-brand-sakura text-brand-dustyrose' : 'text-brand-cocoa hover:bg-brand-sakura/50'}`}
+                                    >
+                                        {link.label}
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </nav>
+            );
+        };
+
+        // Home Page
+        const HomePage = () => {
+            const heroRef = useRef(null);
+            const titleRef = useRef(null);
+            const subtitleRef = useRef(null);
+            const ctaRef = useRef(null);
+
+            useEffect(() => {
+                const ctx = gsap.context(() => {
+                    const tl = gsap.timeline({ delay: 0.3 });
+                    
+                    tl.fromTo(heroRef.current, 
+                        { opacity: 0 }, 
+                        { opacity: 1, duration: 1 }
+                    )
+                    .fromTo(titleRef.current,
+                        { y: 80, opacity: 0 },
+                        { y: 0, opacity: 1, duration: 1, ease: 'power3.out' },
+                        '-=0.5'
+                    )
+                    .fromTo(subtitleRef.current,
+                        { y: 40, opacity: 0 },
+                        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' },
+                        '-=0.6'
+                    )
+                    .fromTo(ctaRef.current,
+                        { y: 30, opacity: 0 },
+                        { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' },
+                        '-=0.4'
+                    );
+
+                    // Floating decorations
+                    gsap.to('.floating-item', {
+                        y: -30,
+                        duration: 3,
+                        ease: 'sine.inOut',
+                        stagger: 0.3,
+                        repeat: -1,
+                        yoyo: true
+                    });
+
+                    // Scroll triggers for sections
+                    gsap.utils.toArray('.gsap-reveal').forEach(el => {
+                        gsap.to(el, {
+                            scrollTrigger: {
+                                trigger: el,
+                                start: 'top 85%',
+                                toggleActions: 'play none none reverse'
+                            },
+                            y: 0,
+                            opacity: 1,
+                            duration: 1,
+                            ease: 'power3.out'
+                        });
+                    });
+                }, heroRef);
+
+                return () => ctx.revert();
+            }, []);
+
+            return (
+                <div ref={heroRef} className="hero-gradient min-h-screen pt-20 relative overflow-hidden pattern-dots">
+                    {/* Floating decorations */}
+                    <div className="floating-item absolute top-32 left-[10%] text-7xl opacity-20">🍞</div>
+                    <div className="floating-item absolute top-48 right-[15%] text-6xl opacity-15" style={{animationDelay: '1s'}}>🥐</div>
+                    <div className="floating-item absolute bottom-32 left-[20%] text-6xl opacity-20" style={{animationDelay: '2s'}}>🍰</div>
+                    <div className="floating-item absolute bottom-48 right-[10%] text-7xl opacity-15" style={{animationDelay: '0.5s'}}>🧁</div>
+                    
+                    <div className="max-w-7xl mx-auto px-6 py-20 md:py-32 grid lg:grid-cols-2 gap-16 items-center min-h-[90vh]">
+                        <div className="text-center lg:text-left order-2 lg:order-1">
+                            <div ref={subtitleRef} className="inline-block bg-brand-sakura px-5 py-2 rounded-full mb-8">
+                                <span className="text-brand-dustyrose font-medium text-sm tracking-wider">JAPANESE ARTISAN BAKERY</span>
+                            </div>
+                            
+                            <h1 ref={titleRef} className="text-5xl md:text-7xl font-bold text-brand-darkcocoa mb-8 leading-tight">
+                                遇见<br/>
+                                <span className="text-gradient">心动的甜</span>
+                            </h1>
+                            
+                            <p className="text-brand-cocoa text-lg md:text-xl mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                                源自日本的手作温度<br/>
+                                每一口都是幸福的滋味
+                            </p>
+                            
+                            <div ref={ctaRef} className="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start">
+                                <Link to="#/products" className="btn-primary text-white px-10 py-4 rounded-full font-bold text-sm tracking-wide shadow-lg">
+                                    探索产品
+                                </Link>
+                                <Link to="#/factory" className="bg-white text-brand-dustyrose border-2 border-brand-dustyrose px-10 py-4 rounded-full font-bold text-sm tracking-wide hover:bg-brand-sakura transition-all">
+                                    代加工服务
+                                </Link>
+                            </div>
+                        </div>
+                        
+                        <div className="order-1 lg:order-2 flex justify-center">
+                            <div className="relative">
+                                <div className="w-72 h-72 md:w-[450px] md:h-[450px] bg-gradient-to-br from-brand-rose via-brand-dustyrose to-brand-cocoa rounded-[3rem] flex items-center justify-center shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500">
+                                    <span className="text-9xl md:text-[10rem]">🍓</span>
+                                </div>
+                                <div className="absolute -top-8 -right-8 bg-white p-5 rounded-2xl shadow-xl floating-item">
+                                    <span className="text-4xl">🥯</span>
+                                </div>
+                                <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-2xl shadow-xl floating-item" style={{animationDelay: '1s'}}>
+                                    <span className="text-3xl">🍪</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // Products Page
+        const ProductsPage = () => {
+            const sectionRef = useRef(null);
+
+            const products = [
+                { id: 1, name: '草莓大福', desc: '软糯Q弹的和果子', emoji: '🍡', color: 'from-rose-200 to-pink-300' },
+                { id: 2, name: '奶油面包', desc: '绵密奶香入口即化', emoji: '🍞', color: 'from-amber-100 to-yellow-200' },
+                { id: 3, name: '抹茶红豆', desc: '宇治抹茶配甜蜜红豆', emoji: '🍰', color: 'from-green-100 to-emerald-100' },
+                { id: 4, name: '樱花麻薯', desc: '春日限定的浪漫', emoji: '🌸', color: 'from-pink-100 to-rose-200' },
+                { id: 5, name: '黄油曲奇', desc: '酥脆香浓的经典', emoji: '🍪', color: 'from-amber-50 to-orange-100' },
+                { id: 6, name: '卡斯特拉', desc: '日式柔软的云朵蛋糕', emoji: '🧁', color: 'from-yellow-50 to-amber-100' },
+                { id: 7, name: '蜜瓜包', desc: '松弛感满满的昭和风味', emoji: '🍈', color: 'from-lime-100 to-green-100' },
+                { id: 8, name: '豆大福', desc: '传统味道绵密红豆', emoji: '🥮', color: 'from-stone-200 to-stone-300' },
+            ];
+
+            useEffect(() => {
+                const ctx = gsap.context(() => {
+                    gsap.fromTo('.product-card', 
+                        { y: 80, opacity: 0 },
+                        {
+                            scrollTrigger: {
+                                trigger: '.product-grid',
+                                start: 'top 80%',
+                            },
+                            y: 0,
+                            opacity: 1,
+                            duration: 0.8,
+                            stagger: 0.1,
+                            ease: 'power3.out'
+                        }
+                    );
+                }, sectionRef);
+                return () => ctx.revert();
+            }, []);
+
+            return (
+                <section ref={sectionRef} className="py-24 md:py-32 bg-brand-cream pattern-lines">
+                    <div className="max-w-7xl mx-auto px-6">
+                        <div className="text-center mb-20 gsap-reveal">
+                            <span className="text-brand-dustyrose font-medium tracking-widest text-sm">OUR COLLECTION</span>
+                            <h2 className="text-4xl md:text-5xl font-bold text-brand-darkcocoa mt-3 mb-6">招牌产品</h2>
+                            <p className="text-brand-cocoa text-lg max-w-2xl mx-auto">
+                                严格选用优质原料，传统工艺与现代技术结合
+                            </p>
+                        </div>
+                        
+                        <div className="product-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                            {products.map(product => (
+                                <div 
+                                    key={product.id}
+                                    className="product-card card-hover bg-white rounded-3xl p-6 card-shadow border border-brand-sand/50 transition-all duration-500 cursor-pointer group"
+                                >
+                                    <div className={`h-40 bg-gradient-to-br ${product.color} rounded-2xl mb-5 flex items-center justify-center text-6xl group-hover:scale-110 transition-transform duration-500`}>
+                                        {product.emoji}
+                                    </div>
+                                    <h3 className="text-lg font-bold text-brand-darkcocoa mb-2">{product.name}</h3>
+                                    <p className="text-brand-cocoa text-sm">{product.desc}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // Factory Page
+        const FactoryPage = () => {
+            const sectionRef = useRef(null);
+
+            useEffect(() => {
+                const ctx = gsap.context(() => {
+                    gsap.fromTo('.factory-content > *', 
+                        { x: -60, opacity: 0 },
+                        {
+                            scrollTrigger: {
+                                trigger: sectionRef.current,
+                                start: 'top 70%',
+                            },
+                            x: 0,
+                            opacity: 1,
+                            duration: 1,
+                            stagger: 0.2,
+                            ease: 'power3.out'
+                        }
+                    );
+                    
+                    gsap.fromTo('.factory-visual',
+                        { scale: 0.8, opacity: 0 },
+                        {
+                            scrollTrigger: {
+                                trigger: '.factory-visual',
+                                start: 'top 70%',
+                            },
+                            scale: 1,
+                            opacity: 1,
+                            duration: 1,
+                            delay: 0.3,
+                            ease: 'back.out(1.7)'
+                        }
+                    );
+                }, sectionRef);
+                return () => ctx.revert();
+            }, []);
+
+            const features = [
+                { icon: '📦', title: '多种包装', desc: '支持定制包装方案' },
+                { icon: '🔬', title: '配方研发', desc: '专业研发团队支持' },
+                { icon: '✅', title: '品质认证', desc: 'ISO质量管理体系' },
+                { icon: '🚚', title: '物流配送', desc: '全国配送支持' }
+            ];
+
+            return (
+                <section ref={sectionRef} className="py-24 md:py-32 bg-brand-sakura relative overflow-hidden">
+                    <div className="absolute inset-0 opacity-5">
+                        <div className="absolute top-20 left-20 text-[15rem]">🏭</div>
+                    </div>
+                    
+                    <div className="max-w-7xl mx-auto px-6 relative z-10">
+                        <div className="grid lg:grid-cols-2 gap-16 items-center">
+                            <div className="factory-content">
+                                <span className="text-brand-dustyrose font-medium tracking-widest text-sm">OEM SERVICE</span>
+                                <h2 className="text-4xl md:text-5xl font-bold text-brand-darkcocoa mt-3 mb-8">代加工服务</h2>
+                                <p className="text-brand-cocoa text-lg mb-10 leading-relaxed">
+                                    我们拥有专业的烘焙工厂和经验丰富的研发团队，为您提供从配方开发到量产的一站式服务。
+                                </p>
+                                
+                                <div className="grid grid-cols-2 gap-6 mb-10">
+                                    {features.map((f, i) => (
+                                        <div key={i} className="bg-white/80 backdrop-blur-sm p-5 rounded-2xl">
+                                            <div className="text-3xl mb-3">{f.icon}</div>
+                                            <h4 className="font-bold text-brand-darkcocoa mb-1">{f.title}</h4>
+                                            <p className="text-brand-cocoa text-sm">{f.desc}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                                
+                                <Link to="#/contact" className="btn-primary inline-block text-white px-10 py-4 rounded-full font-bold text-sm tracking-wide shadow-lg">
+                                    咨询代加工
+                                </Link>
+                            </div>
+                            
+                            <div className="factory-visual flex justify-center">
+                                <div className="relative">
+                                    <div className="w-80 h-80 bg-white rounded-[3rem] shadow-2xl flex items-center justify-center">
+                                        <div className="text-center">
+                                            <div className="text-8xl mb-6">🏭</div>
+                                            <p className="text-brand-cocoa font-medium">日式标准化工厂</p>
+                                        </div>
+                                    </div>
+                                    <div className="absolute -bottom-5 -right-5 bg-brand-gold p-4 rounded-2xl shadow-xl">
+                                        <span className="text-3xl">✨</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // About Page
+        const AboutPage = () => {
+            const sectionRef = useRef(null);
+
+            useEffect(() => {
+                const ctx = gsap.context(() => {
+                    gsap.fromTo('.about-visual',
+                        { x: -60, opacity: 0 },
+                        {
+                            scrollTrigger: {
+                                trigger: sectionRef.current,
+                                start: 'top 70%',
+                            },
+                            x: 0,
+                            opacity: 1,
+                            duration: 1,
+                            ease: 'power3.out'
+                        }
+                    );
+                    
+                    gsap.fromTo('.about-content > *', 
+                        { x: 60, opacity: 0 },
+                        {
+                            scrollTrigger: {
+                                trigger: sectionRef.current,
+                                start: 'top 70%',
+                            },
+                            x: 0,
+                            opacity: 1,
+                            duration: 1,
+                            stagger: 0.15,
+                            ease: 'power3.out'
+                        }
+                    );
+                }, sectionRef);
+                return () => ctx.revert();
+            }, []);
+
+            const stats = [
+                { value: '5+', label: '年经验' },
+                { value: '50+', label: '款产品' },
+                { value: '10k+', label: '忠实粉丝' },
+                { value: '20+', label: '合作客户' }
+            ];
+
+            return (
+                <section ref={sectionRef} className="py-24 md:py-32 bg-white">
+                    <div className="max-w-7xl mx-auto px-6">
+                        <div className="grid lg:grid-cols-2 gap-16 items-center">
+                            <div className="about-visual flex justify-center order-2 lg:order-1">
+                                <div className="relative">
+                                    <div className="w-72 h-72 md:w-96 md:h-96 bg-gradient-to-br from-brand-rose to-brand-dustyrose rounded-full flex items-center justify-center shadow-2xl">
+                                        <span className="text-8xl">🐰</span>
+                                    </div>
+                                    <div className="absolute -top-5 -right-5 bg-white p-4 rounded-full shadow-xl">
+                                        <span className="text-3xl">💕</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div className="about-content order-1 lg:order-2">
+                                <span className="text-brand-dustyrose font-medium tracking-widest text-sm">ABOUT MIMOO</span>
+                                <h2 className="text-4xl md:text-5xl font-bold text-brand-darkcocoa mt-3 mb-8">关于 Mimoo</h2>
+                                <p className="text-brand-cocoa text-lg mb-6 leading-relaxed">
+                                    Mimoo 创立于对甜点的热爱。我们相信，美食不仅仅是味觉的享受，更是心灵的治愈。
+                                </p>
+                                <p className="text-brand-cocoa text-lg mb-10 leading-relaxed">
+                                    每一款产品都倾注了我们对品质的坚持和对美学的追求。希望 Mimoo 的甜点能为您带来心动的时刻。
+                                </p>
+                                
+                                <div className="flex gap-8 md:gap-12">
+                                    {stats.map((stat, i) => (
+                                        <div key={i} className="text-center">
+                                            <div className="text-3xl md:text-4xl font-bold text-brand-dustyrose">{stat.value}</div>
+                                            <div className="text-brand-cocoa text-sm mt-1">{stat.label}</div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // Contact Page
+        const ContactPage = () => {
+            const sectionRef = useRef(null);
+            const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+            const [submitted, setSubmitted] = useState(false);
+
+            useEffect(() => {
+                const ctx = gsap.context(() => {
+                    gsap.fromTo('.contact-content > *', 
+                        { y: 50, opacity: 0 },
+                        {
+                            scrollTrigger: {
+                                trigger: sectionRef.current,
+                                start: 'top 70%',
+                            },
+                            y: 0,
+                            opacity: 1,
+                            duration: 0.8,
+                            stagger: 0.1,
+                            ease: 'power3.out'
+                        }
+                    );
+                }, sectionRef);
+                return () => ctx.revert();
+            }, []);
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                setSubmitted(true);
+                setTimeout(() => {
+                    setFormData({ name: '', email: '', message: '' });
+                    setSubmitted(false);
+                }, 3000);
+            };
+
+            return (
+                <section ref={sectionRef} className="py-24 md:py-32 bg-brand-sakura">
+                    <div className="max-w-4xl mx-auto px-6">
+                        <div className="text-center mb-16 contact-content">
+                            <span className="text-brand-dustyrose font-medium tracking-widest text-sm">CONTACT US</span>
+                            <h2 className="text-4xl md:text-5xl font-bold text-brand-darkcocoa mt-3 mb-6">联系我们</h2>
+                            <p className="text-brand-cocoa text-lg">
+                                有任何问题或合作意向，欢迎随时联系我们
+                            </p>
+                        </div>
+                        
+                        <div className="bg-white rounded-[3rem] shadow-2xl p-8 md:p-12">
+                            {submitted ? (
+                                <div className="text-center py-12">
+                                    <div className="text-6xl mb-6">✅</div>
+                                    <h3 className="text-2xl font-bold text-brand-darkcocoa mb-3">消息已发送！</h3>
+                                    <p className="text-brand-cocoa">我们会尽快回复您~</p>
+                                </div>
+                            ) : (
+                                <form onSubmit={handleSubmit} className="space-y-6 contact-content">
+                                    <div>
+                                        <label className="block text-brand-darkcocoa font-medium mb-3">您的名字</label>
+                                        <input 
+                                            type="text" 
+                                            required
+                                            value={formData.name}
+                                            onChange={(e) => setFormData({...formData, name: e.target.value})}
+                                            className="w-full px-6 py-4 bg-brand-cream border-2 border-transparent rounded-2xl focus:border-brand-dustyrose focus:outline-none transition-colors"
+                                            placeholder="请输入您的名字"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-brand-darkcocoa font-medium mb-3">邮箱地址</label>
+                                        <input 
+                                            type="email" 
+                                            required
+                                            value={formData.email}
+                                            onChange={(e) => setFormData({...formData, email: e.target.value})}
+                                            className="w-full px-6 py-4 bg-brand-cream border-2 border-transparent rounded-2xl focus:border-brand-dustyrose focus:outline-none transition-colors"
+                                            placeholder="your@email.com"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-brand-darkcocoa font-medium mb-3">留言</label>
+                                        <textarea 
+                                            required
+                                            rows={5}
+                                            value={formData.message}
+                                            onChange={(e) => setFormData({...formData, message: e.target.value})}
+                                            className="w-full px-6 py-4 bg-brand-cream border-2 border-transparent rounded-2xl focus:border-brand-dustyrose focus:outline-none transition-colors resize-none"
+                                            placeholder="请告诉我们您的需求..."
+                                        />
+                                    </div>
+                                    <button 
+                                        type="submit"
+                                        className="btn-primary w-full text-white py-5 rounded-2xl font-bold text-sm tracking-wide shadow-lg"
+                                    >
+                                        发送消息 ✉️
+                                    </button>
+                                </form>
+                            )}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // Footer
+        const Footer = () => (
+            <footer className="bg-brand-darkcocoa text-white py-16">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="grid md:grid-cols-4 gap-10 mb-12">
+                        <div>
+                            <h3 className="text-2xl font-bold mb-4">mimoo</h3>
+                            <p className="text-white/60">日式手工烘焙工坊</p>
+                            <p className="text-white/60">让每一口都充满幸福</p>
+                        </div>
+                        <div>
+                            <h4 className="font-bold mb-4">快速链接</h4>
+                            <ul className="space-y-3 text-white/60">
+                                <li><Link to="#/products" className="hover:text-white transition-colors">产品列表</Link></li>
+                                <li><Link to="#/factory" className="hover:text-white transition-colors">代加工</Link></Link></li>
+                                <li><Link to="#/about" className="hover:text-white transition-colors">关于我们</Link></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="font-bold mb-4">联系我们</h4>
+                            <ul className="space-y-3 text-white/60">
+                                <li>📧 mimoo@example.com</li>
+                                <li>📍 某市某区某街道</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="font-bold mb-4">关注我们</h4>
+                            <div className="flex gap-4">
+                                <a href="#" className="text-2xl hover:scale-125 transition-transform">📸</a>
+                                <a href="#" className="text-2xl hover:scale-125 transition-transform">💬</a>
+                                <a href="#" className="text-2xl hover:scale-125 transition-transform">📱</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="border-t border-white/10 pt-8 text-center text-white/40">
+                        <p>© 2024 Mimoo. All rights reserved. | 用心制作每一份甜蜜</p>
+                    </div>
+                </div>
+            </footer>
+        );
+
+        // Page Transition Wrapper
+        const PageWrapper = ({ children }) => {
+            const location = useLocation();
+            
+            return (
+                <div key={location.key} className="page-enter page-enter-active">
+                    {children}
+                </div>
+            );
+        };
+
+        // Main App
+        const App = () => (
+            <HashRouter>
+                <div className="font-jp min-h-screen">
+                    <Navigation />
+                    <main>
+                        <Routes>
+                            <Route path="/" element={<PageWrapper><HomePage /></PageWrapper>} />
+                            <Route path="/products" element={<PageWrapper><ProductsPage /></PageWrapper>} />
+                            <Route path="/factory" element={<PageWrapper><FactoryPage /></PageWrapper>} />
+                            <Route path="/about" element={<PageWrapper><AboutPage /></PageWrapper>} />
+                            <Route path="/contact" element={<PageWrapper><ContactPage /></PageWrapper>} />
+                        </Routes>
+                    </main>
+                    <Footer />
+                </div>
+            </HashRouter>
+        );
+
+        // Render
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

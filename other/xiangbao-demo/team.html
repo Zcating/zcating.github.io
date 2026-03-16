@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>团队介绍 - AI Squad</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f0f23;
+            --bg-light: #1a1a3e;
+            --pixel-blue: #00d4ff;
+            --pixel-pink: #ff6b9d;
+            --pixel-green: #39ff14;
+            --pixel-yellow: #ffe135;
+            --pixel-purple: #bf00ff;
+            --pixel-red: #ff3333;
+            --pixel-orange: #ff9500;
+            --text-light: #ffffff;
+            --text-dim: #8888aa;
+            --border-color: #4444aa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background: var(--bg-dark);
+            min-height: 100vh;
+            color: var(--text-light);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Canvas Star Background */
+        #star-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Gradient overlay to blend stars with content */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(180deg, 
+                    rgba(15, 15, 35, 0.7) 0%, 
+                    rgba(26, 26, 62, 0.5) 50%, 
+                    rgba(15, 15, 35, 0.8) 100%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Pixel Art Title */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            color: var(--pixel-yellow);
+            text-shadow: 
+                4px 4px 0 var(--pixel-red),
+                -2px -2px 0 var(--pixel-blue);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            animation: flicker 3s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 95%, 100% { opacity: 1; }
+            96% { opacity: 0.8; }
+            97% { opacity: 1; }
+            98% { opacity: 0.9; }
+        }
+
+        .subtitle {
+            color: var(--pixel-green);
+            font-size: 0.55rem;
+            text-shadow: 2px 2px 0 var(--bg-dark);
+        }
+
+        .subtitle::before {
+            content: '▶ ';
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Pixel Decorations */
+        .pixel-decoration {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .pixel-heart {
+            width: 20px;
+            height: 20px;
+            background: var(--pixel-pink);
+            position: relative;
+            animation: beat 1s infinite;
+        }
+
+        .pixel-heart::before,
+        .pixel-heart::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--pixel-pink);
+            border-radius: 50%;
+        }
+
+        .pixel-heart::before {
+            top: -5px;
+            left: 0;
+        }
+
+        .pixel-heart::after {
+            top: 0;
+            left: 10px;
+        }
+
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .pixel-star {
+            color: var(--pixel-yellow);
+            font-size: 1rem;
+            animation: spin 4s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Team Grid */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        /* Pixel Card */
+        .member-card {
+            background: var(--bg-light);
+            border: 4px solid var(--border-color);
+            padding: 20px;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .member-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--pixel-blue);
+            box-shadow: 
+                8px 8px 0 var(--pixel-purple),
+                -4px -4px 0 var(--pixel-blue);
+        }
+
+        /* Pixel Avatar */
+        .avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--bg-dark);
+            border: 4px solid var(--pixel-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 1.8rem;
+            position: relative;
+            image-rendering: pixelated;
+        }
+
+        .avatar::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            right: 4px;
+            bottom: 4px;
+            border: 2px dashed rgba(0, 212, 255, 0.3);
+        }
+
+        /* Different border colors for avatars */
+        .member-card:nth-child(1) .avatar { border-color: var(--pixel-pink); }
+        .member-card:nth-child(1) .avatar::after { border-color: rgba(255, 107, 157, 0.3); }
+        .member-card:nth-child(2) .avatar { border-color: var(--pixel-yellow); }
+        .member-card:nth-child(2) .avatar::after { border-color: rgba(255, 225, 53, 0.3); }
+        .member-card:nth-child(3) .avatar { border-color: var(--pixel-green); }
+        .member-card:nth-child(3) .avatar::after { border-color: rgba(57, 255, 20, 0.3); }
+        .member-card:nth-child(4) .avatar { border-color: var(--pixel-purple); }
+        .member-card:nth-child(4) .avatar::after { border-color: rgba(191, 0, 255, 0.3); }
+        .member-card:nth-child(5) .avatar { border-color: var(--pixel-orange); }
+        .member-card:nth-child(5) .avatar::after { border-color: rgba(255, 149, 0, 0.3); }
+
+        .member-name {
+            font-size: 0.7rem;
+            text-align: center;
+            margin-bottom: 10px;
+            color: var(--pixel-yellow);
+        }
+
+        .member-role {
+            color: var(--pixel-pink);
+            font-size: 0.5rem;
+            text-align: center;
+            margin-bottom: 12px;
+            padding: 4px 8px;
+            background: var(--bg-dark);
+            display: inline-block;
+            border: 2px solid var(--pixel-pink);
+            width: 100%;
+        }
+
+        .member-desc {
+            color: var(--text-dim);
+            font-size: 0.45rem;
+            line-height: 2;
+            text-align: center;
+        }
+
+        /* Pixel Tags */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 15px;
+        }
+
+        .tag {
+            background: var(--bg-dark);
+            color: var(--pixel-green);
+            padding: 4px 8px;
+            font-size: 0.35rem;
+            border: 2px solid var(--pixel-green);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tag:hover {
+            background: var(--pixel-green);
+            color: var(--bg-dark);
+        }
+
+        /* Pixel Character Decoration */
+        .pixel-char {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 1.2rem;
+            opacity: 0.5;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            border-top: 4px dashed var(--border-color);
+        }
+
+        footer p {
+            color: var(--text-dim);
+            font-size: 0.4rem;
+        }
+
+        footer p::before {
+            content: '♦ ';
+            color: var(--pixel-red);
+        }
+
+        footer p::after {
+            content: ' ♦';
+            color: var(--pixel-red);
+        }
+
+        /* Scanline Effect */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.1),
+                rgba(0, 0, 0, 0.1) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            z-index: 1000;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 10px;
+            }
+
+            h1 {
+                font-size: 1rem;
+            }
+
+            .subtitle {
+                font-size: 0.4rem;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .member-card {
+                padding: 15px;
+            }
+
+            .avatar {
+                width: 60px;
+                height: 60px;
+                font-size: 1.4rem;
+            }
+
+            .member-name {
+                font-size: 0.6rem;
+            }
+
+            .member-role {
+                font-size: 0.4rem;
+            }
+
+            .member-desc {
+                font-size: 0.38rem;
+            }
+
+            .tag {
+                font-size: 0.3rem;
+                padding: 3px 6px;
+            }
+
+            footer p {
+                font-size: 0.35rem;
+            }
+        }
+
+        /* Pixel Button Style */
+        .pixel-btn {
+            display: inline-block;
+            background: var(--pixel-red);
+            color: white;
+            padding: 8px 16px;
+            font-size: 0.5rem;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            margin-top: 15px;
+        }
+
+        .pixel-btn::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border: 2px solid white;
+        }
+
+        .pixel-btn:hover {
+            background: var(--pixel-orange);
+        }
+    </style>
+</head>
+<body>
+    <!-- Canvas Star Background -->
+    <canvas id="star-canvas"></canvas>
+    
+    <div class="scanlines"></div>
+    
+    <div class="container">
+        <header>
+            <h1>AI SQUAD</h1>
+            <p class="subtitle">让AI为你工作</p>
+        </header>
+
+        <div class="pixel-decoration">
+            <div class="pixel-heart"></div>
+            <span class="pixel-star">★</span>
+            <span class="pixel-star">★</span>
+            <span class="pixel-star">★</span>
+            <div class="pixel-heart"></div>
+        </div>
+
+        <div class="team-grid">
+            <div class="member-card">
+                <div class="avatar">👾</div>
+                <div class="member-name">小刘</div>
+                <div class="member-role">项目管理总监</div>
+                <div class="member-desc">负责团队任务分配与项目整体管理，协调各方资源，确保项目高效推进</div>
+                <div class="tags">
+                    <span class="tag">任务管理</span>
+                    <span class="tag">资源协调</span>
+                </div>
+                <span class="pixel-char">🎮</span>
+            </div>
+
+            <div class="member-card">
+                <div class="avatar">📈</div>
+                <div class="member-name">Marco</div>
+                <div class="member-role">量化交易策略师</div>
+                <div class="member-desc">15年华尔街经验，专注量化交易策略开发，擅长美股、A股、港股日内交易</div>
+                <div class="tags">
+                    <span class="tag">量化策略</span>
+                    <span class="tag">美股</span>
+                    <span class="tag">A股</span>
+                    <span class="tag">港股</span>
+                </div>
+                <span class="pixel-char">💰</span>
+            </div>
+
+            <div class="member-card">
+                <div class="avatar">🎨</div>
+                <div class="member-name">小美</div>
+                <div class="member-role">UGC运营专家</div>
+                <div class="member-desc">擅长社区平台运营与内容策划，专注用户增长与活跃度提升，擅长PPT制作</div>
+                <div class="tags">
+                    <span class="tag">社区运营</span>
+                    <span class="tag">PPT制作</span>
+                    <span class="tag">UGC</span>
+                </div>
+                <span class="pixel-char">🎀</span>
+            </div>
+
+            <div class="member-card">
+                <div class="avatar">⚡</div>
+                <div class="member-name">Web Fullstack</div>
+                <div class="member-role">全栈工程师</div>
+                <div class="member-desc">精通 Node.js 与 React 开发，负责前后端架构设计与实现，技术全面</div>
+                <div class="tags">
+                    <span class="tag">Node.js</span>
+                    <span class="tag">React</span>
+                    <span class="tag">Fullstack</span>
+                </div>
+                <span class="pixel-char">💻</span>
+            </div>
+
+            <div class="member-card">
+                <div class="avatar">⏰</div>
+                <div class="member-name">Cron Task</div>
+                <div class="member-role">定时任务管理</div>
+                <div class="member-desc">专注于自动化任务调度与执行，擅长定时任务设计与系统自动化运维</div>
+                <div class="tags">
+                    <span class="tag">定时任务</span>
+                    <span class="tag">自动化</span>
+                    <span class="tag">运维</span>
+                </div>
+                <span class="pixel-char">🤖</span>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2026 AI SQUAD - ALL RIGHTS RESERVED</p>
+        </footer>
+    </div>
+
+    <script>
+        // Dynamic Warp Speed Starfield Effect (Spaceship flying through stars)
+        const canvas = document.getElementById('star-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        let stars = [];
+        let animationId;
+        let centerX, centerY;
+        
+        // Resize canvas
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            centerX = canvas.width / 2;
+            centerY = canvas.height / 2;
+        }
+        
+        // Warp Star class - 3D star field moving toward viewer
+        class WarpStar {
+            constructor() {
+                this.reset();
+            }
+            
+            reset() {
+                // Start from center and spread outward (Z-depth simulation)
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 50 + 10; // Start close to center
+                
+                // Initial position (close to center, representing far away in Z)
+                this.x = centerX + Math.cos(angle) * distance;
+                this.y = centerY + Math.sin(angle) * distance;
+                
+                // Z position represents depth (0 = far, 1 = close)
+                this.z = Math.random() * 0.1; // Start far away
+                this.zSpeed = Math.random() * 0.008 + 0.004; // Speed toward viewer
+                
+                // Size based on Z (closer = bigger)
+                this.baseSize = Math.random() * 2 + 1;
+                this.size = this.baseSize;
+                
+                // Store original angle for movement direction
+                this.angle = angle;
+                
+                // Color - various star colors
+                this.color = this.getRandomStarColor();
+                
+                // Alpha based on distance
+                this.alpha = 0;
+                this.maxAlpha = Math.random() * 0.6 + 0.4;
+                
+                // Trail effect
+                this.trail = [];
+                this.maxTrail = Math.floor(this.zSpeed * 100);
+            }
+            
+            getRandomStarColor() {
+                const colors = [
+                    '#ffffff',  // White
+                    '#ffe135',  // Yellow
+                    '#00d4ff',  // Blue
+                    '#ff6b9d',  // Pink
+                    '#bf00ff',  // Purple
+                    '#39ff14',  // Green
+                    '#ff9500',  // Orange
+                ];
+                return colors[Math.floor(Math.random() * colors.length)];
+            }
+            
+            update() {
+                // Move star toward viewer (increase Z)
+                this.z += this.zSpeed;
+                
+                // Calculate 3D to 2D projection
+                // As Z increases, star moves from center outward
+                const scale = this.z * 15; // Perspective scaling
+                const spreadX = Math.cos(this.angle) * scale * 50;
+                const spreadY = Math.sin(this.angle) * scale * 50;
+                
+                // Store trail position
+                this.trail.push({ x: this.x, y: this.y });
+                if (this.trail.length > this.maxTrail) {
+                    this.trail.shift();
+                }
+                
+                // Update position (move outward from center)
+                this.x = centerX + spreadX;
+                this.y = centerY + spreadY;
+                
+                // Size increases as it gets closer
+                this.size = this.baseSize * (0.5 + this.z * 3);
+                
+                // Alpha increases as star approaches
+                if (this.z < 0.3) {
+                    this.alpha = this.maxAlpha * (this.z / 0.3);
+                } else if (this.z > 0.7) {
+                    this.alpha = this.maxAlpha * (1 - (this.z - 0.7) / 0.3);
+                } else {
+                    this.alpha = this.maxAlpha;
+                }
+                
+                // Reset when star passes viewer
+                if (this.z > 1 || this.alpha <= 0) {
+                    this.reset();
+                }
+            }
+            
+            draw() {
+                // Draw trail (elongated effect for speed)
+                if (this.trail.length > 1) {
+                    ctx.beginPath();
+                    ctx.moveTo(this.trail[0].x, this.trail[0].y);
+                    for (let i = 1; i < this.trail.length; i++) {
+                        ctx.lineTo(this.trail[i].x, this.trail[i].y);
+                    }
+                    ctx.lineTo(this.x, this.y);
+                    
+                    const gradient = ctx.createLinearGradient(
+                        this.trail[0].x, this.trail[0].y,
+                        this.x, this.y
+                    );
+                    gradient.addColorStop(0, 'transparent');
+                    gradient.addColorStop(0.7, this.color);
+                    gradient.addColorStop(1, this.color);
+                    
+                    ctx.strokeStyle = gradient;
+                    ctx.lineWidth = this.size * 0.5;
+                    ctx.globalAlpha = this.alpha * 0.3;
+                    ctx.stroke();
+                }
+                
+                // Draw main star
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.alpha;
+                ctx.fill();
+                
+                // Glow effect for closer stars
+                if (this.z > 0.5) {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2);
+                    const gradient = ctx.createRadialGradient(
+                        this.x, this.y, 0,
+                        this.x, this.y, this.size * 3
+                    );
+                    gradient.addColorStop(0, this.color);
+                    gradient.addColorStop(0.3, this.color);
+                    gradient.addColorStop(1, 'transparent');
+                    ctx.fillStyle = gradient;
+                    ctx.globalAlpha = this.alpha * 0.4 * ((this.z - 0.5) * 2);
+                    ctx.fill();
+                }
+                
+                // Bright core
+                if (this.size > 2) {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size * 0.5, 0, Math.PI * 2);
+                    ctx.fillStyle = '#ffffff';
+                    ctx.globalAlpha = this.alpha * 0.8;
+                    ctx.fill();
+                }
+            }
+        }
+        
+        // Initialize warp stars
+        function initStars() {
+            stars = [];
+            const starCount = Math.floor((canvas.width * canvas.height) / 4000);
+            for (let i = 0; i < starCount; i++) {
+                stars.push(new WarpStar());
+            }
+        }
+        
+        // Animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw subtle radial gradient for depth
+            const radialGradient = ctx.createRadialGradient(
+                centerX, centerY, 0,
+                centerX, centerY, Math.max(canvas.width, canvas.height) * 0.7
+            );
+            radialGradient.addColorStop(0, 'rgba(15, 15, 35, 0)');
+            radialGradient.addColorStop(0.5, 'rgba(15, 15, 35, 0.1)');
+            radialGradient.addColorStop(1, 'rgba(15, 15, 35, 0.4)');
+            ctx.fillStyle = radialGradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Update and draw stars
+            stars.forEach(star => {
+                star.update();
+                star.draw();
+            });
+            
+            ctx.globalAlpha = 1;
+            animationId = requestAnimationFrame(animate);
+        }
+        
+        // Handle resize
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initStars();
+        });
+        
+        // Start animation
+        resizeCanvas();
+        initStars();
+        animate();
+    </script>
+</body>
+</html>

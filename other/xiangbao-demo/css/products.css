@@ -1,0 +1,122 @@
+/* 产品中心页面样式 */
+
+/* 产品分类 */
+.product-categories {
+    padding: 80px 0;
+    background: var(--light-bg);
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.category-card {
+    background: var(--white);
+    padding: 40px 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    display: block;
+}
+
+.category-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.category-icon {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 25px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.category-icon i {
+    font-size: 42px;
+    color: var(--white);
+}
+
+.category-card h3 {
+    font-size: 20px;
+    color: var(--text-dark);
+}
+
+/* 产品区域 */
+.product-section {
+    padding: 100px 0;
+}
+
+.product-section.alt-bg {
+    background: var(--light-bg);
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.product-item {
+    background: var(--white);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.product-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.product-img {
+    height: 200px;
+    background: linear-gradient(135deg, #f5f7fa, #e8eef4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-img i {
+    font-size: 50px;
+    color: var(--primary-color);
+    opacity: 0.6;
+}
+
+.product-info {
+    padding: 25px;
+}
+
+.product-info h4 {
+    font-size: 16px;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.product-info p {
+    font-size: 14px;
+    color: var(--text-light);
+}
+
+/* 响应式 */
+@media (max-width: 992px) {
+    .categories-grid,
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .categories-grid,
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+}
