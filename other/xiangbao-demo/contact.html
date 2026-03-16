@@ -3,38 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>联系我们 - 广州奇欧奇实业有限公司</title>
+    <title>联系我们 - 诚作基五金 Nice hardware</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/contact.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- 导航栏 -->
-    <nav class="navbar" id="navbar">
+    <!-- 顶部导航 -->
+    <header class="header">
         <div class="container">
-            <a href="index.html" class="logo">
-                <span class="logo-text">奇欧奇</span>
-                <span class="logo-sub">QLQ</span>
-            </a>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="index.html">首页</a></li>
-                <li><a href="about.html">关于奇欧奇</a></li>
-                <li><a href="products.html">产品中心</a></li>
-                <li><a href="contact.html" class="active">联系我们</a></li>
-            </ul>
-            <div class="nav-toggle" id="navToggle">
-                <span></span>
-                <span></span>
-                <span></span>
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <span class="logo-text">诚作基五金</span>
+                    <span class="logo-en">Nice hardware</span>
+                </a>
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="about.html">关于诚作基</a></li>
+                        <li><a href="products.html">产品中心</a></li>
+                        <li><a href="contact.html" class="active">联系我们</a></li>
+                    </ul>
+                </nav>
+                <div class="header-contact">
+                    <i class="fas fa-phone"></i>
+                    <span>客服热线: 13500009070</span>
+                </div>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- 页面头部 -->
+    <!-- 页面标题 -->
     <section class="page-header">
         <div class="container">
-            <h1>联系我们</h1>
-            <p>7×24小时在线等待您的咨询</p>
+            <h1 class="page-title">联系我们</h1>
+            <p class="page-subtitle">我们期待您的光临！</p>
         </div>
     </section>
 
@@ -43,27 +45,18 @@
         <div class="container">
             <div class="contact-grid">
                 <div class="contact-info">
-                    <h2>联系我们</h2>
-                    <p class="contact-desc">
-                        广州奇欧奇实业有限公司是一家专注于生产拉链、拉头模具、拉链机械的专业厂家。我们期待与您的合作！
-                    </p>
+                    <div class="section-header">
+                        <h2 class="section-title">联系我们</h2>
+                        <p class="section-subtitle">诚作基五金 Nice hardware</p>
+                    </div>
                     <div class="contact-items">
                         <div class="contact-item">
                             <div class="contact-icon">
-                                <i class="fas fa-phone-alt"></i>
+                                <i class="fas fa-building"></i>
                             </div>
                             <div class="contact-text">
-                                <h4>电话</h4>
-                                <p>13500009070</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>服务时间</h4>
-                                <p>7×24小时在线</p>
+                                <h3>广州市诚作基五金制品有限公司</h3>
+                                <p>广东诚作基拉链五金制品有限公司</p>
                             </div>
                         </div>
                         <div class="contact-item">
@@ -71,29 +64,70 @@
                                 <i class="fas fa-map-marker-alt"></i>
                             </div>
                             <div class="contact-text">
-                                <h4>地址</h4>
-                                <p>广州花都狮岭 / 清远太平</p>
+                                <h3>办公地址</h3>
+                                <p>广东省广州市花都区狮岭皮革五金龙头市场2栋南梯12楼</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-industry"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h3>工厂地址</h3>
+                                <p>广东省清远市清新区太平镇盈富工业园12号万洋众创7栋</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h3>联系电话</h3>
+                                <p>曾先生: 13310889438</p>
+                                <p>客服热线: 13500009070</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h3>工作时间</h3>
+                                <p>7×24小时在线等待您的咨询</p>
+                                <p>周一至周五: 8:00-18:00</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="contact-form-wrapper">
-                    <h2>在线留言</h2>
-                    <form class="contact-form" id="contactForm">
-                        <div class="form-group">
-                            <input type="text" name="name" placeholder="您的姓名" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="tel" name="phone" placeholder="联系电话" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" name="email" placeholder="电子邮箱">
-                        </div>
-                        <div class="form-group">
-                            <textarea name="message" placeholder="留言内容" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">提交留言</button>
-                    </form>
+                    <div class="contact-form-box">
+                        <h3>在线留言</h3>
+                        <p>填写以下信息，我们将尽快与您联系</p>
+                        <form class="contact-form" id="contactForm">
+                            <div class="form-group">
+                                <input type="text" name="name" placeholder="您的姓名" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" name="phone" placeholder="联系电话" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" placeholder="电子邮箱">
+                            </div>
+                            <div class="form-group">
+                                <select name="product" required>
+                                    <option value="">请选择产品类型</option>
+                                    <option value="zipper">双层尼龙防爆拉链</option>
+                                    <option value="machine">拉链拉头机器</option>
+                                    <option value="mold">拉链拉头模具</option>
+                                    <option value="other">其他</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <textarea name="message" placeholder="留言内容" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">提交留言</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -103,11 +137,52 @@
     <section class="map-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">我们的位置</h2>
+                <h2 class="section-title">公司位置</h2>
             </div>
             <div class="map-placeholder">
                 <i class="fas fa-map-marked-alt"></i>
-                <span>广州花都狮岭 / 清远太平</span>
+                <p>广东省广州市花都区狮岭皮革五金龙头市场</p>
+                <p>广东省清远市清新区太平镇盈富工业园</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 服务承诺 -->
+    <section class="service-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">我们的服务</h2>
+                <p class="section-subtitle">致力于为客户提供全方位服务</p>
+            </div>
+            <div class="service-grid">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>7×24小时客服</h3>
+                    <p>全天候在线为您服务</p>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-file-signature"></i>
+                    </div>
+                    <h3>定制服务</h3>
+                    <p>可根据需求定制产品</p>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3>快速发货</h3>
+                    <p>高效的物流配送</p>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3>品质保证</h3>
+                    <p>严格的质量管控</p>
+                </div>
             </div>
         </div>
     </section>
@@ -115,35 +190,49 @@
     <!-- 页脚 -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-info">
-                    <h3>广州奇欧奇实业有限公司</h3>
-                    <p>一家专注于生产拉链、拉头模具、拉链机械的专业厂家</p>
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>诚作基五金</h4>
+                    <p>专注拉链21年<br>专业拉链制造商</p>
                 </div>
-                <div class="footer-contact">
-                    <h4>联系我们</h4>
-                    <p><i class="fas fa-phone"></i> 电话: 13500009070</p>
-                    <p><i class="fas fa-clock"></i> 时间: 7×24小时在线</p>
-                </div>
-                <div class="footer-links">
+                <div class="footer-col">
                     <h4>快速链接</h4>
                     <ul>
                         <li><a href="index.html">首页</a></li>
-                        <li><a href="about.html">关于奇欧奇</a></li>
+                        <li><a href="about.html">关于诚作基</a></li>
                         <li><a href="products.html">产品中心</a></li>
                         <li><a href="contact.html">联系我们</a></li>
                     </ul>
                 </div>
+                <div class="footer-col">
+                    <h4>产品分类</h4>
+                    <ul>
+                        <li><a href="products.html">双层尼龙防爆拉链</a></li>
+                        <li><a href="products.html">拉链拉头机器</a></li>
+                        <li><a href="products.html">拉链拉头模具</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>联系方式</h4>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> 客服热线: 13500009070</li>
+                        <li><i class="fas fa-clock"></i> 7×24小时在线</li>
+                    </ul>
+                </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024-2026 广州奇欧奇实业有限公司 版权所有</p>
+                <p>&copy; 2024-2026 诚作基五金 Nice hardware. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
+    <!-- 返回顶部 -->
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/contact.js"></script>
 </body>
 </html>
