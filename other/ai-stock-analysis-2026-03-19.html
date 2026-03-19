@@ -35,12 +35,12 @@
         }
         .section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
         .stock-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
-        .stock-table th, .stock-table td { padding: 12px 8px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 14px; }
+        .stock-table th, .stock-table td { padding: 10px 8px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 13px; }
         .stock-table th { color: #a1a1aa; font-weight: 500; }
         .stock-table td { color: #fff; }
         .stock-table tr:last-child td { border-bottom: none; }
         .stock-name { font-weight: 600; }
-        .stock-code { font-size: 12px; color: #71717a; }
+        .stock-code { font-size: 11px; color: #71717a; }
         .up { color: #4ade80; }
         .down { color: #f87171; }
         .neutral { color: #fbbf24; }
@@ -54,14 +54,14 @@
         }
         .recommend-label { font-size: 14px; color: #a1a1aa; margin-bottom: 8px; }
         .recommend-value { font-size: 28px; font-weight: 700; color: #fbbf24; }
-        .factor-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-        .factor-item { background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; }
-        .factor-name { font-size: 12px; color: #a1a1aa; margin-bottom: 4px; }
-        .factor-value { font-size: 16px; font-weight: 600; color: #fff; }
+        .factor-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .factor-item { background: rgba(255,255,255,0.03); padding: 10px; border-radius: 8px; }
+        .factor-name { font-size: 11px; color: #a1a1aa; margin-bottom: 2px; }
+        .factor-value { font-size: 14px; font-weight: 600; color: #fff; }
         .risk-section { border-left: 3px solid #f87171; }
-        .risk-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-size: 14px; }
+        .risk-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; font-size: 13px; }
         .risk-item:last-child { margin-bottom: 0; }
-        .risk-icon { color: #f87171; font-size: 16px; }
+        .risk-icon { color: #f87171; font-size: 14px; }
         .summary-box { background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 12px; padding: 16px; }
         .summary-title { color: #4ade80; font-weight: 600; margin-bottom: 8px; }
         .footer { text-align: center; padding: 24px 16px; color: #71717a; font-size: 12px; }
@@ -73,6 +73,10 @@
             color: #71717a;
             margin-top: 12px;
         }
+        .indicator-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .indicator-item { background: rgba(255,255,255,0.03); padding: 8px; border-radius: 6px; text-align: center; }
+        .indicator-label { font-size: 10px; color: #a1a1aa; }
+        .indicator-value { font-size: 13px; font-weight: 600; color: #fff; }
         @media (max-width: 480px) {
             body { padding: 12px; }
             .header { padding: 20px 16px; }
@@ -80,6 +84,7 @@
             .section { padding: 16px; }
             .recommend-value { font-size: 24px; }
             .factor-grid { grid-template-columns: 1fr; }
+            .indicator-list { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -117,25 +122,19 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>
-                            <div class="stock-name">智谱</div>
-                        </td>
+                        <td><div class="stock-name">智谱</div></td>
                         <td><span class="stock-code">02513.HK</span></td>
                         <td class="down">-10%</td>
                         <td class="neutral">⚠️ 观望</td>
                     </tr>
                     <tr>
-                        <td>
-                            <div class="stock-name">MiniMax</div>
-                        </td>
+                        <td><div class="stock-name">MiniMax</div></td>
                         <td><span class="stock-code">00100.HK</span></td>
                         <td class="down">-13%</td>
                         <td class="down">❌ 谨慎</td>
                     </tr>
                     <tr>
-                        <td>
-                            <div class="stock-name">阿里巴巴</div>
-                        </td>
+                        <td><div class="stock-name">阿里巴巴</div></td>
                         <td><span class="stock-code">09988.HK</span></td>
                         <td class="down">-3.6%</td>
                         <td class="up">✅ 推荐</td>
@@ -144,19 +143,25 @@
             </table>
         </div>
         
-        <!-- 基本面对比 -->
+        <!-- 完整指标对比 -->
         <div class="section">
-            <div class="section-title"><span class="icon">📊</span>基本面深度对比</div>
+            <div class="section-title"><span class="icon">📊</span>完整指标对比</div>
             <table class="stock-table">
                 <thead>
                     <tr>
-                        <th>指标</th>
+                        <th>指标类别</th>
                         <th>智谱</th>
                         <th>MiniMax</th>
                         <th>阿里巴巴</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <td>市值</td>
+                        <td>3335亿港元</td>
+                        <td>3826亿港元</td>
+                        <td>2.8万亿港元</td>
+                    </tr>
                     <tr>
                         <td>2025年营收</td>
                         <td>超1亿美元</td>
@@ -182,18 +187,171 @@
                         <td class="up">盈利1259亿</td>
                     </tr>
                     <tr>
-                        <td>市场地位</td>
-                        <td>中国最大独立大模型厂商</td>
-                        <td>海外收入占比70%+</td>
-                        <td>阿里云AI产品收入连续7季度三位数增长</td>
+                        <td>市盈率(PE)</td>
+                        <td>亏损</td>
+                        <td>亏损</td>
+                        <td>21.22</td>
+                    </tr>
+                    <tr>
+                        <td>市净率(PB)</td>
+                        <td>高</td>
+                        <td>高</td>
+                        <td>2.51</td>
+                    </tr>
+                    <tr>
+                        <td>股息率</td>
+                        <td>无</td>
+                        <td>无</td>
+                        <td>1.32%</td>
+                    </tr>
+                    <tr>
+                        <td>资产负债率</td>
+                        <td>-</td>
+                        <td>343.3%</td>
+                        <td>健康</td>
+                    </tr>
+                    <tr>
+                        <td>国际化程度</td>
+                        <td>国内为主</td>
+                        <td>海外70%+</td>
+                        <td>全球化</td>
                     </tr>
                 </tbody>
             </table>
         </div>
         
-        <!-- 因子分析 -->
+        <!-- 阿里巴巴详细指标 -->
         <div class="section">
-            <div class="section-title"><span class="icon">⚖️</span>因子评分</div>
+            <div class="section-title"><span class="icon">🏆</span>阿里巴巴详细指标 (09988)</div>
+            <div class="indicator-list">
+                <div class="indicator-item">
+                    <div class="indicator-label">市盈率 PE</div>
+                    <div class="indicator-value">21.22</div>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-label">市净率 PB</div>
+                    <div class="indicator-value">2.51</div>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-label">股息率</div>
+                    <div class="indicator-value">1.32%</div>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-label">2025营收</div>
+                    <div class="indicator-value">9963亿</div>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-label">净利润</div>
+                    <div class="indicator-value">1259亿</div>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-label">净利润增速</div>
+                    <div class="indicator-value up">+77%</div>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-label">阿里云增速</div>
+                    <div class="indicator-value up">双位数</div>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-label">AI收入增长</div>
+                    <div class="indicator-value up">连续7季三位数</div>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-label">88VIP会员</div>
+                    <div class="indicator-value">5000万+</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 智谱详细指标 -->
+        <div class="section">
+            <div class="section-title"><span class="icon">🔥</span>智谱详细指标 (02513)</div>
+            <div class="indicator-list">
+                <div class="indicator-item">
+                    <div class="indicator-label">市值</div>
+                    <div class="indicator-value">3335亿</div>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-label">2025营收</div>
+                    <div class="indicator-value">超1亿美元</div>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-label">营收增速</div>
+                    <div class="indicator-value up">+325%</div>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-label">毛利率</div>
+                    <div class="indicator-value up">50%+</div>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-label">2024亏损</div>
+                    <div class="indicator-value down">29.58亿</div>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-label">开发者</div>
+                    <div class="indicator-value">270万+</div>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-label">服务企业</div>
+                    <div class="indicator-value">1.2万家</div>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-label">研发占比</div>
+                    <div class="indicator-value">65%+</div>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-label">目标价</div>
+                    <div class="indicator-value">748港元</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- MiniMax详细指标 -->
+        <div class="section">
+            <div class="section-title"><span class="icon">⚡</span>MiniMax详细指标 (00100)</div>
+            <div class="indicator-list">
+                <div class="indicator-item">
+                    <div class="indicator-label">市值</div>
+                    <div class="indicator-value">3826亿</div>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-label">2025营收</div>
+                    <div class="indicator-value">7900万美元</div>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-label">营收增速</div>
+                    <div class="indicator-value up">+159%</div>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-label">毛利率</div>
+                    <div class="indicator-value up">25.4%</div>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-label">毛利增速</div>
+                    <div class="indicator-value up">+437%</div>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-label">2025亏损</div>
+                    <div class="indicator-value down">18.72亿</div>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-label">海外收入</div>
+                    <div class="indicator-value">70%+</div>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-label">资产负债率</div>
+                    <div class="indicator-value down">343.3%</div>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-label">最新模型</div>
+                    <div class="indicator-value">M2.7</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 因子评分 -->
+        <div class="section">
+            <div class="section-title"><span class="icon">⚖️</span>因子评分对比</div>
             <div class="factor-grid">
                 <div class="factor-item">
                     <div class="factor-name">营收增速</div>
@@ -201,7 +359,15 @@
                 </div>
                 <div class="factor-item">
                     <div class="factor-name">盈利能力</div>
+                    <div class="factor-value">阿里 >> 智谱 ≈ MiniMax</div>
+                </div>
+                <div class="factor-item">
+                    <div class="factor-name">估值水平(PE)</div>
                     <div class="factor-value">阿里 > 智谱 > MiniMax</div>
+                </div>
+                <div class="factor-item">
+                    <div class="factor-name">股息收益</div>
+                    <div class="factor-value">阿里 > 智谱 = MiniMax</div>
                 </div>
                 <div class="factor-item">
                     <div class="factor-name">业务确定性</div>
@@ -218,9 +384,11 @@
         <div class="section risk-section">
             <div class="section-title"><span class="icon">⚠️</span>风险提示</div>
             <div class="risk-item"><span class="risk-icon">🔴</span>港股AI应用概念股今日集体回调，短期仍有惯性下跌风险</div>
-            <div class="risk-item"><span class="risk-icon">🔴</span>智谱、MiniMax仍处于亏损状态，估值较高</div>
-            <div class="risk-item"><span class="risk-icon">🟡</span>大模型竞争激烈，技术迭代快</div>
+            <div class="risk-item"><span class="risk-icon">🔴</span>智谱、MiniMax仍处于亏损状态，估值较高，投资风险大</div>
+            <div class="risk-item"><span class="risk-icon">🔴</span>MiniMax资产负债率高达343.3%，财务风险较高</div>
+            <div class="risk-item"><span class="risk-icon">🟡</span>大模型竞争激烈，技术迭代快，格局未定</div>
             <div class="risk-item"><span class="risk-icon">🟡</span>美联储降息预期降温，全球流动性收紧</div>
+            <div class="risk-item"><span class="risk-icon">🟡</span>地缘政治风险：美伊局势、中美关系不确定性</div>
         </div>
         
         <!-- 总结 -->
@@ -229,24 +397,29 @@
                 <div class="summary-title">💡 投资建议</div>
                 <div style="font-size: 14px; color: #a1a1aa;">
                     <p style="margin-bottom: 8px;"><strong>首选：阿里巴巴 (09988)</strong></p>
-                    <p style="margin-bottom: 8px;">• 基本面最稳健，2025财年盈利1259亿元</p>
-                    <p style="margin-bottom: 8px;">• 阿里云AI产品收入连续7季度三位数增长</p>
-                    <p style="margin-bottom: 8px;">• 阿里云算力/存储涨价34%，实质利好</p>
+                    <p>• 基本面最稳健，2025财年盈利1259亿元</p>
+                    <p>• PE 21.22，估值合理，股息率1.32%</p>
+                    <p>• 阿里云AI产品收入连续7季度三位数增长</p>
+                    <p>• 阿里云算力/存储涨价34%，实质利好</p>
                     <p>• 今日回调-3.6%，是低吸机会</p>
                 </div>
                 <div style="margin-top: 16px; font-size: 14px; color: #a1a1aa;">
                     <p style="margin-bottom: 8px;"><strong>观望：智谱 (02513)</strong></p>
-                    <p>• 今日跌超10%，等待企稳，600港元以下可考虑分批建仓</p>
+                    <p>• 今日跌超10%，市值3335亿，等待企稳</p>
+                    <p>• 营收增速最快(+325%)，但亏损较大</p>
+                    <p>• 600-650港元可考虑分批建仓</p>
                 </div>
                 <div style="margin-top: 16px; font-size: 14px; color: #a1a1aa;">
                     <p style="margin-bottom: 8px;"><strong>谨慎：MiniMax (00100)</strong></p>
-                    <p>• 今日跌幅最大(-13%)，波动剧烈，观望为主</p>
+                    <p>• 今日跌幅最大(-13%)，波动剧烈</p>
+                    <p>• 市值3826亿超越百度，但亏损18.72亿</p>
+                    <p>• 资产负债率343.3%偏高，观望为主</p>
                 </div>
             </div>
         </div>
         
         <div class="footer">
-            <div>报告生成时间：2026-03-19 12:00</div>
+            <div>报告生成时间：2026-03-19 12:33</div>
             <div class="disclaimer">免责声明：本报告仅供参考，不构成投资建议。股市有风险，入市需谨慎。</div>
         </div>
     </div>
