@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>每日动量报告 - 2026年3月19日</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e4e4e7;
+            line-height: 1.6;
+            padding: 16px;
+        }
+        .container { max-width: 680px; margin: 0 auto; }
+        .header {
+            text-align: center;
+            padding: 24px 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+        }
+        .header h1 { font-size: 24px; font-weight: 700; margin-bottom: 8px; color: #fff; }
+        .header .date { font-size: 14px; opacity: 0.9; color: #fff; }
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .recommend-box {
+            text-align: center;
+            padding: 24px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+            border-radius: 12px;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+        .recommend-label { font-size: 14px; color: #a1a1aa; margin-bottom: 8px; }
+        .recommend-value { font-size: 28px; font-weight: 700; color: #fbbf24; }
+        .reason { margin-top: 16px; font-size: 14px; color: #a1a1aa; text-align: left; }
+        .reason ul { margin-left: 16px; margin-top: 8px; }
+        .reason li { margin-bottom: 6px; }
+        .warning {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 12px;
+        }
+        .warning .title { color: #f87171; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+        .stock-list { display: flex; flex-direction: column; gap: 12px; }
+        .stock-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .stock-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .stock-name { font-size: 16px; font-weight: 600; color: #fff; }
+        .stock-code { font-size: 12px; color: #71717a; background: rgba(255, 255, 255, 0.1); padding: 2px 8px; border-radius: 4px; }
+        .stock-logic { font-size: 13px; color: #a1a1aa; margin-bottom: 8px; }
+        .stock-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag { font-size: 11px; padding: 4px 10px; border-radius: 20px; font-weight: 500; }
+        .tag-entry { background: rgba(34, 197, 94, 0.2); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
+        .tag-stop { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .tag-prob { background: rgba(251, 191, 36, 0.2); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
+        .risk-section {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+        .risk-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-size: 14px; }
+        .risk-item:last-child { margin-bottom: 0; }
+        .risk-icon { color: #f87171; font-size: 16px; }
+        .position-advice {
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 12px;
+        }
+        .position-advice .label { color: #fbbf24; font-weight: 600; margin-bottom: 6px; }
+        .position-advice .value { font-size: 20px; font-weight: 700; color: #fbbf24; }
+        .footer { text-align: center; padding: 24px 16px; color: #71717a; font-size: 12px; }
+        .disclaimer {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 11px;
+            color: #71717a;
+            margin-top: 12px;
+        }
+        .hk-section { border-left: 3px solid #ffd700; }
+        .hk-section .section-title { color: #ffd700; }
+        .index-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+        .index-item { text-align: center; padding: 12px 8px; background: rgba(255,255,255,0.03); border-radius: 8px; }
+        .index-name { font-size: 12px; color: #a1a1aa; margin-bottom: 4px; }
+        .index-value { font-size: 16px; font-weight: 600; color: #fff; }
+        .index-change { font-size: 12px; }
+        .up { color: #4ade80; }
+        .down { color: #f87171; }
+        @media (max-width: 480px) {
+            body { padding: 12px; }
+            .header { padding: 20px 16px; }
+            .header h1 { font-size: 20px; }
+            .section { padding: 16px; }
+            .recommend-value { font-size: 24px; }
+            .stock-item { padding: 14px; }
+            .index-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header">
+            <h1>🀄️ 每日动量报告</h1>
+            <div class="date">2026年3月19日 星期四</div>
+        </div>
+        
+        <!-- 市场情绪 -->
+        <div class="section">
+            <div class="section-title"><span class="icon">📈</span>市场情绪与操作建议</div>
+            
+            <div class="index-grid">
+                <div class="index-item">
+                    <div class="index-name">上证指数</div>
+                    <div class="index-value">4062.98</div>
+                    <div class="index-change up">+0.32%</div>
+                </div>
+                <div class="index-item">
+                    <div class="index-name">深证成指</div>
+                    <div class="index-value">14187.80</div>
+                    <div class="index-change up">+1.05%</div>
+                </div>
+                <div class="index-item">
+                    <div class="index-name">创业板指</div>
+                    <div class="index-value">3346.37</div>
+                    <div class="index-change up">+2.02%</div>
+                </div>
+            </div>
+            
+            <div class="recommend-box">
+                <div class="recommend-label">今日建议</div>
+                <div class="recommend-value">保守买入</div>
+            </div>
+            <div class="reason">
+                <ul>
+                    <li>✅ 昨日三大指数集体收红，沪指终结4连阴，市场情绪回暖</li>
+                    <li>✅ 科技股引领反弹，AI算力/CPO、存储芯片等主线明确</li>
+                    <li>✅ 北向资金净流入71.83亿元，主力资金净流入超200亿元</li>
+                    <li>⚠️ 今日开盘集体低开，港股大幅下挫，腾讯绩后大跌</li>
+                    <li>⚠️ 隔夜美股集体收跌，外围市场风险偏好下降</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- A股观察名单 -->
+        <div class="section">
+            <div class="section-title"><span class="icon">🎯</span>5%观察名单（A股）</div>
+            <div class="stock-list">
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <span class="stock-name">中贝通信</span>
+                        <span class="stock-code">603220</span>
+                    </div>
+                    <div class="stock-logic">CPO概念龙头，算力租赁概念持续发酵，阿里云算力涨价直接利好</div>
+                    <div class="stock-tags">
+                        <span class="tag tag-entry">入场: 放量突破前高</span>
+                        <span class="tag tag-stop">止损: -7%</span>
+                        <span class="tag tag-prob">概率: 65%</span>
+                    </div>
+                </div>
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <span class="stock-name">同有科技</span>
+                        <span class="stock-code">300302</span>
+                    </div>
+                    <div class="stock-logic">存储芯片概念20cm涨停，行业周期复苏+供给紧张，需求全面回升</div>
+                    <div class="stock-tags">
+                        <span class="tag tag-entry">入场: 回踩5日线</span>
+                        <span class="tag tag-stop">止损: -8%</span>
+                        <span class="tag tag-prob">概率: 60%</span>
+                    </div>
+                </div>
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <span class="stock-name">万马股份</span>
+                        <span class="stock-code">002276</span>
+                    </div>
+                    <div class="stock-logic">智能电网板块涨停，电网设备获主力资金净流入，封单金额超2亿</div>
+                    <div class="stock-tags">
+                        <span class="tag tag-entry">入场: 高开企稳后介入</span>
+                        <span class="tag tag-stop">止损: -6%</span>
+                        <span class="tag tag-prob">概率: 70%</span>
+                    </div>
+                </div>
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <span class="stock-name">巨力索具</span>
+                        <span class="stock-code">002342</span>
+                    </div>
+                    <div class="stock-logic">机械设备板块龙头，封单资金2.46亿元居首，换手率35%</div>
+                    <div class="stock-tags">
+                        <span class="tag tag-entry">入场: 炸板后回封</span>
+                        <span class="tag tag-stop">止损: -7%</span>
+                        <span class="tag tag-prob">概率: 55%</span>
+                    </div>
+                </div>
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <span class="stock-name">襄阳轴承</span>
+                        <span class="stock-code">000678</span>
+                    </div>
+                    <div class="stock-logic">汽车产业链涨停潮主角之一，华为产业链+智能驾驶概念</div>
+                    <div class="stock-tags">
+                        <span class="tag tag-entry">入场: 回调至5日线</span>
+                        <span class="tag tag-stop">止损: -6%</span>
+                        <span class="tag tag-prob">概率: 65%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 港股分析 -->
+        <div class="section hk-section">
+            <div class="section-title"><span class="icon">🇭🇰</span>港股观察</div>
+            <div class="stock-list">
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <span class="stock-name">腾讯控股</span>
+                        <span class="stock-code">00700.HK</span>
+                    </div>
+                    <div class="stock-logic">2025年营收7517亿同比增14%，净利润2248亿同比增16%，绩后大跌释放估值压力</div>
+                    <div class="stock-tags">
+                        <span class="tag tag-entry">入场: 500-510港元分批建仓</span>
+                        <span class="tag tag-stop">止损: 480港元</span>
+                    </div>
+                </div>
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <span class="stock-name">阿里巴巴-W</span>
+                        <span class="stock-code">09988.HK</span>
+                    </div>
+                    <div class="stock-logic">阿里云AI算力最高涨价34%，算力业务高增预期明确，对冲宏观压力</div>
+                    <div class="stock-tags">
+                        <span class="tag tag-entry">入场: 回调至130港元</span>
+                        <span class="tag tag-stop">止损: 125港元</span>
+                    </div>
+                </div>
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <span class="stock-name">山东墨龙</span>
+                        <span class="stock-code">00568.HK</span>
+                    </div>
+                    <div class="stock-logic">油气设备及服务股，受益于油价大涨和中东局势升级，今日高开15%</div>
+                    <div class="stock-tags">
+                        <span class="tag tag-entry">入场: 放量突破前高</span>
+                        <span class="tag tag-stop">止损: -10%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 风险提示 -->
+        <div class="section risk-section">
+            <div class="section-title"><span class="icon">⚠️</span>风险提示</div>
+            <div class="risk-item"><span class="risk-icon">🔴</span>港股大幅低开，恒生指数跌2%，腾讯绩后大跌5%，科网股集体回调</div>
+            <div class="risk-item"><span class="risk-icon">🔴</span>隔夜美股三大指数集体收跌，道指跌1.63%，纳指跌1.46%</div>
+            <div class="risk-item"><span class="risk-icon">🔴</span>美联储维持利率不变，降息预期降温，黄金期货单日大跌2%</div>
+            <div class="risk-item"><span class="risk-icon">🟡</span>市场热点轮动加快，科技股获利的可考虑兑现</div>
+            <div class="position-advice">
+                <div class="label">仓位控制建议</div>
+                <div class="value">30%-40%</div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div>报告生成时间：2026-03-19 09:51</div>
+            <div class="disclaimer">免责声明：本报告仅供参考，不构成投资建议。股市有风险，入市需谨慎。</div>
+        </div>
+    </div>
+</body>
+</html>
