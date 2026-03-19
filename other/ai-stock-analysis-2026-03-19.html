@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>港股AI三剑客分析报告 - 2026年3月19日</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e4e4e7;
+            line-height: 1.6;
+            padding: 16px;
+        }
+        .container { max-width: 680px; margin: 0 auto; }
+        .header {
+            text-align: center;
+            padding: 24px 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+        }
+        .header h1 { font-size: 24px; font-weight: 700; margin-bottom: 8px; color: #fff; }
+        .header .date { font-size: 14px; opacity: 0.9; color: #fff; }
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .stock-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+        .stock-table th, .stock-table td { padding: 12px 8px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 14px; }
+        .stock-table th { color: #a1a1aa; font-weight: 500; }
+        .stock-table td { color: #fff; }
+        .stock-table tr:last-child td { border-bottom: none; }
+        .stock-name { font-weight: 600; }
+        .stock-code { font-size: 12px; color: #71717a; }
+        .up { color: #4ade80; }
+        .down { color: #f87171; }
+        .neutral { color: #fbbf24; }
+        .recommend-box {
+            text-align: center;
+            padding: 24px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+            border-radius: 12px;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            margin-bottom: 16px;
+        }
+        .recommend-label { font-size: 14px; color: #a1a1aa; margin-bottom: 8px; }
+        .recommend-value { font-size: 28px; font-weight: 700; color: #fbbf24; }
+        .factor-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .factor-item { background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; }
+        .factor-name { font-size: 12px; color: #a1a1aa; margin-bottom: 4px; }
+        .factor-value { font-size: 16px; font-weight: 600; color: #fff; }
+        .risk-section { border-left: 3px solid #f87171; }
+        .risk-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-size: 14px; }
+        .risk-item:last-child { margin-bottom: 0; }
+        .risk-icon { color: #f87171; font-size: 16px; }
+        .summary-box { background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 12px; padding: 16px; }
+        .summary-title { color: #4ade80; font-weight: 600; margin-bottom: 8px; }
+        .footer { text-align: center; padding: 24px 16px; color: #71717a; font-size: 12px; }
+        .disclaimer {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 11px;
+            color: #71717a;
+            margin-top: 12px;
+        }
+        @media (max-width: 480px) {
+            body { padding: 12px; }
+            .header { padding: 20px 16px; }
+            .header h1 { font-size: 20px; }
+            .section { padding: 16px; }
+            .recommend-value { font-size: 24px; }
+            .factor-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header">
+            <h1>🀄️ 港股AI三剑客分析报告</h1>
+            <div class="date">2026年3月19日 星期四</div>
+        </div>
+        
+        <!-- 核心观点 -->
+        <div class="section">
+            <div class="section-title"><span class="icon">🎯</span>核心观点</div>
+            <div class="recommend-box">
+                <div class="recommend-label">今日建议</div>
+                <div class="recommend-value">阿里巴巴 09988</div>
+            </div>
+            <div style="color: #a1a1aa; font-size: 14px;">
+                今日港股AI应用概念股集体回调，智谱跌超10%，MiniMax跌超13%，阿里巴巴跌3.6%。综合基本面分析，阿里巴巴盈利能力最强、业务确定性最高，回调即是机会。
+            </div>
+        </div>
+        
+        <!-- 今日行情 -->
+        <div class="section">
+            <div class="section-title"><span class="icon">📈</span>今日行情表现</div>
+            <table class="stock-table">
+                <thead>
+                    <tr>
+                        <th>股票</th>
+                        <th>代码</th>
+                        <th>今日表现</th>
+                        <th>评级</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="stock-name">智谱</div>
+                        </td>
+                        <td><span class="stock-code">02513.HK</span></td>
+                        <td class="down">-10%</td>
+                        <td class="neutral">⚠️ 观望</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="stock-name">MiniMax</div>
+                        </td>
+                        <td><span class="stock-code">00100.HK</span></td>
+                        <td class="down">-13%</td>
+                        <td class="down">❌ 谨慎</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="stock-name">阿里巴巴</div>
+                        </td>
+                        <td><span class="stock-code">09988.HK</span></td>
+                        <td class="down">-3.6%</td>
+                        <td class="up">✅ 推荐</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- 基本面对比 -->
+        <div class="section">
+            <div class="section-title"><span class="icon">📊</span>基本面深度对比</div>
+            <table class="stock-table">
+                <thead>
+                    <tr>
+                        <th>指标</th>
+                        <th>智谱</th>
+                        <th>MiniMax</th>
+                        <th>阿里巴巴</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2025年营收</td>
+                        <td>超1亿美元</td>
+                        <td>7900万美元</td>
+                        <td>9963亿元</td>
+                    </tr>
+                    <tr>
+                        <td>营收增速</td>
+                        <td class="up">+325%</td>
+                        <td class="up">+159%</td>
+                        <td>+6%</td>
+                    </tr>
+                    <tr>
+                        <td>毛利率</td>
+                        <td class="up">50%+</td>
+                        <td>25.4%</td>
+                        <td class="up">高</td>
+                    </tr>
+                    <tr>
+                        <td>净利润</td>
+                        <td class="down">亏29亿</td>
+                        <td class="down">亏18亿</td>
+                        <td class="up">盈利1259亿</td>
+                    </tr>
+                    <tr>
+                        <td>市场地位</td>
+                        <td>中国最大独立大模型厂商</td>
+                        <td>海外收入占比70%+</td>
+                        <td>阿里云AI产品收入连续7季度三位数增长</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- 因子分析 -->
+        <div class="section">
+            <div class="section-title"><span class="icon">⚖️</span>因子评分</div>
+            <div class="factor-grid">
+                <div class="factor-item">
+                    <div class="factor-name">营收增速</div>
+                    <div class="factor-value">智谱 > MiniMax > 阿里</div>
+                </div>
+                <div class="factor-item">
+                    <div class="factor-name">盈利能力</div>
+                    <div class="factor-value">阿里 > 智谱 > MiniMax</div>
+                </div>
+                <div class="factor-item">
+                    <div class="factor-name">业务确定性</div>
+                    <div class="factor-value">阿里 > 智谱 ≈ MiniMax</div>
+                </div>
+                <div class="factor-item">
+                    <div class="factor-name">风险控制</div>
+                    <div class="factor-value">阿里 > 智谱 > MiniMax</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 风险提示 -->
+        <div class="section risk-section">
+            <div class="section-title"><span class="icon">⚠️</span>风险提示</div>
+            <div class="risk-item"><span class="risk-icon">🔴</span>港股AI应用概念股今日集体回调，短期仍有惯性下跌风险</div>
+            <div class="risk-item"><span class="risk-icon">🔴</span>智谱、MiniMax仍处于亏损状态，估值较高</div>
+            <div class="risk-item"><span class="risk-icon">🟡</span>大模型竞争激烈，技术迭代快</div>
+            <div class="risk-item"><span class="risk-icon">🟡</span>美联储降息预期降温，全球流动性收紧</div>
+        </div>
+        
+        <!-- 总结 -->
+        <div class="section">
+            <div class="summary-box">
+                <div class="summary-title">💡 投资建议</div>
+                <div style="font-size: 14px; color: #a1a1aa;">
+                    <p style="margin-bottom: 8px;"><strong>首选：阿里巴巴 (09988)</strong></p>
+                    <p style="margin-bottom: 8px;">• 基本面最稳健，2025财年盈利1259亿元</p>
+                    <p style="margin-bottom: 8px;">• 阿里云AI产品收入连续7季度三位数增长</p>
+                    <p style="margin-bottom: 8px;">• 阿里云算力/存储涨价34%，实质利好</p>
+                    <p>• 今日回调-3.6%，是低吸机会</p>
+                </div>
+                <div style="margin-top: 16px; font-size: 14px; color: #a1a1aa;">
+                    <p style="margin-bottom: 8px;"><strong>观望：智谱 (02513)</strong></p>
+                    <p>• 今日跌超10%，等待企稳，600港元以下可考虑分批建仓</p>
+                </div>
+                <div style="margin-top: 16px; font-size: 14px; color: #a1a1aa;">
+                    <p style="margin-bottom: 8px;"><strong>谨慎：MiniMax (00100)</strong></p>
+                    <p>• 今日跌幅最大(-13%)，波动剧烈，观望为主</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div>报告生成时间：2026-03-19 12:00</div>
+            <div class="disclaimer">免责声明：本报告仅供参考，不构成投资建议。股市有风险，入市需谨慎。</div>
+        </div>
+    </div>
+</body>
+</html>
